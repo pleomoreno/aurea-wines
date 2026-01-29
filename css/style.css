@@ -1,0 +1,366 @@
+/* BASE */
+body {
+  font-family: var(--font-text);
+  background-color: var(--color-black);
+  color: var(--color-offwhite);
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+/* HEADER */
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 24px 0;
+  z-index: 1000;
+  background: transparent;
+  transition: all 0.3s ease;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.header.scrolled {
+  background: rgba(15, 15, 15, 0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+  max-width: 1400px;
+  padding: 0 48px;  
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.nav-center {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  font-family: var(--font-text);
+}
+
+
+.logo {
+  font-family: var(--font-title);
+  flex-shrink: 0;
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: var(--color-offwhite);
+}
+
+.header-cta {
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 400;
+
+  color: var(--color-muted);
+  background: transparent;
+
+  border: 1px solid var(--color-muted);
+  border-radius: 999px;
+
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-family: var(--font-text);
+}
+
+.header-cta:hover {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+  background: rgba(201, 162, 77, 0.08);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav a {
+  margin-left: 0;
+  font-weight: 300;
+  position: relative;
+  color: var(--color-muted);
+  transition: color var(--transition-fast);
+}
+
+.nav a,
+.header-cta {
+  font-size: 19px;
+  letter-spacing: 1px;
+}
+
+.nav a:hover {
+  color: var(--color-gold);
+}
+
+.nav a.active {
+  color: #fff;
+}
+
+.nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: gold;
+  border-radius: 2px;
+}
+
+.bg-section {
+  background: url("../assets/images/vinhoMenu.png") center / cover no-repeat;
+  position: relative;
+}
+
+.bg-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(1, 1, 1, 0.05);
+  z-index: 0;
+}
+
+.bg-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.icon-btn img {
+  width: 18px;
+  height: 18px;
+  transition: filter 0.3s ease;
+  filter: brightness(0) saturate(100%)
+    invert(75%)
+    sepia(0%)
+    saturate(0%)
+    hue-rotate(0deg);
+}
+
+.icon-btn:hover img {
+  filter: brightness(0) saturate(100%)
+    invert(65%)
+    sepia(90%)
+    saturate(600%)
+    hue-rotate(10deg);
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+
+  stroke: var(--color-muted);
+  fill: none;
+
+  stroke-width: 2.2; /* ENGROSSA o traço */
+  transition: stroke 0.3s ease, transform 0.2s ease;
+}
+
+
+.icon-btn:hover .icon {
+  stroke: var(--color-gold);
+  transform: scale(1.1);
+}
+
+
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background: url("../assets/images/hero-home.jpg") center / cover no-repeat;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Overlay para escurecer levemente a imagem */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.35);
+  z-index: 1;
+}
+
+/* Degradê de transição para a próxima seção */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 220px;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0) 0%,
+    rgba(21, 10, 10, 0.35) 50%,
+    rgba(10, 10, 10, 0.35) 100%
+  );
+
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+.hero h2 {
+  font-family: var(--font-title);
+  font-size: 56px;
+}
+
+.hero p {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+
+/* BOTÕES */
+.btn-primary {
+  background-color: var(--color-gold);
+  color: var(--color-black);
+  padding: 14px 36px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: opacity var(--transition-fast);
+}
+
+.btn-primary:hover {
+  opacity: 0.85;
+}
+
+.btn-outline {
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  padding: 14px 36px;
+  letter-spacing: 1px;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-outline:hover {
+  background: var(--color-gold);
+  color: var(--color-black);
+}
+
+/* MANIFESTO */
+.manifesto {
+  position: relative;
+  padding: calc(var(--section-padding) + 180px) 0 var(--section-padding);
+  background-color: var(--color-black-soft);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Fade no topo que entra na imagem da HERO */
+.manifesto::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 220px;
+
+  background: linear-gradient(
+    to top,
+    var(--color-black-soft) 0%,
+    rgba(17, 17, 17, 0.6) 50%,
+    rgba(17, 17, 17, 0) 100%
+  );
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Garante que o texto fique acima do fade */
+.manifesto > * {
+  position: relative;
+  z-index: 2;
+}
+
+.manifesto p {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+
+
+/* PRODUTOS PREVIEW */
+.produtos-preview {
+  padding: var(--section-padding) 0;
+}
+
+.produtos-preview h3 {
+  font-family: var(--font-title);
+  font-size: 36px;
+  margin-bottom: 64px;
+  text-align: center;
+}
+
+.produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.produto-card {
+  text-align: center;
+}
+
+.produto-card img {
+  margin-bottom: 20px;
+}
+
+.produto-card h4 {
+  font-family: var(--font-title);
+  margin-bottom: 8px;
+}
+
+.produto-card span {
+  color: var(--color-gold);
+}
+
+/* CTA */
+.cta {
+  padding: var(--section-padding) 0;
+  background-color: var(--color-black-soft);
+  text-align: center;
+}
+
+.cta h3 {
+  font-family: var(--font-title);
+  font-size: 32px;
+  margin-bottom: 32px;
+}
+
+/* FOOTER */
+.footer {
+  padding: 40px 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-muted);
+}
