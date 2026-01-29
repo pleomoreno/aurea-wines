@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo Auréa Wines</title>
+    <link rel="icon" type="image/png" href="../assets/images/Logo.png">
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/animation-scroll.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="container header-content">
+        <h1 class="logo">Auréa</h1>
+        <nav class="nav nav-center">
+          <a href="index.html" class="active">Catálogo</a>
+          <a href="index.html">Sobre</a>
+          <a href="index.html">Destaques</a>
+          <a href="index.html">Contato</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-btn" aria-label="Buscar">
+            <svg viewBox="0 0 24 24" class="icon">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+
+          <button class="icon-btn" aria-label="Sacola">
+            <svg viewBox="0 0 24 24" class="icon">
+              <path d="M6 8h12l-1.5 12h-9L6 8z" />
+              <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+            </svg>
+          </button>
+
+          <a
+            href="https://wa.me/5511999999999"
+            target="_blank"
+            class="btn-outline header-cta"
+          >
+            Fale com um de nossos especialistas
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero hero-catalogo">
+      <div class="hero-content container reveal">
+        <h2>Descubra nossa coleção completa</h2>
+        <p>Todos os vinhos selecionados com cuidado e paixão.</p>
+      </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section class="catalogo-section reveal" id="destaques">
+      <div class="container">
+        <h3>Nosso Catálogo</h3>
+        <div class="produtos-grid">
+          <div class="produto-card">
+            <img src="../assets/images/vinho1.jpg" alt="Vinho Premium" />
+            <h4>Reserva Especial</h4>
+            <span>R$ 289,00</span>
+            <p>Vinho encorpado com notas de frutas vermelhas e toque de carvalho.</p>
+          </div>
+
+          <div class="produto-card">
+            <img src="../assets/images/vinho2.jpg" alt="Vinho Premium" />
+            <h4>Safra Limitada</h4>
+            <span>R$ 349,00</span>
+            <p>Edição especial, limitada e cuidadosamente selecionada.</p>
+          </div>
+
+          <div class="produto-card">
+            <img src="../assets/images/vinho3.jpg" alt="Vinho Premium" />
+            <h4>Grand Selection</h4>
+            <span>R$ 429,00</span>
+            <p>O ápice da sofisticação, perfeito para ocasiões memoráveis.</p>
+          </div>
+
+          <div class="produto-card">
+            <img src="../assets/images/vinho4.jpg" alt="Vinho Premium" />
+            <h4>Clássico Seco</h4>
+            <span>R$ 199,00</span>
+            <p>Vinho clássico e elegante, ideal para acompanhar jantares.</p>
+          </div>
+
+          <div class="produto-card">
+            <img src="../assets/images/vinho5.jpg" alt="Vinho Premium" />
+            <h4>Vinha Antiga</h4>
+            <span>R$ 499,00</span>
+            <p>Safra limitada de vinhedos centenários, pura tradição.</p>
+          </div>
+
+          <div class="produto-card">
+            <img src="../assets/images/vinho6.jpg" alt="Vinho Premium" />
+            <h4>Elegance Rosé</h4>
+            <span>R$ 259,00</span>
+            <p>Vinho rosé leve, fresco e perfeito para celebrações.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta reveal" id="contato">
+      <div class="container">
+        <h3>Quer conhecer nossos vinhos pessoalmente?</h3>
+        <a
+          href="https://wa.me/5511999999999?text=Olá, gostaria de conhecer os vinhos Auréa!"
+          target="_blank"
+          class="btn-outline"
+        >
+          Falar com um Especialista
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer reveal">
+      <div class="container">
+        <p>© 2026 Auréa Wines. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="../js/animation-scroll.js"></script>
+    <script>
+      // === HEADER FIXO COM ESTILO AO SCROLL ===
+      const header = document.querySelector(".header");
+      const navLinks = document.querySelectorAll(".nav a");
+      const sections = document.querySelectorAll("section[id]");
+
+      window.addEventListener("scroll", () => {
+        header.classList.toggle("scrolled", window.scrollY > 20);
+
+        let current = "";
+        const scrollMiddle = window.scrollY + window.innerHeight / 2;
+        const isAtBottom =
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 5;
+
+        sections.forEach((section) => {
+          const top = section.offsetTop;
+          const bottom = top + section.offsetHeight;
+
+          if (scrollMiddle >= top && scrollMiddle < bottom) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        if (isAtBottom) {
+          current = sections[sections.length - 1].getAttribute("id");
+        }
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
