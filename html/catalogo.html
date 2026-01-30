@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catálogo Auréa Wines</title>
-    <link rel="icon" type="image/png" href="../assets/images/Logo.png">
+    <link rel="icon" type="image/png" href="../assets/images/Logo.png" />
 
     <!-- Google Fonts -->
     <link
@@ -22,13 +22,38 @@
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/animation-scroll.css" />
   </head>
+
+  <!-- SACOLA LATERAL -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <div class="cart" id="cart">
+    <div class="cart-header">
+      <h3>Sua Sacola</h3>
+      <button id="closeCart">✕</button>
+    </div>
+
+    <div class="cart-items" id="cartItems"></div>
+
+    <div class="cart-footer">
+      <p>Total: <strong id="cartTotal">R$ 0,00</strong></p>
+      <a
+        id="checkoutBtn"
+        href="https://wa.me/5511999999999"
+        target="_blank"
+        class="btn-primary"
+      >
+        Finalizar Pedido
+      </a>
+    </div>
+  </div>
+
   <body>
     <!-- HEADER -->
     <header class="header">
       <div class="container header-content">
         <h1 class="logo">Auréa</h1>
         <nav class="nav nav-center">
-          <a href="index.html" class="active">Catálogo</a>
+          <a href="catalogo.html" class="active">Catálogo</a>
           <a href="index.html">Sobre</a>
           <a href="index.html">Destaques</a>
           <a href="index.html">Contato</a>
@@ -70,48 +95,109 @@
     <!-- CATÁLOGO -->
     <section class="catalogo-section reveal" id="destaques">
       <div class="container">
-        <h3>Nosso Catálogo</h3>
         <div class="produtos-grid">
           <div class="produto-card">
-            <img src="../assets/images/vinho1.jpg" alt="Vinho Premium" />
+            <div class="produto-img">
+              <img src="../assets/images/vinho1.jpg" alt="Vinho Premium" />
+            </div>
             <h4>Reserva Especial</h4>
             <span>R$ 289,00</span>
-            <p>Vinho encorpado com notas de frutas vermelhas e toque de carvalho.</p>
+            <p>
+              Vinho encorpado com notas de frutas vermelhas e toque de carvalho.
+            </p>
+
+            <button
+              class="btn-outline add-to-cart"
+              data-name="Reserva Especial"
+              data-price="289"
+            >
+              Adicionar à Sacola
+            </button>
           </div>
 
           <div class="produto-card">
-            <img src="../assets/images/vinho2.jpg" alt="Vinho Premium" />
+            <div class="produto-img">
+              <img src="../assets/images/vinho2.jpg" alt="Vinho Premium" />
+            </div>
             <h4>Safra Limitada</h4>
             <span>R$ 349,00</span>
             <p>Edição especial, limitada e cuidadosamente selecionada.</p>
+
+            <button
+              class="btn-outline add-to-cart"
+              data-name="Reserva Especial"
+              data-price="289"
+            >
+              Adicionar à Sacola
+            </button>
           </div>
 
           <div class="produto-card">
+            <div class="produto-img">
             <img src="../assets/images/vinho3.jpg" alt="Vinho Premium" />
+            </div>
             <h4>Grand Selection</h4>
             <span>R$ 429,00</span>
             <p>O ápice da sofisticação, perfeito para ocasiões memoráveis.</p>
+
+            <button
+              class="btn-outline add-to-cart"
+              data-name="Reserva Especial"
+              data-price="289"
+            >
+              Adicionar à Sacola
+            </button>
           </div>
 
           <div class="produto-card">
+            <div class="produto-img">
             <img src="../assets/images/vinho4.jpg" alt="Vinho Premium" />
+            </div>
             <h4>Clássico Seco</h4>
             <span>R$ 199,00</span>
             <p>Vinho clássico e elegante, ideal para acompanhar jantares.</p>
+
+            <button
+              class="btn-outline add-to-cart"
+              data-name="Reserva Especial"
+              data-price="289"
+            >
+              Adicionar à Sacola
+            </button>
           </div>
 
           <div class="produto-card">
+            <div class="produto-img">
             <img src="../assets/images/vinho5.jpg" alt="Vinho Premium" />
+            </div>
             <h4>Vinha Antiga</h4>
             <span>R$ 499,00</span>
             <p>Safra limitada de vinhedos centenários, pura tradição.</p>
+
+            <button
+              class="btn-outline add-to-cart"
+              data-name="Reserva Especial"
+              data-price="289"
+            >
+              Adicionar à Sacola
+            </button>
           </div>
 
           <div class="produto-card">
+            <div class="produto-img">
             <img src="../assets/images/vinho6.jpg" alt="Vinho Premium" />
+            </div>
             <h4>Elegance Rosé</h4>
             <span>R$ 259,00</span>
             <p>Vinho rosé leve, fresco e perfeito para celebrações.</p>
+
+            <button
+              class="btn-outline add-to-cart"
+              data-name="Reserva Especial"
+              data-price="289"
+            >
+              Adicionar à Sacola
+            </button>
           </div>
         </div>
       </div>
@@ -126,7 +212,7 @@
           target="_blank"
           class="btn-outline"
         >
-          Falar com um Especialista
+          Falar com um especialista
         </a>
       </div>
     </section>
@@ -139,41 +225,6 @@
     </footer>
 
     <script src="../js/animation-scroll.js"></script>
-    <script>
-      // === HEADER FIXO COM ESTILO AO SCROLL ===
-      const header = document.querySelector(".header");
-      const navLinks = document.querySelectorAll(".nav a");
-      const sections = document.querySelectorAll("section[id]");
-
-      window.addEventListener("scroll", () => {
-        header.classList.toggle("scrolled", window.scrollY > 20);
-
-        let current = "";
-        const scrollMiddle = window.scrollY + window.innerHeight / 2;
-        const isAtBottom =
-          window.innerHeight + window.scrollY >=
-          document.documentElement.scrollHeight - 5;
-
-        sections.forEach((section) => {
-          const top = section.offsetTop;
-          const bottom = top + section.offsetHeight;
-
-          if (scrollMiddle >= top && scrollMiddle < bottom) {
-            current = section.getAttribute("id");
-          }
-        });
-
-        if (isAtBottom) {
-          current = sections[sections.length - 1].getAttribute("id");
-        }
-
-        navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === `#${current}`) {
-            link.classList.add("active");
-          }
-        });
-      });
-    </script>
+    <script src="../js/cart.js"></script>
   </body>
 </html>
