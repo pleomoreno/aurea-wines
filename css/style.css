@@ -297,6 +297,131 @@ section {
 }
 
 
+/* === WINE CARDS PREMIUM === */
+
+.wine-card {
+  background: linear-gradient(
+    to bottom,
+    #0e0e0e 0%,
+    #141414 100%
+  );
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.wine-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Imagem */
+.wine-img {
+  width: 100%;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #111 0%, #000 80%);
+}
+
+.wine-img img {
+  max-height: 90%;
+  max-width: 90%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+.wine-card:hover .wine-img img {
+  transform: scale(1.05);
+}
+
+/* Conteúdo */
+.wine-content {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.wine-content h4 {
+  font-family: var(--font-title);
+  font-size: 22px;
+  color: var(--color-offwhite);
+}
+
+.wine-origin {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+/* Tags */
+.wine-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.wine-tags span {
+  padding: 6px 14px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+/* Descrição */
+.wine-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+/* Ações */
+.wine-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.wine-details {
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  position: relative;
+}
+
+.wine-details::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.wine-details:hover::after {
+  transform: scaleX(1);
+}
+
+/* Botão Sacola */
+.add-to-cart {
+  padding: 10px 22px;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
 
 
 

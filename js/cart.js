@@ -1,3 +1,7 @@
+// ================================
+// SACOLA GLOBAL (INDEX + CATÁLOGO)
+// ================================
+
 // === ELEMENTOS ===
 const cartBtn = document.querySelector('.icon-btn[aria-label="Sacola"]');
 const cart = document.getElementById('cart');
@@ -6,23 +10,29 @@ const closeCart = document.getElementById('closeCart');
 const cartItemsContainer = document.getElementById('cartItems');
 const cartTotal = document.getElementById('cartTotal');
 
-const addButtons = document.querySelectorAll('.add-to-cart');
-
-// === ESTADO DA SACOLA ===
-let cartItems = [];
+// === ESTADO GLOBAL ===
+let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
 // === FUNÇÕES ===
+function saveCart() {
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+}
+
 function openCart() {
+  if (!cart || !cartOverlay) return;
   cart.classList.add('active');
   cartOverlay.classList.add('active');
 }
 
 function closeCartFn() {
+  if (!cart || !cartOverlay) return;
   cart.classList.remove('active');
   cartOverlay.classList.remove('active');
 }
 
 function renderCart() {
+  if (!cartItemsContainer || !cartTotal) return;
+
   cartItemsContainer.innerHTML = "";
   let total = 0;
 
@@ -40,6 +50,7 @@ function renderCart() {
 
     div.querySelector('button').addEventListener('click', () => {
       cartItems.splice(index, 1);
+      saveCart();
       renderCart();
     });
 
@@ -50,17 +61,28 @@ function renderCart() {
 }
 
 // === EVENTOS ===
-cartBtn.addEventListener('click', openCart);
-closeCart.addEventListener('click', closeCartFn);
-cartOverlay.addEventListener('click', closeCartFn);
+if (cartBtn) cartBtn.addEventListener('click', openCart);
+if (closeCart) closeCart.addEventListener('click', closeCartFn);
+if (cartOverlay) cartOverlay.addEventListener('click', closeCartFn);
 
-addButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const name = btn.dataset.name;
-    const price = parseFloat(btn.dataset.price);
+// === ADICIONAR PRODUTO (FUNCIONA EM QUALQUER PÁGINA) ===
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".add-to-cart");
+  if (!btn) return;
 
-    cartItems.push({ name, price });
-    renderCart();
-    openCart();
-  });
+  const name = btn.dataset.name;
+  const price = parseFloat(btn.dataset.price);
+
+  if (!name || isNaN(price)) {
+    console.error("Produto sem data-name ou data-price", btn);
+    return;
+  }
+
+  cartItems.push({ name, price });
+  saveCart();
+  renderCart();
+  openCart();
 });
+
+// === CARREGA SACOLA AO ABRIR A PÁGINA ===
+renderCart();

@@ -86,32 +86,126 @@
       </section>
     </div>
 
-    <!-- PRODUTOS PREVIEW -->
+    <!-- PRODUTOS PREVIEW - PREMIUM -->
     <section class="produtos-preview reveal" id="produtos">
-      <div class="container">
-        <h3>Nossos Destaques</h3>
+  <div class="container">
+    <h3>Nossos Destaques</h3>
 
-        <div class="produtos-grid">
-          <div class="produto-card">
-            <img src="assets/images/vinho1.jpg" alt="Vinho Premium" />
-            <h4>Reserva Especial</h4>
-            <span>R$ 289,00</span>
+    <div class="produtos-grid">
+      <!-- Produto 1 -->
+      <div class="wine-card">
+        <div class="wine-img">
+          <img src="../assets/images/vinho4.jpg" alt="Reserva Especial" />
+        </div>
+
+        <div class="wine-content">
+          <h4>Reserva Especial</h4>
+
+          <span class="wine-origin">Bordeaux, França • 2018</span>
+
+          <!-- PREÇO MARCADO -->
+          <span class="wine-price">R$ 289,00</span>
+
+          <div class="wine-tags">
+            <span>Elegante</span>
+            <span>Estruturado</span>
+            <span>Persistente</span>
           </div>
 
-          <div class="produto-card">
-            <img src="assets/images/vinho2.jpg" alt="Vinho Premium" />
-            <h4>Safra Limitada</h4>
-            <span>R$ 349,00</span>
-          </div>
+          <p class="wine-desc">
+            Vinho encorpado com notas de frutas vermelhas e toque refinado
+            de carvalho, perfeito para momentos especiais.
+          </p>
 
-          <div class="produto-card">
-            <img src="assets/images/vinho3.jpg" alt="Vinho Premium" />
-            <h4>Grand Selection</h4>
-            <span>R$ 429,00</span>
+          <div class="wine-actions">
+            <button
+              class="btn-outline add-to-cart"
+              data-name="Reserva Especial"
+              data-price="289"
+            >
+              Adicionar à Sacola
+            </button>
           </div>
         </div>
       </div>
-    </section>
+
+      <!-- Produto 2 -->
+      <div class="wine-card">
+        <div class="wine-img">
+          <img src="../assets/images/vinho5.jpg" alt="Safra Limitada" />
+        </div>
+
+        <div class="wine-content">
+          <h4>Safra Limitada</h4>
+
+          <span class="wine-origin">Vale do Loire, França • 2020</span>
+
+          <!-- PREÇO MARCADO -->
+          <span class="wine-price">R$ 349,00</span>
+
+          <div class="wine-tags">
+            <span>Exclusivo</span>
+            <span>Refinado</span>
+            <span>Limitado</span>
+          </div>
+
+          <p class="wine-desc">
+            Edição especial cuidadosamente selecionada, com aroma
+            sofisticado e final suave e marcante.
+          </p>
+
+          <div class="wine-actions">
+            <button
+              class="btn-outline add-to-cart"
+              data-name="Safra Limitada"
+              data-price="349"
+            >
+              Adicionar à Sacola
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produto 3 -->
+      <div class="wine-card">
+        <div class="wine-img">
+          <img src="../assets/images/vinho6.jpg" alt="Grand Selection" />
+        </div>
+
+        <div class="wine-content">
+          <h4>Grand Selection</h4>
+
+          <span class="wine-origin">Toscana, Itália • 2019</span>
+
+          <!-- PREÇO MARCADO -->
+          <span class="wine-price">R$ 429,00</span>
+
+          <div class="wine-tags">
+            <span>Premium</span>
+            <span>Intenso</span>
+            <span>Sofisticado</span>
+          </div>
+
+          <p class="wine-desc">
+            O ápice da sofisticação, com corpo intenso, aroma marcante e
+            equilíbrio perfeito para ocasiões memoráveis.
+          </p>
+
+          <div class="wine-actions">
+            <button
+              class="btn-outline add-to-cart"
+              data-name="Grand Selection"
+              data-price="429"
+            >
+              Adicionar à Sacola
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <!-- CTA -->
     <!-- CONTATO -->
@@ -125,7 +219,7 @@
 
         <div class="contato-info">
           <h4>Nossos contatos</h4>
-          <p> Telefone: (11) 99999-9999</p>
+          <p>Telefone: (11) 99999-9999</p>
           <p>Email: contato@aureawines.com</p>
           <p>Endereço: Rua dos Vinhos, 123, São Paulo</p>
         </div>
@@ -138,6 +232,26 @@
         <p>© 2026 Auréa Wines. Todos os direitos reservados.</p>
       </div>
     </footer>
+
+    <!-- OVERLAY -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- SACOLA -->
+    <div class="cart" id="cart">
+      <div class="cart-header">
+        <h3>Sua Sacola</h3>
+        <button id="closeCart">✕</button>
+      </div>
+
+      <div class="cart-items" id="cartItems"></div>
+
+      <div class="cart-footer">
+        <p>Total: <strong id="cartTotal">R$ 0,00</strong></p>
+        <button class="btn-primary">Finalizar Compra</button>
+      </div>
+    </div>
+
     <script src="../js/animation-scroll.js"></script>
+    <script src="../js/cart.js"></script>
   </body>
 </html>
