@@ -3,40 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Auréa Wines</title>
+    <title>Aurea Wines — Rótulos selecionados com rigor</title>
+    <meta
+      name="description"
+      content="Vinhos selecionados com rigor para quem aprecia o extraordinário."
+    />
     <link rel="icon" type="image/png" href="../assets/images/Logo.png" />
-
-    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/variables.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/animation-scroll.css" />
+    <style>
+      /* CTA compacto */
+      .cta-compact {
+        padding: 64px 0;
+        background: var(--color-black-soft);
+        text-align: center;
+      }
+      .cta-compact h3 {
+        font-family: var(--font-title);
+        font-size: 26px;
+        margin-bottom: 10px;
+      }
+      .cta-compact p {
+        font-size: 15px;
+        color: var(--color-muted);
+        margin-bottom: 24px;
+        font-weight: 300;
+      }
+      .cta-compact-info {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+        font-size: 14px;
+        color: var(--color-muted);
+      }
+    </style>
   </head>
   <body>
     <!-- HEADER -->
     <header class="header">
-      <div class="container header-content">
-        <!-- Esquerda -->
-        <h1 class="logo">Auréa</h1>
-
-        <!-- Centro real -->
+      <div class="header-content">
+        <a href="index.html" class="logo">Aurea Wines</a>
         <nav class="nav nav-center">
-          <a href="#home">Início</a>
-          <a href="#sobre">Sobre</a>
-          <a href="#produtos">Destaques</a>
-          <a href="#contato">Contato</a>
+          <a href="index.html" class="active">Início</a>
+          <a href="catalogo.html">Catálogo</a>
+          <a href="sobre.html">Sobre</a>
+          <a href="contato.html">Contato</a>
         </nav>
-
-        <!-- Direita -->
         <div class="header-actions">
           <button class="icon-btn" aria-label="Buscar">
             <svg viewBox="0 0 24 24" class="icon">
@@ -44,184 +66,131 @@
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </button>
-
-          <button class="icon-btn" aria-label="Sacola">
+          <button
+            class="icon-btn"
+            aria-label="Sacola"
+            style="position: relative"
+          >
             <svg viewBox="0 0 24 24" class="icon">
               <path d="M6 8h12l-1.5 12h-9L6 8z" />
               <path d="M9 8V6a3 3 0 0 1 6 0v2" />
             </svg>
+            <span id="cartBadge"></span>
           </button>
-
           <a
-            href="https://wa.me/5511999999999"
+            href="https://wa.me/5511999031504?text=Olá!%20Gostaria%20de%20conversar%20sobre%20os%20produtos%20da%20Aurea%20Wines."
             target="_blank"
             class="btn-outline header-cta"
           >
-            Fale com um de nossos especialista
+            Fale conosco pelo WhatsApp
           </a>
         </div>
       </div>
     </header>
 
-    <!-- HERO -->
+    <!-- HERO + MANIFESTO -->
     <div class="bg-section">
       <section class="hero" id="home">
         <div class="hero-content container reveal">
-          <h2>Rigor na escolha. Maestria na organização.</h2>
-          <p>Rótulos selecionados para quem aprecia o extraordinário.</p>
-          <a href="catalogo.html" class="btn-primary">Ver Catálogo Completo</a>
+          <span class="hero-eyebrow">Curadoria exclusiva</span>
+          <h2>Rigor na escolha.<br />Maestria na seleção.</h2>
+          <p>Rótulos escolhidos para quem aprecia o extraordinário.</p>
+          <div class="hero-actions">
+            <a href="catalogo.html" class="btn-primary"
+              >Ver Catálogo Completo</a
+            >
+            <a href="sobre.html" class="btn-outline">Conheça a Aurea Wines</a>
+          </div>
+          <!-- Barra de busca rápida -->
+          <div class="hero-search">
+            <input
+              type="text"
+              id="heroSearchInput"
+              placeholder="Buscar vinhos, tipos, origens..."
+              autocomplete="off"
+            />
+            <button onclick="heroSearchGo()">Buscar</button>
+          </div>
         </div>
       </section>
 
-      <!-- SOBRE -->
       <section class="manifesto reveal" id="sobre">
         <div class="container">
-          <h3>Sobre a Auréa</h3>
+          <h3>Sobre a Aurea Wines</h3>
+          <div class="manifesto-divider"></div>
           <p>
-            Na <strong>Auréa Wines</strong>, cada garrafa carrega uma história.
-            Selecionamos vinhos que traduzem elegância, tempo e autenticidade,
+            Na <strong>Aurea Wines</strong>, cada garrafa carrega uma história.
+            Selecionamos vinhos que traduzem elegância, tempo e autenticidade —
             para momentos que merecem ser lembrados.
           </p>
         </div>
       </section>
     </div>
 
-    <!-- PRODUTOS PREVIEW - PREMIUM -->
-    <section class="produtos-preview reveal" id="produtos">
-  <div class="container">
-    <h3>Nossos Destaques</h3>
-
-    <div class="produtos-grid">
-      <!-- Produto 1 -->
-      <div class="wine-card">
-        <div class="wine-img">
-          <img src="../assets/images/vinho4.jpg" alt="Reserva Especial" />
-        </div>
-
-        <div class="wine-content">
-          <h4>Reserva Especial</h4>
-
-          <span class="wine-origin">Bordeaux, França • 2018</span>
-
-          <!-- PREÇO MARCADO -->
-          <span class="wine-price">R$ 289,00</span>
-
-          <div class="wine-tags">
-            <span>Elegante</span>
-            <span>Estruturado</span>
-            <span>Persistente</span>
-          </div>
-
-          <p class="wine-desc">
-            Vinho encorpado com notas de frutas vermelhas e toque refinado
-            de carvalho, perfeito para momentos especiais.
-          </p>
-
-          <div class="wine-actions">
-            <button
-              class="btn-outline add-to-cart"
-              data-name="Reserva Especial"
-              data-price="289"
-            >
-              Adicionar à Sacola
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Produto 2 -->
-      <div class="wine-card">
-        <div class="wine-img">
-          <img src="../assets/images/vinho5.jpg" alt="Safra Limitada" />
-        </div>
-
-        <div class="wine-content">
-          <h4>Safra Limitada</h4>
-
-          <span class="wine-origin">Vale do Loire, França • 2020</span>
-
-          <!-- PREÇO MARCADO -->
-          <span class="wine-price">R$ 349,00</span>
-
-          <div class="wine-tags">
-            <span>Exclusivo</span>
-            <span>Refinado</span>
-            <span>Limitado</span>
-          </div>
-
-          <p class="wine-desc">
-            Edição especial cuidadosamente selecionada, com aroma
-            sofisticado e final suave e marcante.
-          </p>
-
-          <div class="wine-actions">
-            <button
-              class="btn-outline add-to-cart"
-              data-name="Safra Limitada"
-              data-price="349"
-            >
-              Adicionar à Sacola
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Produto 3 -->
-      <div class="wine-card">
-        <div class="wine-img">
-          <img src="../assets/images/vinho6.jpg" alt="Grand Selection" />
-        </div>
-
-        <div class="wine-content">
-          <h4>Grand Selection</h4>
-
-          <span class="wine-origin">Toscana, Itália • 2019</span>
-
-          <!-- PREÇO MARCADO -->
-          <span class="wine-price">R$ 429,00</span>
-
-          <div class="wine-tags">
-            <span>Premium</span>
-            <span>Intenso</span>
-            <span>Sofisticado</span>
-          </div>
-
-          <p class="wine-desc">
-            O ápice da sofisticação, com corpo intenso, aroma marcante e
-            equilíbrio perfeito para ocasiões memoráveis.
-          </p>
-
-          <div class="wine-actions">
-            <button
-              class="btn-outline add-to-cart"
-              data-name="Grand Selection"
-              data-price="429"
-            >
-              Adicionar à Sacola
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-    <!-- CTA -->
-    <!-- CONTATO -->
-    <section class="cta reveal" id="contato">
+    <!-- DESTAQUES (dinâmico — um por tipo) -->
+    <section class="produtos-preview" id="produtos">
       <div class="container">
-        <h3>Entre em contato com a Auréa Wines</h3>
-        <p>
-          Estamos prontos para ajudá-lo a escolher o vinho perfeito para
-          qualquer ocasião.
+        <h3 class="reveal">Nossos Destaques</h3>
+        <div class="section-gold-line reveal reveal-delay-1"></div>
+        <p class="section-subtitle reveal reveal-delay-2">
+          Uma seleção dos rótulos mais procurados, um de cada categoria
         </p>
 
-        <div class="contato-info">
-          <h4>Nossos contatos</h4>
-          <p>Telefone: (11) 99999-9999</p>
-          <p>Email: contato@aureawines.com</p>
-          <p>Endereço: Rua dos Vinhos, 123, São Paulo</p>
+        <!-- Skeletons enquanto carrega -->
+        <div class="produtos-grid" id="destaquesGrid">
+          <div class="wine-skeleton">
+            <div class="skel-img"></div>
+            <div class="skel-content">
+              <div class="skel-line h2"></div>
+              <div class="skel-line h1"></div>
+              <div class="skel-line btn"></div>
+            </div>
+          </div>
+          <div class="wine-skeleton">
+            <div class="skel-img"></div>
+            <div class="skel-content">
+              <div class="skel-line h2"></div>
+              <div class="skel-line h1"></div>
+              <div class="skel-line btn"></div>
+            </div>
+          </div>
+          <div class="wine-skeleton">
+            <div class="skel-img"></div>
+            <div class="skel-content">
+              <div class="skel-line h2"></div>
+              <div class="skel-line h1"></div>
+              <div class="skel-line btn"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 48px" class="reveal">
+          <a href="catalogo.html" class="btn-outline"
+            >Ver catálogo completo →</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA COMPACTO -->
+    <section class="cta-compact reveal" id="contato">
+      <div class="container">
+        <h3>Fale conosco pelo WhatsApp</h3>
+        <p>
+          Tire dúvidas, faça pedidos ou peça uma recomendação personalizada.
+        </p>
+        <a
+          href="https://wa.me/5511999031504?text=Olá!%20Gostaria%20de%20conversar%20sobre%20os%20produtos%20da%20Aurea%20Wines."
+          target="_blank"
+          class="btn-outline"
+        >
+          Abrir WhatsApp
+        </a>
+        <div class="cta-compact-info">
+          <span>📞 (11) 99903-1504</span>
+          <span>✉️ aureawinesbrasil@gmail.com</span>
+          <span>📍 São Paulo, SP</span>
+          <span>🌐 aureawines.com.br</span>
         </div>
       </div>
     </section>
@@ -229,29 +198,155 @@
     <!-- FOOTER -->
     <footer class="footer reveal">
       <div class="container">
-        <p>© 2026 Auréa Wines. Todos os direitos reservados.</p>
+        <div class="footer-inner">
+          <span class="footer-logo">Aurea Wines</span>
+          <nav class="footer-links">
+            <a href="catalogo.html">Catálogo</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="contato.html">Contato</a>
+            <a href="https://wa.me/5511999031504" target="_blank">WhatsApp</a>
+          </nav>
+          <p class="footer-copy">
+            © 2026 Aurea Wines. Todos os direitos reservados.
+          </p>
+        </div>
       </div>
     </footer>
 
-    <!-- OVERLAY -->
+    <!-- OVERLAY + SACOLA -->
     <div class="cart-overlay" id="cartOverlay"></div>
-
-    <!-- SACOLA -->
     <div class="cart" id="cart">
       <div class="cart-header">
         <h3>Sua Sacola</h3>
         <button id="closeCart">✕</button>
       </div>
-
       <div class="cart-items" id="cartItems"></div>
-
       <div class="cart-footer">
-        <p>Total: <strong id="cartTotal">R$ 0,00</strong></p>
-        <button class="btn-primary">Finalizar Compra</button>
+        <div class="cart-footer-total">
+          <span>Total</span><strong id="cartTotal">R$ 0,00</strong>
+        </div>
+        <a
+          id="checkoutBtn"
+          href="#"
+          class="btn-primary"
+          style="display: block; text-align: center"
+          >Finalizar pelo WhatsApp</a
+        >
       </div>
     </div>
 
-    <script src="../js/animation-scroll.js"></script>
+    <script src="../js/shopify.js"></script>
     <script src="../js/cart.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/animation-scroll.js"></script>
+    <script>
+      function heroSearchGo() {
+        const q = document.getElementById("heroSearchInput").value.trim();
+        if (q)
+          window.location.href = `catalogo.html?q=${encodeURIComponent(q)}`;
+        else window.location.href = "catalogo.html";
+      }
+
+      document
+        .getElementById("heroSearchInput")
+        ?.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") heroSearchGo();
+        });
+
+      // Destaques: busca produtos e escolhe 1 aleatório por tipo
+      (async function loadDestaques() {
+        const grid = document.getElementById("destaquesGrid");
+
+        function fmtBRL(v) {
+          return parseFloat(v).toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          });
+        }
+        function esc(s) {
+          return s.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+        }
+        function pick(arr) {
+          return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        // Tipos exibidos nos destaques — um aleatório de cada
+        const TIPOS_DESTAQUE = ["Vinho Tinto", "Vinho Branco", "Vinho Rosé"];
+
+        let todos;
+        try {
+          if (isShopifyConfigured()) {
+            const { products } = await fetchProductsPage(100);
+            todos = products.map(mapShopifyProduct);
+          } else {
+            todos = DEMO_PRODUCTS;
+          }
+        } catch (_) {
+          todos = DEMO_PRODUCTS;
+        }
+
+        // Agrupa disponíveis por tipo e sorteia 1 de cada
+        const byType = {};
+        todos
+          .filter((p) => p.available && p.productType)
+          .forEach((p) => {
+            if (!byType[p.productType]) byType[p.productType] = [];
+            byType[p.productType].push(p);
+          });
+
+        const picks = TIPOS_DESTAQUE.filter((t) => byType[t]?.length).map((t) =>
+          pick(byType[t]),
+        );
+
+        if (!picks.length) {
+          grid.innerHTML = "";
+          return;
+        }
+
+        grid.innerHTML = picks
+          .map(
+            (p, i) => `
+      <a href="produto.html?handle=${p.handle}" style="display:block;text-decoration:none;color:inherit;">
+        <div class="wine-card" style="opacity:0;transform:translateY(32px);transition:opacity .6s ease ${i * 0.12}s,transform .6s ease ${i * 0.12}s;">
+          <div class="wine-img">
+            ${p.image ? `<img src="${p.image}" alt="${p.imageAlt}" loading="lazy" />` : ""}
+          </div>
+          <div class="wine-content">
+            ${p.productType ? `<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--color-gold);opacity:.7;">${p.productType}</span>` : ""}
+            <h4>${p.title}</h4>
+            <span class="wine-price">${fmtBRL(p.price)}</span>
+            ${
+              p.tags.length
+                ? `<div class="wine-tags">${p.tags
+                    .slice(0, 3)
+                    .map((t) => `<span>${t}</span>`)
+                    .join("")}</div>`
+                : ""
+            }
+            <div class="wine-actions">
+              <button class="btn-outline add-to-cart"
+                data-name="${esc(p.title)}" data-price="${p.price}"
+                data-variant-id="${p.variantId}" data-image="${p.image}"
+                onclick="event.preventDefault();event.stopPropagation();">
+                Adicionar à Sacola
+              </button>
+            </div>
+          </div>
+        </div>
+      </a>`,
+          )
+          .join("");
+
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => {
+            grid.querySelectorAll(".wine-card").forEach((el) => {
+              el.style.opacity = "1";
+              el.style.transform = "translateY(0)";
+            });
+          }),
+        );
+      })();
+    </script>
   </body>
 </html>

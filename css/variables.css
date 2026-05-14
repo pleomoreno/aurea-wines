@@ -1,21 +1,15 @@
 :root {
-  /* CORES */
-  --color-black: #0E0E0E;
+  --color-black:      #0E0E0E;
   --color-black-soft: #111111;
-  --color-gold: #C9A24D;
-  --color-offwhite: #F5F4F1;
-  --color-muted: #AAAAAA;
+  --color-gold:       #C9A24D;
+  --color-offwhite:   #F5F4F1;
+  --color-muted:      #AAAAAA;
 
-  /* TIPOGRAFIA */
   --font-title: 'Playfair Display', serif;
-  --font-text: 'Inter', sans-serif;
+  --font-text:  'Inter', sans-serif;
 
-  /* TAMANHOS */
   --container-width: 1200px;
+  --section-padding:  120px;
 
-  /* ESPAÇAMENTOS */
-  --section-padding: 120px;
-
-  /* TRANSIÇÕES */
   --transition-fast: 0.3s ease;
 }

@@ -1,236 +1,495 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Catálogo Auréa Wines</title>
-    <link rel="icon" type="image/png" href="../assets/images/Logo.png" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo — Aurea Wines</title>
+  <link rel="icon" type="image/png" href="../assets/images/Logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animation-scroll.css" />
+  <style>
+    /* Hero compacto do catálogo */
+    .hero-catalogo-compact {
+      height: 28vh; min-height: 200px;
+      background: url('../assets/images/vinhoMenu.png') center / cover no-repeat;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      padding-top: 80px;
+    }
+    .hero-catalogo-compact::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(10,10,10,.55); z-index: 1;
+    }
+    .hero-catalogo-compact .hero-inner {
+      position: relative; z-index: 2;
+      text-align: center;
+    }
+    .hero-catalogo-compact .hero-eyebrow {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--color-gold); opacity: .8; display: block; margin-bottom: 8px;
+    }
+    .hero-catalogo-compact h1 {
+      font-family: var(--font-title); font-size: clamp(28px,5vw,36px);
+      color: var(--color-offwhite);
+    }
+    @media (max-width: 768px) {
+      .hero-catalogo-compact h1 { font-size: 32px; }
+    }
 
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    /* Toolbar inline search */
+    .catalogo-search-input {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(170,170,170,.18);
+      border-radius: 6px; padding: 8px 14px;
+      transition: border-color .25s;
+    }
+    .catalogo-search-input:focus-within { border-color: rgba(201,162,77,.5); }
+    .catalogo-search-input svg { flex-shrink: 0; }
+    .catalogo-search-input input {
+      background: transparent; border: none; outline: none;
+      font-size: 14px; color: var(--color-offwhite); width: 190px;
+      caret-color: var(--color-gold);
+    }
+    .catalogo-search-input input::placeholder { color: rgba(170,170,170,.4); }
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="../css/reset.css" />
-    <link rel="stylesheet" href="../css/variables.css" />
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/animation-scroll.css" />
-  </head>
+    /* Cards — sem descrição, cursor pointer */
+    .wine-card-link { display: block; text-decoration: none; color: inherit; }
+    .wine-card-link .wine-card { cursor: pointer; }
 
-  <!-- SACOLA LATERAL -->
-  <div class="cart-overlay" id="cartOverlay"></div>
+    /* Paginação */
+    .pagination {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; margin-top: 64px; flex-wrap: wrap;
+    }
+    .page-btn {
+      width: 38px; height: 38px; border-radius: 6px;
+      border: 1px solid rgba(170,170,170,.2);
+      color: var(--color-muted); font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all .2s;
+    }
+    .page-btn:hover { border-color: var(--color-gold); color: var(--color-gold); }
+    .page-btn.active { background: var(--color-gold); color: var(--color-black); border-color: var(--color-gold); }
+    .page-btn:disabled { opacity: .3; cursor: not-allowed; }
+    .page-btn.wide { width: auto; padding: 0 14px; }
+    .page-ellipsis { color: var(--color-muted); font-size: 14px; padding: 0 4px; }
+  </style>
+</head>
+<body>
 
-  <div class="cart" id="cart">
-    <div class="cart-header">
-      <h3>Sua Sacola</h3>
-      <button id="closeCart">✕</button>
+  <!-- HEADER -->
+  <header class="header scrolled">
+    <div class="header-content">
+      <a href="index.html" class="logo">Aurea Wines</a>
+      <nav class="nav nav-center">
+        <a href="index.html">Início</a>
+        <a href="catalogo.html" class="active">Catálogo</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" class="icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Sacola" style="position:relative;">
+          <svg viewBox="0 0 24 24" class="icon"><path d="M6 8h12l-1.5 12h-9L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          <span id="cartBadge"></span>
+        </button>
+        <a href="https://wa.me/5511999031504?text=Olá!%20Gostaria%20de%20conversar%20sobre%20os%20produtos%20da%20Aurea%20Wines." target="_blank" class="btn-outline header-cta">
+          Fale conosco pelo WhatsApp
+        </a>
+      </div>
     </div>
+  </header>
 
-    <div class="cart-items" id="cartItems"></div>
-
-    <div class="cart-footer">
-      <p>Total: <strong id="cartTotal">R$ 0,00</strong></p>
-      <a
-        id="checkoutBtn"
-        href="https://wa.me/5511999999999"
-        target="_blank"
-        class="btn-primary"
-      >
-        Finalizar Pedido
-      </a>
+  <!-- HERO COMPACTO -->
+  <div class="hero-catalogo-compact">
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Nossa coleção</span>
+      <h1>Catálogo Completo</h1>
     </div>
   </div>
 
-  <body>
-    <!-- HEADER -->
-    <header class="header">
-      <div class="container header-content">
-        <h1 class="logo">Auréa</h1>
-        <nav class="nav nav-center">
-          <a href="index.html" class="active">Início</a>
-          <a href="index.html">Sobre</a>
-          <a href="index.html">Destaques</a>
-          <a href="index.html">Contato</a>
+  <!-- CATÁLOGO -->
+  <section class="catalogo-section" id="catalogo">
+    <div class="container">
+
+      <!-- Aviso demo -->
+      <div class="config-notice" id="configNotice">
+        <strong>Modo demonstração:</strong> Configure <code>domain</code> e <code>publicToken</code>
+        em <code>js/shopify.js</code> para carregar seus produtos reais do Shopify.
+      </div>
+
+      <!-- Toolbar -->
+      <div class="catalogo-toolbar reveal" style="gap:16px;">
+
+        <!-- Filtros -->
+        <div class="catalogo-filters" id="filters" style="flex-wrap:wrap;">
+          <button class="filter-btn active" data-type="todos">Todos</button>
+          <button class="filter-btn" data-type="Vinho Tinto">Vinho Tinto</button>
+          <button class="filter-btn" data-type="Vinho Branco">Vinho Branco</button>
+          <button class="filter-btn" data-type="Vinho Rosé">Vinho Rosé</button>
+          <button class="filter-btn" data-type="Vinagre">Vinagre</button>
+          <button class="filter-btn" data-type="Azeite">Azeite</button>
+        </div>
+
+        <!-- Busca + Sort + Count -->
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+          <!-- Busca inline -->
+          <div class="catalogo-search-input">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--color-muted)" fill="none" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="inlineSearch" placeholder="Buscar produto..." autocomplete="off" />
+          </div>
+
+          <span class="catalogo-count" id="productCount">Carregando...</span>
+
+          <div class="catalogo-sort">
+            <label for="sortSelect">Ordenar:</label>
+            <select id="sortSelect">
+              <option value="default">Destaque</option>
+              <option value="price-asc">Menor preço</option>
+              <option value="price-desc">Maior preço</option>
+              <option value="name-asc">Nome (A–Z)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid -->
+      <div class="catalogo-grid" id="productsGrid">
+        <!-- Skeletons -->
+        <div class="wine-skeleton"><div class="skel-img"></div><div class="skel-content"><div class="skel-line h2"></div><div class="skel-line h1"></div><div class="skel-line btn"></div></div></div>
+        <div class="wine-skeleton"><div class="skel-img"></div><div class="skel-content"><div class="skel-line h2"></div><div class="skel-line h1"></div><div class="skel-line btn"></div></div></div>
+        <div class="wine-skeleton"><div class="skel-img"></div><div class="skel-content"><div class="skel-line h2"></div><div class="skel-line h1"></div><div class="skel-line btn"></div></div></div>
+      </div>
+
+      <!-- Paginação -->
+      <div class="pagination" id="pagination"></div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta reveal">
+    <div class="container">
+      <h3>Não encontrou o que procura?</h3>
+      <p>Nossos especialistas encontram o rótulo ideal para você.</p>
+      <a href="https://wa.me/5511999031504?text=Olá!%20Preciso%20de%20ajuda%20para%20escolher%20um%20produto%20na%20Aurea%20Wines." target="_blank" class="btn-outline">
+        Fale conosco pelo WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer reveal">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-logo">Aurea Wines</span>
+        <nav class="footer-links">
+          <a href="catalogo.html">Catálogo</a>
+          <a href="sobre.html">Sobre</a>
+          <a href="contato.html">Contato</a>
+          <a href="https://wa.me/5511999031504" target="_blank">WhatsApp</a>
         </nav>
-        <div class="header-actions">
-          <button class="icon-btn" aria-label="Buscar">
-            <svg viewBox="0 0 24 24" class="icon">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-          </button>
-
-          <button class="icon-btn" aria-label="Sacola">
-            <svg viewBox="0 0 24 24" class="icon">
-              <path d="M6 8h12l-1.5 12h-9L6 8z" />
-              <path d="M9 8V6a3 3 0 0 1 6 0v2" />
-            </svg>
-          </button>
-
-          <a
-            href="https://wa.me/5511999999999"
-            target="_blank"
-            class="btn-outline header-cta"
-          >
-            Fale com um de nossos especialistas
-          </a>
-        </div>
+        <p class="footer-copy">© 2026 Aurea Wines. Todos os direitos reservados.</p>
       </div>
-    </header>
+    </div>
+  </footer>
 
-    <!-- HERO -->
-    <section class="hero hero-catalogo">
-      <div class="hero-content container reveal">
-        <h2>Descubra nossa coleção completa</h2>
-        <p>Todos os vinhos selecionados com cuidado e paixão.</p>
-      </div>
-    </section>
+  <!-- OVERLAY + SACOLA -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart" id="cart">
+    <div class="cart-header"><h3>Sua Sacola</h3><button id="closeCart">✕</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="cart-footer-total"><span>Total</span><strong id="cartTotal">R$ 0,00</strong></div>
+      <a id="checkoutBtn" href="#" class="btn-primary" style="display:block;text-align:center;">Finalizar pelo WhatsApp</a>
+    </div>
+  </div>
 
-    <!-- CATÁLOGO -->
-    <section class="catalogo-section reveal" id="destaques">
-      <div class="container">
-        <div class="produtos-grid">
-          <!-- Produto 1 -->
-          <div class="produto-card">
-            <div class="produto-img">
-              <img src="../assets/images/vinho1.jpg" alt="Reserva Especial" />
+  <script src="../js/shopify.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/mobile-nav.js"></script>
+  <script src="../js/animation-scroll.js"></script>
+  <script>
+  (function () {
+    const PER_PAGE = 45;
+    const grid        = document.getElementById('productsGrid');
+    const countEl     = document.getElementById('productCount');
+    const paginationEl= document.getElementById('pagination');
+    const configNotice= document.getElementById('configNotice');
+    const sortSelect  = document.getElementById('sortSelect');
+    const filterBtns  = document.querySelectorAll('.filter-btn');
+    const searchInput = document.getElementById('inlineSearch');
+
+    let allProducts   = [];
+    let filtered      = [];
+    let currentPage   = 1;
+    let activeFilter  = 'todos';
+    let activeSort    = 'default';
+    let searchQuery   = '';
+
+    // ── Monta card sem descrição ─────────────────
+    function buildCard(p) {
+      const hasCompare = p.compareAtPrice > p.price;
+      return `
+        <a class="wine-card-link" href="produto.html?handle=${p.handle}">
+          <div class="wine-card">
+            <div class="wine-img">
+              ${p.image
+                ? `<img src="${p.image}" alt="${p.imageAlt}" loading="lazy" />`
+                : `<svg viewBox="0 0 24 24" width="64" height="64" stroke="rgba(170,170,170,.15)" fill="none" stroke-width=".8"><path d="M6 8h12l-1.5 12h-9L6 8z"/></svg>`}
             </div>
-            <h4>Reserva Especial</h4>
-            <span>R$ 289,00</span>
-            <p>
-              Vinho encorpado com notas de frutas vermelhas e toque de carvalho.
-            </p>
-
-            <button
-              class="btn-outline add-to-cart"
-              data-name="Reserva Especial"
-              data-price="289"
-            >
-              Adicionar à Sacola
-            </button>
-          </div>
-
-          <!-- Produto 2 -->
-          <div class="produto-card">
-            <div class="produto-img">
-              <img src="../assets/images/vinho2.jpg" alt="Safra Limitada" />
+            <div class="wine-content">
+              ${p.productType ? `<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--color-gold);opacity:.7;">${p.productType}</span>` : ''}
+              <h4>${p.title}</h4>
+              <div style="display:flex;align-items:baseline;gap:10px;">
+                <span class="wine-price">${fmtBRL(p.price)}</span>
+                ${hasCompare ? `<span class="wine-price-compare">${fmtBRL(p.compareAtPrice)}</span>` : ''}
+              </div>
+              ${p.tags.length ? `<div class="wine-tags">${p.tags.slice(0,3).map(t=>`<span>${t}</span>`).join('')}</div>` : ''}
+              <div class="wine-actions">
+                ${p.available
+                  ? `<button class="btn-outline add-to-cart"
+                       data-name="${esc(p.title)}" data-price="${p.price}"
+                       data-variant-id="${p.variantId}" data-image="${p.image}"
+                       onclick="event.preventDefault();event.stopPropagation();">
+                       Adicionar à Sacola
+                     </button>`
+                  : `<div style="display:flex;flex-direction:column;gap:8px;width:100%;">
+                       <span style="display:inline-block;text-align:center;padding:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;border:1px solid rgba(255,255,255,0.1);border-radius:2px;background:rgba(255,255,255,0.03);">
+                         ✕ &nbsp;Esgotado
+                       </span>
+                       <a href="https://wa.me/5511999031504?text=Olá!%20Tenho%20interesse%20no%20produto%20*${encodeURIComponent(p.title)}*%20da%20Aurea%20Wines.%20Ele%20voltará%20ao%20estoque%3F"
+                          target="_blank"
+                          onclick="event.stopPropagation();"
+                          style="font-size:11px;letter-spacing:1px;text-align:center;color:var(--color-gold);text-transform:uppercase;padding:4px 0;">
+                          Avisar quando chegar →
+                       </a>
+                     </div>`}
+              </div>
             </div>
-            <h4>Safra Limitada</h4>
-            <span>R$ 349,00</span>
-            <p>Edição especial, limitada e cuidadosamente selecionada.</p>
-
-            <button
-              class="btn-outline add-to-cart"
-              data-name="Safra Limitada"
-              data-price="349"
-            >
-              Adicionar à Sacola
-            </button>
           </div>
+        </a>`;
+    }
 
-          <!-- Produto 3 -->
-          <div class="produto-card">
-            <div class="produto-img">
-              <img src="../assets/images/vinho3.jpg" alt="Grand Selection" />
-            </div>
-            <h4>Grand Selection</h4>
-            <span>R$ 429,00</span>
-            <p>O ápice da sofisticação, perfeito para ocasiões memoráveis.</p>
+    function fmtBRL(v) { return parseFloat(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}); }
+    function esc(s) { return s.replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
-            <button
-              class="btn-outline add-to-cart"
-              data-name="Grand Selection"
-              data-price="429"
-            >
-              Adicionar à Sacola
-            </button>
-          </div>
+    // ── Aplica filtro + busca + sort ─────────────
+    function applyFilters() {
+      filtered = activeFilter === 'todos'
+        ? [...allProducts]
+        : allProducts.filter(p => p.productType === activeFilter);
 
-          <!-- Produto 4 -->
-          <div class="produto-card">
-            <div class="produto-img">
-              <img src="../assets/images/vinho4.jpg" alt="Clássico Seco" />
-            </div>
-            <h4>Clássico Seco</h4>
-            <span>R$ 199,00</span>
-            <p>Vinho clássico e elegante, ideal para acompanhar jantares.</p>
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(p =>
+          p.title.toLowerCase().includes(q) ||
+          p.productType.toLowerCase().includes(q) ||
+          p.tags.some(t => t.toLowerCase().includes(q))
+        );
+      }
 
-            <button
-              class="btn-outline add-to-cart"
-              data-name="Clássico Seco"
-              data-price="199"
-            >
-              Adicionar à Sacola
-            </button>
-          </div>
+      // ── Ordem cíclica estável ────────────────────
 
-          <!-- Produto 5 -->
-          <div class="produto-card">
-            <div class="produto-img">
-              <img src="../assets/images/vinho5.jpg" alt="Vinha Antiga" />
-            </div>
-            <h4>Vinha Antiga</h4>
-            <span>R$ 499,00</span>
-            <p>Safra limitada de vinhedos centenários, pura tradição.</p>
+      const CICLO = ['Vinho Tinto','Tinto','Vinho Branco','Branco','Vinho Rosé','Rosé','Espumante','Azeite','Vinagre'];
 
-            <button
-              class="btn-outline add-to-cart"
-              data-name="Vinha Antiga"
-              data-price="499"
-            >
-              Adicionar à Sacola
-            </button>
-          </div>
+      function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
 
-          <!-- Produto 6 -->
-          <div class="produto-card">
-            <div class="produto-img">
-              <img src="../assets/images/vinho6.jpg" alt="Elegance Rosé" />
-            </div>
-            <h4>Elegance Rosé</h4>
-            <span>R$ 259,00</span>
-            <p>Vinho rosé leve, fresco e perfeito para celebrações.</p>
+      function buildCyclicOrder(products) {
+        const STORAGE_KEY = 'aurea_catalog_order_v2';
 
-            <button
-              class="btn-outline add-to-cart"
-              data-name="Elegance Rosé"
-              data-price="259"
-            >
-              Adicionar à Sacola
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- CTA -->
-    <section class="cta reveal" id="contato">
-      <div class="container">
-        <h3>Quer conhecer nossos vinhos pessoalmente?</h3>
-        <a
-          href="https://wa.me/5511999999999?text=Olá, gostaria de conhecer os vinhos Auréa!"
-          target="_blank"
-          class="btn-outline"
-        >
-          Falar com um especialista
-        </a>
-      </div>
-    </section>
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+          if (Array.isArray(saved) && saved.length) {
+            const byHandle = Object.fromEntries(products.map(p => [p.handle, p]));
+            const restored = saved.map(h => byHandle[h]).filter(Boolean);
 
-    <!-- FOOTER -->
-    <footer class="footer reveal">
-      <div class="container">
-        <p>© 2026 Auréa Wines. Todos os direitos reservados.</p>
-      </div>
-    </footer>
+            const savedSet = new Set(saved);
+            const novos = products.filter(p => !savedSet.has(p.handle));
+            return [...restored, ...novos];
+          }
+        } catch (_) {}
 
-    <script src="../js/animation-scroll.js"></script>
-    <script src="../js/cart.js"></script>
-  </body>
+
+        const byType = {};
+        products.forEach(p => {
+          const t = p.productType || '_outros';
+          if (!byType[t]) byType[t] = [];
+          byType[t].push(p);
+        });
+
+
+        Object.keys(byType).forEach(t => { byType[t] = shuffle(byType[t]); });
+
+
+        const tiposNoCiclo = CICLO.filter(t => byType[t]?.length);
+        const tiposExtras  = Object.keys(byType).filter(t => !CICLO.includes(t) && byType[t]?.length);
+        const tiposOrdem   = [...tiposNoCiclo, ...tiposExtras];
+
+
+        const ordered = [];
+        const maxLen  = Math.max(...tiposOrdem.map(t => byType[t].length), 0);
+        for (let i = 0; i < maxLen; i++) {
+          for (const t of tiposOrdem) {
+            if (byType[t]?.[i]) ordered.push(byType[t][i]);
+          }
+        }
+
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(ordered.map(p => p.handle)));
+
+        return ordered;
+      }
+
+      switch (activeSort) {
+        case 'default':
+
+          if (activeFilter === 'todos') {
+            filtered = buildCyclicOrder(filtered);
+          }
+          break;
+        case 'price-asc':  filtered.sort((a,b) => a.price - b.price); break;
+        case 'price-desc': filtered.sort((a,b) => b.price - a.price); break;
+        case 'name-asc':   filtered.sort((a,b) => a.title.localeCompare(b.title,'pt-BR')); break;
+      }
+
+      currentPage = 1;
+      renderPage();
+    }
+
+    // ── Renderiza página atual ───────────────────
+    function renderPage() {
+      const start  = (currentPage - 1) * PER_PAGE;
+      const slice  = filtered.slice(start, start + PER_PAGE);
+      const total  = filtered.length;
+      const pages  = Math.ceil(total / PER_PAGE);
+
+      if (!total) {
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 0;color:var(--color-muted);">
+          <p>Nenhum produto encontrado.</p>
+          <button class="btn-outline btn-sm" style="margin-top:16px;" onclick="clearFilters()">Limpar filtros</button>
+        </div>`;
+        paginationEl.innerHTML = '';
+        countEl.textContent = '0 produtos';
+        return;
+      }
+
+      grid.innerHTML = slice.map(buildCard).join('');
+      countEl.textContent = `${total} produto${total!==1?'s':''}`;
+
+      requestAnimationFrame(() => {
+        grid.querySelectorAll('.wine-card').forEach((el, i) => {
+          setTimeout(() => el.classList.add('active'), i * 40);
+          el.style.opacity = '0'; el.style.transform = 'translateY(32px)';
+          el.style.transition = 'opacity .5s ease, transform .5s ease';
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+          }));
+        });
+      });
+
+      renderPagination(pages);
+      window.scrollTo({ top: document.getElementById('catalogo').offsetTop - 20, behavior: 'smooth' });
+    }
+
+    // ── Paginação ────────────────────────────────
+    function renderPagination(pages) {
+      if (pages <= 1) { paginationEl.innerHTML = ''; return; }
+
+      let html = '';
+      html += `<button class="page-btn wide" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹ Anterior</button>`;
+
+      const delta = 2;
+      let shown = new Set([1, pages]);
+      for (let i = Math.max(2, currentPage-delta); i <= Math.min(pages-1, currentPage+delta); i++) shown.add(i);
+      const sorted = [...shown].sort((a,b)=>a-b);
+
+      let prev = 0;
+      for (const p of sorted) {
+        if (p - prev > 1) html += `<span class="page-ellipsis">…</span>`;
+        html += `<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
+        prev = p;
+      }
+
+      html += `<button class="page-btn wide" onclick="goPage(${currentPage+1})" ${currentPage===pages?'disabled':''}>Próximo ›</button>`;
+      paginationEl.innerHTML = html;
+    }
+
+    window.goPage = function(p) {
+      const pages = Math.ceil(filtered.length / PER_PAGE);
+      if (p < 1 || p > pages) return;
+      currentPage = p;
+      renderPage();
+    };
+
+    window.clearFilters = function() {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      document.querySelector('.filter-btn[data-type="todos"]')?.classList.add('active');
+      activeFilter = 'todos'; searchInput.value = ''; searchQuery = '';
+      applyFilters();
+    };
+
+    // ── Carrega produtos ─────────────────────────
+    async function load() {
+
+      const urlQ = new URLSearchParams(window.location.search).get('q');
+      if (urlQ && searchInput) {
+        searchInput.value = urlQ;
+        searchQuery = urlQ;
+      }
+
+      try {
+        if (isShopifyConfigured()) {
+
+          const raw = await fetchAllProductsComplete();
+          allProducts = raw.map(mapShopifyProduct);
+        } else {
+          throw new Error('demo');
+        }
+      } catch (_) {
+        allProducts = DEMO_PRODUCTS;
+        if (configNotice) configNotice.classList.add('visible');
+      }
+      applyFilters();
+    }
+
+    // ── Eventos ──────────────────────────────────
+    filterBtns.forEach(btn => btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.type;
+      applyFilters();
+    }));
+
+    sortSelect?.addEventListener('change', () => { activeSort = sortSelect.value; applyFilters(); });
+
+    let searchTimer;
+    searchInput?.addEventListener('input', () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => { searchQuery = searchInput.value.trim(); applyFilters(); }, 300);
+    });
+
+    load();
+  })();
+  </script>
+</body>
 </html>
