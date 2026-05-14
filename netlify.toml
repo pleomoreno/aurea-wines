@@ -1,0 +1,29 @@
+[build]
+  publish = "."
+
+# Redireciona a raiz para o index dentro de html/
+[[redirects]]
+  from = "/"
+  to = "/html/index.html"
+  status = 200
+
+# Garante que navegação entre páginas funcione direto pela URL
+[[redirects]]
+  from = "/catalogo"
+  to = "/html/catalogo.html"
+  status = 200
+
+[[redirects]]
+  from = "/sobre"
+  to = "/html/sobre.html"
+  status = 200
+
+[[redirects]]
+  from = "/contato"
+  to = "/html/contato.html"
+  status = 200
+
+[[redirects]]
+  from = "/produto"
+  to = "/html/produto.html"
+  status = 200
