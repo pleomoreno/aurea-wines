@@ -2126,6 +2126,6 @@ img {
 /* páginas internas no mobile */
 @media (max-width: 768px) {
   body.internal-page {
-    padding-top: 90px;
+    padding-top: 80px;
   }
 }
