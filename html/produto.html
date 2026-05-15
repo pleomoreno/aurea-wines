@@ -173,7 +173,7 @@
 <body>
 
   <!-- HEADER -->
-  <header class="header scrolled">
+  <header class="header">
     <div class="header-content">
       <a href="index.html" class="logo">Aurea Wines</a>
       <nav class="nav nav-center">
@@ -245,9 +245,11 @@
     </div>
   </div>
 
+  <script src="../js/config.js"></script>
   <script src="../js/shopify.js"></script>
   <script src="../js/cart.js"></script>
   <script src="../js/search.js"></script>
+  <script src="../js/mobile-nav.js"></script>
   <script src="../js/animation-scroll.js"></script>
   <script>
   (async function () {
@@ -273,6 +275,7 @@
       renderError('Produto não encontrado. <a href="catalogo.html" style="color:var(--color-gold);">Voltar ao catálogo</a>'); return;
     }
 
+    // Atualiza título da aba
     document.title = `${produto.title} — Aurea Wines`;
 
     // ── Variante selecionada ─────────────────────
@@ -443,6 +446,7 @@
           image:     produto.image,
         });
       }
+      // addToCart já abre o carrinho
     });
 
     // ── Produtos relacionados ────────────────────

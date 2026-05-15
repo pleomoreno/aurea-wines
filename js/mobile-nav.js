@@ -1,27 +1,62 @@
+// ================================
+// AUREA WINES — NAVEGAÇÃO MOBILE
+// ================================
+
 (function () {
   const header = document.querySelector('.header-content');
   if (!header) return;
 
-  const page = window.location.pathname.split('/').pop() || 'index.html';
+  // ── Path helper ───────────────────────────────
+  // Se a URL contém /html/, usa caminhos relativos.
+  // Se está na raiz (ex: rewrite do Netlify), usa /html/ absoluto.
+  function href(filename) {
+    if (window.location.pathname.includes('/html/')) return filename;
+    return '/html/' + filename;
+  }
 
   const LINKS = [
-    { href: 'index.html',   label: 'Início'   },
-    { href: 'catalogo.html', label: 'Catálogo' },
-    { href: 'sobre.html',   label: 'Sobre'    },
-    { href: 'contato.html', label: 'Contato'  },
+    { file: 'index.html',    label: 'Início'   },
+    { file: 'catalogo.html', label: 'Catálogo' },
+    { file: 'sobre.html',    label: 'Sobre'    },
+    { file: 'contato.html',  label: 'Contato'  },
   ];
 
-  // ── Botão hamburguer ──────────────────────────
+  const page = window.location.pathname.split('/').pop() || 'index.html';
+
+  // ── 1. Botão hamburguer ───────────────────────
   const hamburger = document.createElement('button');
   hamburger.className = 'hamburger-btn';
   hamburger.setAttribute('aria-label', 'Abrir menu');
-  hamburger.innerHTML = `
-    <span></span>
-    <span></span>
-    <span></span>`;
+  hamburger.innerHTML = `<span></span><span></span><span></span>`;
   header.appendChild(hamburger);
 
-  // ── Drawer overlay ────────────────────────────
+  // ── 2. Barra de pesquisa (linha 2 do header) ──
+  const searchRow = document.createElement('div');
+  searchRow.className = 'mobile-header-search';
+  searchRow.innerHTML = `
+    <div class="mobile-search-wrap">
+      <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--color-muted)" fill="none" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input
+        type="text"
+        id="mobileSearchInput"
+        placeholder="Buscar vinhos, tipos..."
+        autocomplete="off"
+      />
+    </div>`;
+  header.appendChild(searchRow);
+
+  // Enter na busca → vai pro catálogo
+  document.getElementById('mobileSearchInput')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const q = e.target.value.trim();
+      const dest = href('catalogo.html');
+      window.location.href = q ? `${dest}?q=${encodeURIComponent(q)}` : dest;
+    }
+  });
+
+  // ── 3. Drawer de navegação ────────────────────
   const overlay = document.createElement('div');
   overlay.className = 'mobile-nav-overlay';
   overlay.setAttribute('aria-hidden', 'true');
@@ -39,7 +74,7 @@
 
       <nav class="mobile-nav-links">
         ${LINKS.map(l => `
-          <a href="${l.href}" class="${page === l.href ? 'active' : ''}">${l.label}</a>
+          <a href="${href(l.file)}" class="${page === l.file ? 'active' : ''}">${l.label}</a>
         `).join('')}
       </nav>
 
@@ -73,7 +108,6 @@
   hamburger.addEventListener('click', openMenu);
   overlay.addEventListener('click', e => { if (e.target === overlay) closeMenu(); });
   overlay.querySelector('.mobile-nav-close').addEventListener('click', closeMenu);
-
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && overlay.classList.contains('active')) closeMenu();
   });
