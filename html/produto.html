@@ -1,291 +1,544 @@
 <!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Produto — Aurea Wines</title>
-  <link rel="icon" type="image/png" href="../assets/images/Logo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/reset.css" />
-  <link rel="stylesheet" href="../css/variables.css" />
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/animation-scroll.css" />
-  <style>
-    /* ── Produto page ── */
-    .produto-page { padding: 120px 0 var(--section-padding); min-height: 80vh; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produto — Aurea Wines</title>
+    <link rel="icon" type="image/png" href="../assets/images/Logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/animation-scroll.css" />
+    <style>
+      /* ── Produto page ── */
+      .produto-page {
+        padding: 120px 0 var(--section-padding);
+        min-height: 80vh;
+      }
 
-    .breadcrumb {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--color-muted);
-      margin-bottom: 48px; flex-wrap: wrap;
-    }
-    .breadcrumb a { color: var(--color-muted); transition: color .2s; }
-    .breadcrumb a:hover { color: var(--color-gold); }
-    .breadcrumb span { opacity: .4; }
-    .breadcrumb strong { color: var(--color-offwhite); }
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--color-muted);
+        margin-bottom: 48px;
+        flex-wrap: wrap;
+      }
+      .breadcrumb a {
+        color: var(--color-muted);
+        transition: color 0.2s;
+      }
+      .breadcrumb a:hover {
+        color: var(--color-gold);
+      }
+      .breadcrumb span {
+        opacity: 0.4;
+      }
+      .breadcrumb strong {
+        color: var(--color-offwhite);
+      }
 
-    .produto-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 72px;
-      align-items: start;
-    }
+      .produto-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 72px;
+        align-items: start;
+      }
 
-    /* Galeria */
-    .produto-gallery { position: sticky; top: 110px; }
-    .gallery-main {
-      width: 100%; aspect-ratio: 1;
-      background: radial-gradient(circle at center, #141414 0%, #0a0a0a 80%);
-      border-radius: 12px;
-      border: 1px solid rgba(201,162,77,.1);
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .gallery-main img { max-width: 80%; max-height: 80%; object-fit: contain; transition: transform .4s ease; }
-    .gallery-main:hover img { transform: scale(1.04); }
-    .gallery-thumbs { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
-    .gallery-thumb {
-      width: 72px; height: 72px;
-      border-radius: 8px;
-      border: 1px solid rgba(201,162,77,.12);
-      background: #111;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; overflow: hidden;
-      transition: border-color .2s;
-    }
-    .gallery-thumb:hover, .gallery-thumb.active { border-color: var(--color-gold); }
-    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+      /* Galeria */
+      .produto-gallery {
+        position: sticky;
+        top: 110px;
+      }
+      .gallery-main {
+        width: 100%;
+        min-height: 620px;
+        background: radial-gradient(circle at center, #141414 0%, #0a0a0a 80%);
+        border-radius: 12px;
+        border: 1px solid rgba(201, 162, 77, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 32px;
+      }
+      .gallery-main img {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.4s ease;
+      }
+      .gallery-main:hover img {
+        transform: scale(1.04);
+      }
+      .gallery-thumbs {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+        flex-wrap: wrap;
+      }
+      .gallery-thumb {
+        width: 72px;
+        height: 72px;
+        border-radius: 8px;
+        border: 1px solid rgba(201, 162, 77, 0.12);
+        background: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        overflow: hidden;
+        transition: border-color 0.2s;
+      }
+      .gallery-thumb:hover,
+      .gallery-thumb.active {
+        border-color: var(--color-gold);
+      }
+      .gallery-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
 
-    /* Info */
-    .produto-info { display: flex; flex-direction: column; gap: 20px; }
+      /* Info */
+      .produto-info {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
 
-    .produto-type {
-      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--color-gold); opacity: .8;
-    }
+      .produto-type {
+        font-size: 11px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--color-gold);
+        opacity: 0.8;
+      }
 
-    .produto-title {
-      font-family: var(--font-title);
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.15;
-      color: var(--color-offwhite);
-    }
+      .produto-title {
+        font-family: var(--font-title);
+        font-size: clamp(28px, 4vw, 42px);
+        line-height: 1.15;
+        color: var(--color-offwhite);
+      }
 
-    .produto-pricing { display: flex; align-items: baseline; gap: 14px; }
-    .produto-price { font-family: var(--font-title); font-size: 32px; color: var(--color-gold); }
-    .produto-compare { font-size: 18px; color: var(--color-muted); text-decoration: line-through; }
+      .produto-pricing {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+      }
+      .produto-price {
+        font-family: var(--font-title);
+        font-size: 32px;
+        color: var(--color-gold);
+      }
+      .produto-compare {
+        font-size: 18px;
+        color: var(--color-muted);
+        text-decoration: line-through;
+      }
 
-    .produto-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-    .produto-tags span {
-      padding: 6px 14px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
-      border-radius: 999px; border: 1px solid rgba(201,162,77,.4);
-      color: var(--color-gold); background: rgba(201,162,77,.05);
-    }
+      .produto-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .produto-tags span {
+        padding: 6px 14px;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 999px;
+        border: 1px solid rgba(201, 162, 77, 0.4);
+        color: var(--color-gold);
+        background: rgba(201, 162, 77, 0.05);
+      }
 
-    .produto-divider { height: 1px; background: rgba(255,255,255,.07); }
+      .produto-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.07);
+      }
 
-    .produto-desc { font-size: 16px; font-weight: 300; color: rgba(245,244,241,.8); line-height: 1.8; }
-    .produto-desc p { margin-bottom: 12px; }
-    .produto-desc p:last-child { margin-bottom: 0; }
+      .produto-desc {
+        font-size: 16px;
+        font-weight: 300;
+        color: rgba(245, 244, 241, 0.8);
+        line-height: 1.8;
+      }
+      .produto-desc p {
+        margin-bottom: 12px;
+      }
+      .produto-desc p:last-child {
+        margin-bottom: 0;
+      }
 
-    /* Variantes */
-    .variantes-label { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-muted); margin-bottom: 10px; }
-    .variantes-btns { display: flex; gap: 8px; flex-wrap: wrap; }
-    .variante-btn {
-      padding: 8px 18px; font-size: 13px;
-      border: 1px solid rgba(170,170,170,.2); border-radius: 4px;
-      color: var(--color-muted); cursor: pointer; transition: all .2s;
-    }
-    .variante-btn:hover, .variante-btn.active {
-      border-color: var(--color-gold); color: var(--color-gold);
-      background: rgba(201,162,77,.06);
-    }
-    .variante-btn:disabled { opacity: .35; cursor: not-allowed; }
+      /* Variantes */
+      .variantes-label {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--color-muted);
+        margin-bottom: 10px;
+      }
+      .variantes-btns {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .variante-btn {
+        padding: 8px 18px;
+        font-size: 13px;
+        border: 1px solid rgba(170, 170, 170, 0.2);
+        border-radius: 4px;
+        color: var(--color-muted);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .variante-btn:hover,
+      .variante-btn.active {
+        border-color: var(--color-gold);
+        color: var(--color-gold);
+        background: rgba(201, 162, 77, 0.06);
+      }
+      .variante-btn:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
 
-    /* Ações */
-    .produto-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-    .produto-actions .btn-primary, .produto-actions .btn-outline { flex: 1; text-align: center; min-width: 160px; }
+      /* Ações */
+      .produto-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .produto-actions .btn-primary,
+      .produto-actions .btn-outline {
+        flex: 1;
+        text-align: center;
+        min-width: 160px;
+      }
 
-    /* Qty */
-    .qty-wrap { display: flex; align-items: center; gap: 0; border: 1px solid rgba(170,170,170,.2); border-radius: 4px; overflow: hidden; }
-    .qty-wrap button {
-      width: 42px; height: 50px; font-size: 20px;
-      color: var(--color-muted); transition: all .2s; cursor: pointer;
-    }
-    .qty-wrap button:hover { background: rgba(201,162,77,.08); color: var(--color-gold); }
-    .qty-wrap input {
-      width: 52px; height: 50px; text-align: center;
-      font-size: 16px; color: var(--color-offwhite);
-      background: transparent; border: none;
-      border-left: 1px solid rgba(170,170,170,.15);
-      border-right: 1px solid rgba(170,170,170,.15);
-    }
-    .qty-wrap input::-webkit-outer-spin-button,
-    .qty-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; }
+      /* Qty */
+      .qty-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        border: 1px solid rgba(170, 170, 170, 0.2);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .qty-wrap button {
+        width: 42px;
+        height: 50px;
+        font-size: 20px;
+        color: var(--color-muted);
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+      .qty-wrap button:hover {
+        background: rgba(201, 162, 77, 0.08);
+        color: var(--color-gold);
+      }
+      .qty-wrap input {
+        width: 52px;
+        height: 50px;
+        text-align: center;
+        font-size: 16px;
+        color: var(--color-offwhite);
+        background: transparent;
+        border: none;
+        border-left: 1px solid rgba(170, 170, 170, 0.15);
+        border-right: 1px solid rgba(170, 170, 170, 0.15);
+      }
+      .qty-wrap input::-webkit-outer-spin-button,
+      .qty-wrap input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
 
-    /* Infos adicionais */
-    .produto-meta { display: flex; flex-direction: column; gap: 10px; }
-    .produto-meta-item { display: flex; gap: 12px; font-size: 14px; color: var(--color-muted); align-items: center; }
-    .produto-meta-item svg { flex-shrink: 0; stroke: var(--color-gold); }
+      /* Infos adicionais */
+      .produto-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .produto-meta-item {
+        display: flex;
+        gap: 12px;
+        font-size: 14px;
+        color: var(--color-muted);
+        align-items: center;
+      }
+      .produto-meta-item svg {
+        flex-shrink: 0;
+        stroke: var(--color-gold);
+      }
 
-    /* Loading / error */
-    .produto-loading {
-      min-height: 60vh; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 20px; color: var(--color-muted);
-    }
-    .produto-loading .spinner {
-      width: 36px; height: 36px; border: 2px solid rgba(201,162,77,.2);
-      border-top-color: var(--color-gold); border-radius: 50%;
-      animation: spin .8s linear infinite;
-    }
+      /* Loading / error */
+      .produto-loading {
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        color: var(--color-muted);
+      }
+      .produto-loading .spinner {
+        width: 36px;
+        height: 36px;
+        border: 2px solid rgba(201, 162, 77, 0.2);
+        border-top-color: var(--color-gold);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
 
-    /* Relacionados */
-    .relacionados { padding: 80px 0; background: var(--color-black-soft); }
-    .relacionados h3 { font-family: var(--font-title); font-size: 28px; margin-bottom: 40px; }
-    .relacionados-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+      /* Relacionados */
+      .relacionados {
+        padding: 80px 0;
+        background: var(--color-black-soft);
+      }
+      .relacionados h3 {
+        font-family: var(--font-title);
+        font-size: 28px;
+        margin-bottom: 40px;
+      }
+      .relacionados-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
 
-    /* Thumbnail do card relacionado */
-    .rel-card {
-      background: #111; border: 1px solid rgba(201,162,77,.1); border-radius: 10px;
-      overflow: hidden; cursor: pointer; text-decoration: none; display: block;
-      transition: transform .3s, border-color .3s;
-    }
-    .rel-card:hover { transform: translateY(-6px); border-color: rgba(201,162,77,.28); }
-    .rel-card-img { height: 200px; background: #0d0d0d; display: flex; align-items: center; justify-content: center; }
-    .rel-card-img img { max-height: 80%; max-width: 80%; object-fit: contain; }
-    .rel-card-info { padding: 20px; }
-    .rel-card-info h4 { font-family: var(--font-title); font-size: 17px; margin-bottom: 8px; }
-    .rel-card-info span { font-family: var(--font-title); color: var(--color-gold); font-size: 16px; }
+      /* Thumbnail do card relacionado */
+      .rel-card {
+        background: #111;
+        border: 1px solid rgba(201, 162, 77, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+        transition:
+          transform 0.3s,
+          border-color 0.3s;
+      }
+      .rel-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(201, 162, 77, 0.28);
+      }
+      .rel-card-img {
+        height: 200px;
+        background: #0d0d0d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .rel-card-img img {
+        max-height: 80%;
+        max-width: 80%;
+        object-fit: contain;
+      }
+      .rel-card-info {
+        padding: 20px;
+      }
+      .rel-card-info h4 {
+        font-family: var(--font-title);
+        font-size: 17px;
+        margin-bottom: 8px;
+      }
+      .rel-card-info span {
+        font-family: var(--font-title);
+        color: var(--color-gold);
+        font-size: 16px;
+      }
 
-    @media (max-width: 900px) {
-      .produto-grid { grid-template-columns: 1fr; gap: 40px; }
-      .produto-gallery { position: static; }
-      .relacionados-grid { grid-template-columns: repeat(2,1fr); }
-    }
-    @media (max-width: 560px) {
-      .produto-page { padding: 90px 0 60px; }
-      .relacionados-grid { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body class="internal-page">
+      @media (max-width: 900px) {
+        .produto-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .produto-gallery {
+          position: static;
+        }
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="header-content">
-      <a href="index.html" class="logo">Aurea Wines</a>
-      <nav class="nav nav-center">
-        <a href="index.html">Início</a>
-        <a href="catalogo.html">Catálogo</a>
-        <a href="clube.html">Clube</a>
-        <a href="sobre.html">Sobre</a>
-        <a href="contato.html">Contato</a>
-      </nav>
-      <div class="header-actions">
-        <button class="icon-btn" aria-label="Buscar">
-          <svg viewBox="0 0 24 24" class="icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </button>
-        <button class="icon-btn" aria-label="Sacola" style="position:relative;">
-          <svg viewBox="0 0 24 24" class="icon"><path d="M6 8h12l-1.5 12h-9L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-          <span id="cartBadge"></span>
-        </button>
-        <a href="https://wa.me/5511999031504?text=Olá!%20Gostaria%20de%20conversar%20sobre%20os%20produtos%20da%20Aurea%20Wines." target="_blank" class="btn-outline header-cta">
-          Fale conosco pelo WhatsApp
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- CONTEÚDO PRINCIPAL -->
-  <main class="produto-page">
-    <div class="container" id="produtoContainer">
-      <div class="produto-loading">
-        <div class="spinner"></div>
-        <p>Carregando produto...</p>
-      </div>
-    </div>
-  </main>
-
-  <!-- RELACIONADOS -->
-  <section class="relacionados" id="relacionadosSection" style="display:none;">
-    <div class="container">
-      <h3>Você também pode gostar</h3>
-      <div class="relacionados-grid" id="relacionadosGrid"></div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <span class="footer-logo">Aurea Wines</span>
-        <nav class="footer-links">
+        .gallery-main {
+          min-height: 420px;
+        }
+        .relacionados-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 560px) {
+        .produto-page {
+          padding: 90px 0 60px;
+        }
+        .relacionados-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body class="internal-page">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-content">
+        <a href="index.html" class="logo">Aurea Wines</a>
+        <nav class="nav nav-center">
+          <a href="index.html">Início</a>
           <a href="catalogo.html">Catálogo</a>
           <a href="clube.html">Clube</a>
           <a href="sobre.html">Sobre</a>
           <a href="contato.html">Contato</a>
-          <a href="https://wa.me/5511999031504" target="_blank">WhatsApp</a>
         </nav>
-        <p class="footer-copy">© 2026 Aurea Wines. Todos os direitos reservados.</p>
+        <div class="header-actions">
+          <button class="icon-btn" aria-label="Buscar">
+            <svg viewBox="0 0 24 24" class="icon">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+          <button
+            class="icon-btn"
+            aria-label="Sacola"
+            style="position: relative"
+          >
+            <svg viewBox="0 0 24 24" class="icon">
+              <path d="M6 8h12l-1.5 12h-9L6 8z" />
+              <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+            </svg>
+            <span id="cartBadge"></span>
+          </button>
+          <a
+            href="https://wa.me/5511999031504?text=Olá!%20Gostaria%20de%20conversar%20sobre%20os%20produtos%20da%20Aurea%20Wines."
+            target="_blank"
+            class="btn-outline header-cta"
+          >
+            Fale conosco pelo WhatsApp
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="produto-page">
+      <div class="container" id="produtoContainer">
+        <div class="produto-loading">
+          <div class="spinner"></div>
+          <p>Carregando produto...</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- RELACIONADOS -->
+    <section
+      class="relacionados"
+      id="relacionadosSection"
+      style="display: none"
+    >
+      <div class="container">
+        <h3>Você também pode gostar</h3>
+        <div class="relacionados-grid" id="relacionadosGrid"></div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-inner">
+          <span class="footer-logo">Aurea Wines</span>
+          <nav class="footer-links">
+            <a href="catalogo.html">Catálogo</a>
+            <a href="clube.html">Clube</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="contato.html">Contato</a>
+            <a href="https://wa.me/5511999031504" target="_blank">WhatsApp</a>
+          </nav>
+          <p class="footer-copy">
+            © 2026 Aurea Wines. Todos os direitos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- OVERLAY + SACOLA -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart" id="cart">
+      <div class="cart-header">
+        <h3>Sua Sacola</h3>
+        <button id="closeCart">✕</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-footer">
+        <div class="cart-footer-total">
+          <span>Total</span><strong id="cartTotal">R$ 0,00</strong>
+        </div>
+        <a
+          id="checkoutBtn"
+          href="#"
+          class="btn-primary"
+          style="display: block; text-align: center"
+          >Finalizar pelo WhatsApp</a
+        >
       </div>
     </div>
-  </footer>
 
-  <!-- OVERLAY + SACOLA -->
-  <div class="cart-overlay" id="cartOverlay"></div>
-  <div class="cart" id="cart">
-    <div class="cart-header">
-      <h3>Sua Sacola</h3>
-      <button id="closeCart">✕</button>
-    </div>
-    <div class="cart-items" id="cartItems"></div>
-    <div class="cart-footer">
-      <div class="cart-footer-total"><span>Total</span><strong id="cartTotal">R$ 0,00</strong></div>
-      <a id="checkoutBtn" href="#" class="btn-primary" style="display:block;text-align:center;">Finalizar pelo WhatsApp</a>
-    </div>
-  </div>
+    <script src="../js/config.js"></script>
+    <script src="../js/shopify.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/animation-scroll.js"></script>
+    <script>
+      (async function () {
+        const container = document.getElementById("produtoContainer");
+        const handle = new URLSearchParams(window.location.search).get(
+          "handle",
+        );
 
-  <script src="../js/config.js"></script>
-  <script src="../js/shopify.js"></script>
-  <script src="../js/cart.js"></script>
-  <script src="../js/search.js"></script>
-  <script src="../js/mobile-nav.js"></script>
-  <script src="../js/animation-scroll.js"></script>
-  <script>
-  (async function () {
-    const container = document.getElementById('produtoContainer');
-    const handle = new URLSearchParams(window.location.search).get('handle');
+        if (!handle) {
+          renderError("Nenhum produto especificado.");
+          return;
+        }
 
-    if (!handle) {
-      renderError('Nenhum produto especificado.'); return;
-    }
+        // ── Carrega produto ──────────────────────────
+        let produto;
+        try {
+          if (isShopifyConfigured()) {
+            const raw = await fetchProductByHandle(handle);
+            if (!raw) throw new Error("não encontrado");
+            produto = mapShopifyProduct(raw);
+          } else {
+            produto = DEMO_PRODUCTS.find((p) => p.handle === handle);
+            if (!produto) throw new Error("não encontrado");
+          }
+        } catch (e) {
+          renderError(
+            'Produto não encontrado. <a href="catalogo.html" style="color:var(--color-gold);">Voltar ao catálogo</a>',
+          );
+          return;
+        }
 
-    // ── Carrega produto ──────────────────────────
-    let produto;
-    try {
-      if (isShopifyConfigured()) {
-        const raw = await fetchProductByHandle(handle);
-        if (!raw) throw new Error('não encontrado');
-        produto = mapShopifyProduct(raw);
-      } else {
-        produto = DEMO_PRODUCTS.find(p => p.handle === handle);
-        if (!produto) throw new Error('não encontrado');
-      }
-    } catch (e) {
-      renderError('Produto não encontrado. <a href="catalogo.html" style="color:var(--color-gold);">Voltar ao catálogo</a>'); return;
-    }
+        // Atualiza título da aba
+        document.title = `${produto.title} — Aurea Wines`;
 
-    // Atualiza título da aba
-    document.title = `${produto.title} — Aurea Wines`;
+        // ── Variante selecionada ─────────────────────
+        let selectedVariant = produto.variants[0] || {
+          id: produto.variantId,
+          title: "Padrão",
+          availableForSale: produto.available,
+        };
+        let qty = 1;
 
-    // ── Variante selecionada ─────────────────────
-    let selectedVariant = produto.variants[0] || { id: produto.variantId, title: 'Padrão', availableForSale: produto.available };
-    let qty = 1;
-
-    // ── Render HTML ──────────────────────────────
-    container.innerHTML = `
+        // ── Render HTML ──────────────────────────────
+        container.innerHTML = `
       <nav class="breadcrumb">
         <a href="index.html">Início</a>
         <span>›</span>
@@ -298,60 +551,86 @@
         <!-- Galeria -->
         <div class="produto-gallery">
           <div class="gallery-main" id="galleryMain">
-            ${produto.image
-              ? `<img id="mainImg" src="${produto.image}" alt="${produto.imageAlt}" />`
-              : `<svg viewBox="0 0 24 24" width="80" height="80" stroke="rgba(170,170,170,.2)" fill="none" stroke-width=".8"><path d="M6 8h12l-1.5 12h-9L6 8z"/></svg>`}
+            ${
+              produto.image
+                ? `<img id="mainImg" src="${produto.image}" alt="${produto.imageAlt}" />`
+                : `<svg viewBox="0 0 24 24" width="80" height="80" stroke="rgba(170,170,170,.2)" fill="none" stroke-width=".8"><path d="M6 8h12l-1.5 12h-9L6 8z"/></svg>`
+            }
           </div>
-          ${produto.images.length > 1 ? `
+          ${
+            produto.images.length > 1
+              ? `
           <div class="gallery-thumbs">
-            ${produto.images.map((img, i) => `
-              <div class="gallery-thumb ${i===0?'active':''}" data-src="${img.url}" data-alt="${img.alt||produto.title}">
-                <img src="${img.url}" alt="${img.alt||produto.title}" loading="lazy" />
-              </div>`).join('')}
-          </div>` : ''}
+            ${produto.images
+              .map(
+                (img, i) => `
+              <div class="gallery-thumb ${i === 0 ? "active" : ""}" data-src="${img.url}" data-alt="${img.alt || produto.title}">
+                <img src="${img.url}" alt="${img.alt || produto.title}" loading="lazy" />
+              </div>`,
+              )
+              .join("")}
+          </div>`
+              : ""
+          }
         </div>
 
         <!-- Info -->
         <div class="produto-info">
-          ${produto.productType ? `<span class="produto-type">${produto.productType}</span>` : ''}
+          ${produto.productType ? `<span class="produto-type">${produto.productType}</span>` : ""}
           <h1 class="produto-title">${produto.title}</h1>
 
           <div class="produto-pricing">
             <span class="produto-price" id="variantPrice">${fmtBRL(produto.price)}</span>
-            ${produto.compareAtPrice > produto.price ? `<span class="produto-compare">${fmtBRL(produto.compareAtPrice)}</span>` : ''}
+            ${produto.compareAtPrice > produto.price ? `<span class="produto-compare">${fmtBRL(produto.compareAtPrice)}</span>` : ""}
           </div>
 
-          ${produto.tags.length ? `
+          ${
+            produto.tags.length
+              ? `
           <div class="produto-tags">
-            ${produto.tags.slice(0,5).map(t => `<span>${t}</span>`).join('')}
-          </div>` : ''}
+            ${produto.tags
+              .slice(0, 5)
+              .map((t) => `<span>${t}</span>`)
+              .join("")}
+          </div>`
+              : ""
+          }
 
           <div class="produto-divider"></div>
 
-          ${produto.variants.length > 1 ? `
+          ${
+            produto.variants.length > 1
+              ? `
           <div>
             <p class="variantes-label">Opções</p>
             <div class="variantes-btns" id="variantBtns">
-              ${produto.variants.map((v, i) => `
-                <button class="variante-btn ${i===0?'active':''}"
+              ${produto.variants
+                .map(
+                  (v, i) => `
+                <button class="variante-btn ${i === 0 ? "active" : ""}"
                   data-variant-id="${v.id}"
                   data-price="${v.price?.amount || produto.price}"
-                  ${v.availableForSale ? '' : 'disabled'}>
-                  ${v.title}${v.availableForSale ? '' : ' (Esgotado)'}
-                </button>`).join('')}
+                  ${v.availableForSale ? "" : "disabled"}>
+                  ${v.title}${v.availableForSale ? "" : " (Esgotado)"}
+                </button>`,
+                )
+                .join("")}
             </div>
-          </div>` : ''}
+          </div>`
+              : ""
+          }
 
           <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
-            <div class="qty-wrap" id="qtyBlock" ${produto.available ? '' : 'style="display:none;"'}>
+            <div class="qty-wrap" id="qtyBlock" ${produto.available ? "" : 'style="display:none;"'}>
               <button id="qtyDec">−</button>
               <input type="number" id="qtyInput" value="1" min="1" max="99" />
               <button id="qtyInc">+</button>
             </div>
             <div class="produto-actions" style="flex:1;">
-              ${produto.available
-                ? `<button id="addToCartBtn" class="btn-primary">Adicionar à Sacola</button>`
-                : `<div style="display:flex;flex-direction:column;gap:10px;width:100%;">
+              ${
+                produto.available
+                  ? `<button id="addToCartBtn" class="btn-primary">Adicionar à Sacola</button>`
+                  : `<div style="display:flex;flex-direction:column;gap:10px;width:100%;">
                      <div style="text-align:center;padding:14px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#888;border:1px solid rgba(255,255,255,0.1);border-radius:2px;">
                        ✕ &nbsp;Produto Esgotado
                      </div>
@@ -359,7 +638,8 @@
                         target="_blank" class="btn-outline" style="text-align:center;">
                         Avisar quando chegar →
                      </a>
-                   </div>`}
+                   </div>`
+              }
             </div>
           </div>
 
@@ -370,10 +650,14 @@
 
           <div class="produto-divider"></div>
 
-          ${produto.description ? `
+          ${
+            produto.description
+              ? `
           <div class="produto-desc" id="descBlock">
             ${produto.descriptionHtml || `<p>${produto.description}</p>`}
-          </div>` : ''}
+          </div>`
+              : ""
+          }
 
           <!-- Meta info -->
           <div class="produto-meta">
@@ -406,94 +690,120 @@
         </div>
       </div>`;
 
-    // ── Galeria: troca imagem ────────────────────
-    document.querySelectorAll('.gallery-thumb').forEach(thumb => {
-      thumb.addEventListener('click', () => {
-        document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
-        thumb.classList.add('active');
-        const mainImg = document.getElementById('mainImg');
-        if (mainImg) { mainImg.src = thumb.dataset.src; mainImg.alt = thumb.dataset.alt; }
-      });
-    });
-
-    // ── Variantes ────────────────────────────────
-    document.querySelectorAll('.variante-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.variante-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        selectedVariant = { id: btn.dataset.variantId, price: { amount: btn.dataset.price } };
-        const priceEl = document.getElementById('variantPrice');
-        if (priceEl) priceEl.textContent = fmtBRL(parseFloat(btn.dataset.price));
-      });
-    });
-
-    // ── Quantidade ───────────────────────────────
-    const qtyInput = document.getElementById('qtyInput');
-    document.getElementById('qtyDec')?.addEventListener('click', () => {
-      if (parseInt(qtyInput.value) > 1) qtyInput.value = parseInt(qtyInput.value) - 1;
-    });
-    document.getElementById('qtyInc')?.addEventListener('click', () => {
-      if (parseInt(qtyInput.value) < 99) qtyInput.value = parseInt(qtyInput.value) + 1;
-    });
-
-    // ── Adicionar ao carrinho ────────────────────
-    document.getElementById('addToCartBtn')?.addEventListener('click', () => {
-      qty = parseInt(qtyInput.value) || 1;
-      const price = parseFloat(selectedVariant.price?.amount || produto.price);
-      for (let i = 0; i < qty; i++) {
-        window.addToCart({
-          name:      produto.title,
-          price:     price,
-          variantId: selectedVariant.id || produto.variantId,
-          image:     produto.image,
+        // ── Galeria: troca imagem ────────────────────
+        document.querySelectorAll(".gallery-thumb").forEach((thumb) => {
+          thumb.addEventListener("click", () => {
+            document
+              .querySelectorAll(".gallery-thumb")
+              .forEach((t) => t.classList.remove("active"));
+            thumb.classList.add("active");
+            const mainImg = document.getElementById("mainImg");
+            if (mainImg) {
+              mainImg.src = thumb.dataset.src;
+              mainImg.alt = thumb.dataset.alt;
+            }
+          });
         });
-      }
-      // addToCart já abre o carrinho
-    });
 
-    // ── Produtos relacionados ────────────────────
-    try {
-      let todos = isShopifyConfigured()
-        ? (await fetchProductsPage(12)).products.map(mapShopifyProduct)
-        : DEMO_PRODUCTS;
+        // ── Variantes ────────────────────────────────
+        document.querySelectorAll(".variante-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document
+              .querySelectorAll(".variante-btn")
+              .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            selectedVariant = {
+              id: btn.dataset.variantId,
+              price: { amount: btn.dataset.price },
+            };
+            const priceEl = document.getElementById("variantPrice");
+            if (priceEl)
+              priceEl.textContent = fmtBRL(parseFloat(btn.dataset.price));
+          });
+        });
 
-      const relacionados = todos
-        .filter(p => p.handle !== handle)
-        .filter(p => !produto.productType || p.productType === produto.productType)
-        .slice(0, 3);
+        // ── Quantidade ───────────────────────────────
+        const qtyInput = document.getElementById("qtyInput");
+        document.getElementById("qtyDec")?.addEventListener("click", () => {
+          if (parseInt(qtyInput.value) > 1)
+            qtyInput.value = parseInt(qtyInput.value) - 1;
+        });
+        document.getElementById("qtyInc")?.addEventListener("click", () => {
+          if (parseInt(qtyInput.value) < 99)
+            qtyInput.value = parseInt(qtyInput.value) + 1;
+        });
 
-      if (relacionados.length) {
-        const secRel = document.getElementById('relacionadosSection');
-        const gridRel = document.getElementById('relacionadosGrid');
-        secRel.style.display = '';
-        gridRel.innerHTML = relacionados.map(p => `
+        // ── Adicionar ao carrinho ────────────────────
+        document
+          .getElementById("addToCartBtn")
+          ?.addEventListener("click", () => {
+            qty = parseInt(qtyInput.value) || 1;
+            const price = parseFloat(
+              selectedVariant.price?.amount || produto.price,
+            );
+            for (let i = 0; i < qty; i++) {
+              window.addToCart({
+                name: produto.title,
+                price: price,
+                variantId: selectedVariant.id || produto.variantId,
+                image: produto.image,
+              });
+            }
+            // addToCart já abre o carrinho
+          });
+
+        // ── Produtos relacionados ────────────────────
+        try {
+          let todos = isShopifyConfigured()
+            ? (await fetchProductsPage(12)).products.map(mapShopifyProduct)
+            : DEMO_PRODUCTS;
+
+          const relacionados = todos
+            .filter((p) => p.handle !== handle)
+            .filter(
+              (p) =>
+                !produto.productType || p.productType === produto.productType,
+            )
+            .slice(0, 3);
+
+          if (relacionados.length) {
+            const secRel = document.getElementById("relacionadosSection");
+            const gridRel = document.getElementById("relacionadosGrid");
+            secRel.style.display = "";
+            gridRel.innerHTML = relacionados
+              .map(
+                (p) => `
           <a class="rel-card" href="produto.html?handle=${p.handle}">
             <div class="rel-card-img">
-              ${p.image ? `<img src="${p.image}" alt="${p.imageAlt}" loading="lazy"/>` : ''}
+              ${p.image ? `<img src="${p.image}" alt="${p.imageAlt}" loading="lazy"/>` : ""}
             </div>
             <div class="rel-card-info">
               <h4>${p.title}</h4>
               <span>${fmtBRL(p.price)}</span>
             </div>
-          </a>`).join('');
-      }
-    } catch(_) {}
+          </a>`,
+              )
+              .join("");
+          }
+        } catch (_) {}
 
-    function fmtBRL(v) {
-      return parseFloat(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
+        function fmtBRL(v) {
+          return parseFloat(v).toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          });
+        }
+      })();
 
-  })();
-
-  function renderError(msg) {
-    document.getElementById('produtoContainer').innerHTML = `
+      function renderError(msg) {
+        document.getElementById("produtoContainer").innerHTML = `
       <div style="min-height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:var(--color-muted);">
         <svg viewBox="0 0 24 24" width="56" height="56" stroke="currentColor" fill="none" stroke-width="1.2">
           <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
         </svg>
         <p style="font-size:17px;">${msg}</p>
       </div>`;
-  }
-  </script>
-</body>
+      }
+    </script>
+  </body>
 </html>
