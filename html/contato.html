@@ -15,6 +15,64 @@
     <link rel="stylesheet" href="../css/variables.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/animation-scroll.css" />
+    <style>
+      .hero-page {
+        min-height: 52vh;
+        background:
+          radial-gradient(
+            ellipse at 60% 40%,
+            rgba(201, 162, 77, 0.07) 0%,
+            transparent 65%
+          ),
+          var(--color-black);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        padding-top: 100px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-page::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background: url("../assets/images/vinhoMenu.png")
+          center / cover no-repeat;
+
+        filter: blur(6px);
+        opacity: 0.18;
+        z-index: 0;
+      }
+
+      .hero-page .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 720px;
+      }
+
+      .hero-page h2 {
+        font-family: var(--font-title);
+        font-size: clamp(38px, 6vw, 68px);
+        line-height: 1.1;
+        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+      }
+
+      .hero-page p {
+        font-size: 19px;
+        font-weight: 300;
+        color: rgba(245, 244, 241, 0.85);
+
+        max-width: 540px;
+        margin: 0 auto;
+
+        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+      }
+    </style>
   </head>
   <body class="internal-page">
     <header class="header">
@@ -23,6 +81,7 @@
         <nav class="nav nav-center">
           <a href="index.html">Início</a>
           <a href="catalogo.html">Catálogo</a>
+          <a href="clube.html">Clube</a>
           <a href="sobre.html">Sobre</a>
           <a href="contato.html" class="active">Contato</a>
         </nav>
@@ -58,25 +117,11 @@
     <section class="hero-page">
       <div class="hero-content container reveal">
         <span class="hero-eyebrow">Fale conosco</span>
-        <h2
-          style="
-            font-family: var(--font-title);
-            font-size: clamp(32px, 5vw, 56px);
-            text-align: center;
-            line-height: 1.2;
-          "
-        >
-          Contato
-        </h2>
-        <p
-          style="
-            font-size: 17px;
-            font-weight: 300;
-            color: var(--color-muted);
-            text-align: center;
-            max-width: 440px;
-          "
-        >
+        <h2>Contato</h2>
+
+        <div class="manifesto-divider" style="margin: 20px auto"></div>
+
+        <p>
           Nossa equipe está pronta para ajudá-lo a escolher o produto perfeito.
         </p>
       </div>
@@ -269,6 +314,7 @@
           <span class="footer-logo">Aurea Wines</span>
           <nav class="footer-links">
             <a href="catalogo.html">Catálogo</a>
+            <a href="clube.html">Clube</a>
             <a href="sobre.html">Sobre</a>
             <a href="contato.html">Contato</a>
             <a href="https://wa.me/5511999031504" target="_blank">WhatsApp</a>

@@ -159,13 +159,15 @@
     const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
 
     const mensagem = [
-      'Olá! Gostaria de fazer um pedido na Aurea Wines:',
+      '*AUREA WINES — Pedido*',
+      '',
+      'Olá! Gostaria de fazer o seguinte pedido:',
       '',
       linhas,
       '',
-      `*Total: ${fmtBRL(total)}*`,
+      `*Total:* ${fmtBRL(total)}`,
       '',
-      'Poderia me informar sobre frete e disponibilidade?',
+      'Poderia me informar o frete e a disponibilidade?',
     ].join('\n');
 
     window.open(

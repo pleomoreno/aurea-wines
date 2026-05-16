@@ -15,10 +15,11 @@
   }
 
   const LINKS = [
-    { file: 'index.html',    label: 'Início'   },
-    { file: 'catalogo.html', label: 'Catálogo' },
-    { file: 'sobre.html',    label: 'Sobre'    },
-    { file: 'contato.html',  label: 'Contato'  },
+    { file: 'index.html',    label: 'Início'      },
+    { file: 'catalogo.html', label: 'Catálogo'    },
+    { file: 'clube.html',    label: 'Clube Aurea' },
+    { file: 'sobre.html',    label: 'Sobre'       },
+    { file: 'contato.html',  label: 'Contato'     },
   ];
 
   const page = window.location.pathname.split('/').pop() || 'index.html';

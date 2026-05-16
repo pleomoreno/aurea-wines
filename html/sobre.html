@@ -15,14 +15,74 @@
     <link rel="stylesheet" href="../css/variables.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/animation-scroll.css" />
+    <style>
+      .hero-page {
+        min-height: 52vh;
+
+        background:
+          radial-gradient(
+            ellipse at 60% 40%,
+            rgba(201, 162, 77, 0.07) 0%,
+            transparent 65%
+          ),
+          var(--color-black);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        padding-top: 100px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-page::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background: url("../assets/images/vinhoMenu.png")
+          center / cover no-repeat;
+
+        filter: blur(6px);
+        opacity: 0.18;
+        z-index: 0;
+      }
+
+      .hero-page .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 720px;
+      }
+
+      .hero-page h2 {
+        font-family: var(--font-title);
+        font-size: clamp(38px, 6vw, 68px);
+        line-height: 1.1;
+        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+      }
+
+      .hero-page p {
+        font-size: 19px;
+        font-weight: 300;
+        color: rgba(245, 244, 241, 0.85);
+
+        max-width: 540px;
+        margin: 0 auto;
+
+        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+      }
+    </style>
   </head>
-  <body class="internal-page">
+  <body>
     <header class="header">
       <div class="header-content">
         <a href="index.html" class="logo">Aurea Wines</a>
         <nav class="nav nav-center">
           <a href="index.html">Início</a>
           <a href="catalogo.html">Catálogo</a>
+          <a href="clube.html">Clube</a>
           <a href="sobre.html" class="active">Sobre</a>
           <a href="contato.html">Contato</a>
         </nav>
@@ -59,25 +119,11 @@
     <section class="hero-page">
       <div class="hero-content container reveal">
         <span class="hero-eyebrow">Nossa história</span>
-        <h2
-          style="
-            font-family: var(--font-title);
-            font-size: clamp(32px, 5vw, 56px);
-            text-align: center;
-            line-height: 1.2;
-          "
-        >
-          Sobre a Aurea Wines
-        </h2>
-        <p
-          style="
-            font-size: 17px;
-            font-weight: 300;
-            color: var(--color-muted);
-            text-align: center;
-            max-width: 480px;
-          "
-        >
+        <h2>Sobre a Aurea Wines</h2>
+
+        <div class="manifesto-divider" style="margin: 20px auto"></div>
+
+        <p>
           Cada garrafa conta uma história. A nossa começa com uma paixão genuína
           pelo extraordinário.
         </p>
@@ -89,57 +135,47 @@
       <div class="container">
         <div class="sobre-grid reveal">
           <div class="sobre-text">
-            <h2>Quem somos</h2>
+            <h2>Quem Somos</h2>
             <div
               class="manifesto-divider"
               style="margin: 24px 0 28px; margin-left: 0"
             ></div>
             <p>
-              A <strong>Aurea Wines</strong> nasceu de uma sensação que eu nunca
-              soube ignorar: o poder de um momento bem vivido.
+              A <strong>Aurea Wines</strong> nasceu na Argentina, entre bodegas,
+              vinhedos e a paixão por grandes vinhos. Somos uma curadoria
+              especializada que conecta o mercado brasileiro diretamente às
+              melhores experiências do vinho argentino.
             </p>
             <p>
-              Sempre acreditei que existem encontros que pedem mais. Mais
-              presença, mais intensidade, mais intenção. E, quase sempre, tudo
-              começa na escolha — no vinho certo, no instante exato.
+              Selecionamos pessoalmente rótulos de bodegas renomadas e
+              produtoras autorais, priorizando qualidade, identidade e excelente
+              custo-benefício. Trabalhamos sem intermediários, oferecendo
+              condições mais competitivas, acesso a rótulos exclusivos e uma
+              seleção diferenciada para o Brasil.
             </p>
             <p>
-              Foi seguindo essa sensibilidade, entre experiências que marcaram e
-              detalhes que fazem diferença, que criei a Aurea. Um espaço onde
-              nada é casual.
+              Acreditamos que grandes vinhos devem unir sofisticação,
+              autenticidade e preço justo.
             </p>
             <p>
-              Cada rótulo que você encontra aqui foi escolhido pensando no que
-              ele pode despertar, no clima que cria, na conexão que provoca, na
-              memória que deixa.
+              Atendemos consumidores apaixonados por vinho, além de
+              restaurantes, eventos, distribuidores e parceiros comerciais que
+              buscam fornecimento confiável e condições vantajosas.
+            </p>
+            <p>
+              Da seleção na origem até a entrega no Brasil, cada detalhe é
+              pensado para proporcionar uma experiência premium, acessível e sem
+              complicações.
             </p>
             <p
               style="
                 font-style: italic;
                 color: var(--color-gold);
-                font-size: 18px;
+                font-size: 17px;
                 line-height: 1.7;
               "
             >
-              "Porque o vinho, quando bem escolhido, não acompanha o momento.
-              Ele conduz."
-            </p>
-            <p>
-              A Aurea é para quem sente. Para quem percebe. Para quem entende
-              que o verdadeiro prazer está nos detalhes.
-            </p>
-            <p style="margin-top: 32px">
-              <strong style="font-family: var(--font-title); font-size: 18px"
-                >Ana Paula Santana</strong
-              ><br />
-              <span
-                style="
-                  font-size: 14px;
-                  color: var(--color-muted);
-                  letter-spacing: 1px;
-                "
-                >Fundadora da Aurea Wines</span
-              >
+              "Aurea Wines. Direto das bodegas argentinas para sua taça."
             </p>
             <a
               href="catalogo.html"
@@ -184,10 +220,11 @@
               <circle cx="12" cy="12" r="10" />
               <path d="M12 6v6l4 2" />
             </svg>
-            <h4>Tempo &amp; Paciência</h4>
+            <h4>Seleção &amp; Procedência</h4>
             <p>
-              Respeitamos os ciclos da natureza e o tempo necessário para que
-              cada garrafa atinja seu potencial.
+              Importamos vinhos diretamente da Argentina, garantindo
+              procedência, condições exclusivas e uma curadoria diferenciada
+              para nossos clientes no Brasil.
             </p>
           </div>
           <div class="valor-card reveal reveal-delay-2">
@@ -202,10 +239,11 @@
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            <h4>Rigor na Seleção</h4>
+            <h4>Curadoria Especializada</h4>
             <p>
-              Apenas uma fração dos rótulos avaliados chega ao nosso catálogo —
-              cada garrafa escolhida com máximo critério.
+              Nossa seleção é feita pessoalmente na Argentina, buscando vinhos
+              que unem autenticidade, excelência e condições diferenciadas sem
+              intermediários.
             </p>
           </div>
           <div class="valor-card reveal reveal-delay-3">
@@ -221,10 +259,11 @@
                 d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
               />
             </svg>
-            <h4>Paixão Autêntica</h4>
+            <h4>Acesso Exclusivo</h4>
             <p>
-              Amamos o que fazemos e isso se reflete em cada curadoria,
-              recomendação e experiência que proporcionamos.
+              Proporcionamos ao mercado brasileiro acesso direto a vinhos
+              argentinos selecionados na origem, com condições diferenciadas e
+              curadoria especializada.
             </p>
           </div>
         </div>
@@ -234,10 +273,11 @@
     <!-- CTA -->
     <section class="cta reveal">
       <div class="container">
-        <h3>Conheça nossa coleção</h3>
+        <h3>Acesse vinhos argentinos sem intermediários</h3>
         <p>
-          Explore o catálogo ou fale conosco para uma recomendação
-          personalizada.
+          Receba atendimento personalizado e conheça nossa seleção de rótulos
+          exclusivos com condições especiais para o Brasil. Enviamos a todo o
+          país.
         </p>
         <div
           style="
@@ -265,6 +305,7 @@
           <span class="footer-logo">Aurea Wines</span>
           <nav class="footer-links">
             <a href="catalogo.html">Catálogo</a>
+            <a href="clube.html">Clube</a>
             <a href="sobre.html">Sobre</a>
             <a href="contato.html">Contato</a>
             <a href="https://wa.me/5511999031504" target="_blank">WhatsApp</a>
