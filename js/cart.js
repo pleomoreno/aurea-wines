@@ -206,6 +206,28 @@
     }, 1600);
   });
 
+// === HELPER PARA ONCLICK DIRETO (evita problema com stopPropagation) ===
+  window.addToCartBtn = function (btn) {
+    const name  = btn.dataset.name;
+    const price = parseFloat(btn.dataset.price);
+    if (!name || isNaN(price)) return;
+
+    addToCart({
+      name,
+      price,
+      variantId: btn.dataset.variantId || null,
+      image:     btn.dataset.image     || null,
+    });
+
+    const prev = btn.innerHTML;
+    btn.innerHTML = '✓';
+    btn.classList.add('added');
+    setTimeout(() => {
+      btn.innerHTML = prev;
+      btn.classList.remove('added');
+    }, 1600);
+  };
+
   // === EVENTOS ===
   cartBtn?.addEventListener('click', openCart);
   closeCartBtn?.addEventListener('click', closeCart);

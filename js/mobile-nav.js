@@ -3,37 +3,37 @@
 // ================================
 
 (function () {
-  const header = document.querySelector('.header-content');
+  const header = document.querySelector(".header-content");
   if (!header) return;
 
   // ── Path helper ───────────────────────────────
   // Se a URL contém /html/, usa caminhos relativos.
   // Se está na raiz (ex: rewrite do Netlify), usa /html/ absoluto.
   function href(filename) {
-    if (window.location.pathname.includes('/html/')) return filename;
-    return '/html/' + filename;
+    if (window.location.pathname.includes("/html/")) return filename;
+    return "/html/" + filename;
   }
 
   const LINKS = [
-    { file: 'index.html',    label: 'Início'      },
-    { file: 'catalogo.html', label: 'Catálogo'    },
-    { file: 'clube.html',    label: 'Clube Aurea' },
-    { file: 'sobre.html',    label: 'Sobre'       },
-    { file: 'contato.html',  label: 'Contato'     },
+    { file: "index.html", label: "Início" },
+    { file: "catalogo.html", label: "Catálogo" },
+    { file: "clube.html", label: "Clube Aurea" },
+    { file: "sobre.html", label: "Sobre" },
+    { file: "contato.html", label: "Contato" },
   ];
 
-  const page = window.location.pathname.split('/').pop() || 'index.html';
+  const page = window.location.pathname.split("/").pop() || "index.html";
 
   // ── 1. Botão hamburguer ───────────────────────
-  const hamburger = document.createElement('button');
-  hamburger.className = 'hamburger-btn';
-  hamburger.setAttribute('aria-label', 'Abrir menu');
+  const hamburger = document.createElement("button");
+  hamburger.className = "hamburger-btn";
+  hamburger.setAttribute("aria-label", "Abrir menu");
   hamburger.innerHTML = `<span></span><span></span><span></span>`;
   header.appendChild(hamburger);
 
   // ── 2. Barra de pesquisa (linha 2 do header) ──
-  const searchRow = document.createElement('div');
-  searchRow.className = 'mobile-header-search';
+  const searchRow = document.createElement("div");
+  searchRow.className = "mobile-header-search";
   searchRow.innerHTML = `
     <div class="mobile-search-wrap">
       <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--color-muted)" fill="none" stroke-width="2">
@@ -48,19 +48,31 @@
     </div>`;
   header.appendChild(searchRow);
 
-  // Enter na busca → vai pro catálogo
-  document.getElementById('mobileSearchInput')?.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-      const q = e.target.value.trim();
-      const dest = href('catalogo.html');
-      window.location.href = q ? `${dest}?q=${encodeURIComponent(q)}` : dest;
+  // Sugestões no mobile (chama após o elemento existir no DOM)
+  requestAnimationFrame(() => {
+    if (typeof window.attachSuggestions === "function") {
+      window.attachSuggestions(
+        document.getElementById("mobileSearchInput"),
+        searchRow, // container inteiro da barra mobile
+      );
     }
   });
 
+  // Enter na busca → vai pro catálogo
+  document
+    .getElementById("mobileSearchInput")
+    ?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const q = e.target.value.trim();
+        const dest = href("catalogo.html");
+        window.location.href = q ? `${dest}?q=${encodeURIComponent(q)}` : dest;
+      }
+    });
+
   // ── 3. Drawer de navegação ────────────────────
-  const overlay = document.createElement('div');
-  overlay.className = 'mobile-nav-overlay';
-  overlay.setAttribute('aria-hidden', 'true');
+  const overlay = document.createElement("div");
+  overlay.className = "mobile-nav-overlay";
+  overlay.setAttribute("aria-hidden", "true");
   overlay.innerHTML = `
     <div class="mobile-nav-drawer">
       <div class="mobile-nav-top">
@@ -74,9 +86,11 @@
       </div>
 
       <nav class="mobile-nav-links">
-        ${LINKS.map(l => `
-          <a href="${href(l.file)}" class="${page === l.file ? 'active' : ''}">${l.label}</a>
-        `).join('')}
+        ${LINKS.map(
+          (l) => `
+          <a href="${href(l.file)}" class="${page === l.file ? "active" : ""}">${l.label}</a>
+        `,
+        ).join("")}
       </nav>
 
       <div class="mobile-nav-footer">
@@ -93,23 +107,27 @@
 
   // ── Toggle ────────────────────────────────────
   function openMenu() {
-    overlay.classList.add('active');
-    overlay.setAttribute('aria-hidden', 'false');
-    hamburger.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    overlay.classList.add("active");
+    overlay.setAttribute("aria-hidden", "false");
+    hamburger.classList.add("open");
+    document.body.style.overflow = "hidden";
   }
 
   function closeMenu() {
-    overlay.classList.remove('active');
-    overlay.setAttribute('aria-hidden', 'true');
-    hamburger.classList.remove('open');
-    document.body.style.overflow = '';
+    overlay.classList.remove("active");
+    overlay.setAttribute("aria-hidden", "true");
+    hamburger.classList.remove("open");
+    document.body.style.overflow = "";
   }
 
-  hamburger.addEventListener('click', openMenu);
-  overlay.addEventListener('click', e => { if (e.target === overlay) closeMenu(); });
-  overlay.querySelector('.mobile-nav-close').addEventListener('click', closeMenu);
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && overlay.classList.contains('active')) closeMenu();
+  hamburger.addEventListener("click", openMenu);
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeMenu();
+  });
+  overlay
+    .querySelector(".mobile-nav-close")
+    .addEventListener("click", closeMenu);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && overlay.classList.contains("active")) closeMenu();
   });
 })();
