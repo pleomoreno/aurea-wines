@@ -8,9 +8,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
-      rel="stylesheet"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+      />
+    </noscript>
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/variables.css" />
     <link rel="stylesheet" href="../css/style.css" />
@@ -42,8 +53,8 @@
         position: absolute;
         inset: 0;
 
-        background: url("../assets/images/vinhoMenu.png")
-          center / cover no-repeat;
+        background: url("../assets/images/vinhoMenu.webp") center / cover
+          no-repeat;
 
         filter: blur(6px);
         opacity: 0.18;
@@ -114,191 +125,191 @@
         </div>
       </div>
     </header>
+    <main>
+      <!-- HERO PAGE -->
+      <section class="hero-page">
+        <div class="hero-content container reveal">
+          <span class="hero-eyebrow">Nossa história</span>
+          <h2>Sobre a Aurea Wines</h2>
 
-    <!-- HERO PAGE -->
-    <section class="hero-page">
-      <div class="hero-content container reveal">
-        <span class="hero-eyebrow">Nossa história</span>
-        <h2>Sobre a Aurea Wines</h2>
+          <div class="manifesto-divider" style="margin: 20px auto"></div>
 
-        <div class="manifesto-divider" style="margin: 20px auto"></div>
+          <p>
+            Cada garrafa conta uma história. A nossa começa com uma paixão
+            genuína pelo extraordinário.
+          </p>
+        </div>
+      </section>
 
-        <p>
-          Cada garrafa conta uma história. A nossa começa com uma paixão genuína
-          pelo extraordinário.
-        </p>
-      </div>
-    </section>
+      <!-- SOBRE -->
+      <section class="sobre-section">
+        <div class="container">
+          <div class="sobre-grid reveal">
+            <div class="sobre-text">
+              <h2>Quem Somos</h2>
+              <div
+                class="manifesto-divider"
+                style="margin: 24px 0 28px; margin-left: 0"
+              ></div>
+              <p>
+                A <strong>Aurea Wines</strong> nasceu na Argentina, entre
+                bodegas, vinhedos e a paixão por grandes vinhos. Somos uma
+                curadoria especializada que conecta o mercado brasileiro
+                diretamente às melhores experiências do vinho argentino.
+              </p>
+              <p>
+                Selecionamos pessoalmente rótulos de bodegas renomadas e
+                produtoras autorais, priorizando qualidade, identidade e
+                excelente custo-benefício. Trabalhamos sem intermediários,
+                oferecendo condições mais competitivas, acesso a rótulos
+                exclusivos e uma seleção diferenciada para o Brasil.
+              </p>
+              <p>
+                Acreditamos que grandes vinhos devem unir sofisticação,
+                autenticidade e preço justo.
+              </p>
+              <p>
+                Atendemos consumidores apaixonados por vinho, além de
+                restaurantes, eventos, distribuidores e parceiros comerciais que
+                buscam fornecimento confiável e condições vantajosas.
+              </p>
+              <p>
+                Da seleção na origem até a entrega no Brasil, cada detalhe é
+                pensado para proporcionar uma experiência premium, acessível e
+                sem complicações.
+              </p>
+              <p
+                style="
+                  font-style: italic;
+                  color: var(--color-gold);
+                  font-size: 17px;
+                  line-height: 1.7;
+                "
+              >
+                "Aurea Wines. Direto das bodegas argentinas para sua taça."
+              </p>
+              <a
+                href="catalogo.html"
+                class="btn-outline"
+                style="margin-top: 32px; display: inline-block"
+                >Explorar o catálogo</a
+              >
+            </div>
+            <div class="sobre-img-wrap">
+              <img
+                src="../assets/images/sobre.jpeg"
+                alt="Aurea Wines"
+                loading="lazy"
+              />
+            </div>
+          </div>
 
-    <!-- SOBRE -->
-    <section class="sobre-section">
-      <div class="container">
-        <div class="sobre-grid reveal">
-          <div class="sobre-text">
-            <h2>Quem Somos</h2>
-            <div
-              class="manifesto-divider"
-              style="margin: 24px 0 28px; margin-left: 0"
-            ></div>
-            <p>
-              A <strong>Aurea Wines</strong> nasceu na Argentina, entre bodegas,
-              vinhedos e a paixão por grandes vinhos. Somos uma curadoria
-              especializada que conecta o mercado brasileiro diretamente às
-              melhores experiências do vinho argentino.
-            </p>
-            <p>
-              Selecionamos pessoalmente rótulos de bodegas renomadas e
-              produtoras autorais, priorizando qualidade, identidade e excelente
-              custo-benefício. Trabalhamos sem intermediários, oferecendo
-              condições mais competitivas, acesso a rótulos exclusivos e uma
-              seleção diferenciada para o Brasil.
-            </p>
-            <p>
-              Acreditamos que grandes vinhos devem unir sofisticação,
-              autenticidade e preço justo.
-            </p>
-            <p>
-              Atendemos consumidores apaixonados por vinho, além de
-              restaurantes, eventos, distribuidores e parceiros comerciais que
-              buscam fornecimento confiável e condições vantajosas.
-            </p>
-            <p>
-              Da seleção na origem até a entrega no Brasil, cada detalhe é
-              pensado para proporcionar uma experiência premium, acessível e sem
-              complicações.
-            </p>
-            <p
+          <!-- VALORES -->
+          <div style="text-align: center; margin-top: 100px" class="reveal">
+            <h3
               style="
-                font-style: italic;
-                color: var(--color-gold);
-                font-size: 17px;
-                line-height: 1.7;
+                font-family: var(--font-title);
+                font-size: 34px;
+                margin-bottom: 12px;
               "
             >
-              "Aurea Wines. Direto das bodegas argentinas para sua taça."
-            </p>
-            <a
-              href="catalogo.html"
-              class="btn-outline"
-              style="margin-top: 32px; display: inline-block"
-              >Explorar o catálogo</a
-            >
+              Nossa Filosofia
+            </h3>
+            <div class="manifesto-divider"></div>
           </div>
-          <div class="sobre-img-wrap">
-            <img
-              src="../assets/images/vinhoMenu.png"
-              alt="Aurea Wines"
-              loading="lazy"
-            />
+
+          <div class="valores-grid">
+            <div class="valor-card reveal reveal-delay-1">
+              <svg
+                viewBox="0 0 24 24"
+                width="36"
+                height="36"
+                stroke="var(--color-gold)"
+                fill="none"
+                stroke-width="1.5"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v6l4 2" />
+              </svg>
+              <h4>Seleção &amp; Procedência</h4>
+              <p>
+                Importamos vinhos diretamente da Argentina, garantindo
+                procedência, condições exclusivas e uma curadoria diferenciada
+                para nossos clientes no Brasil.
+              </p>
+            </div>
+            <div class="valor-card reveal reveal-delay-2">
+              <svg
+                viewBox="0 0 24 24"
+                width="36"
+                height="36"
+                stroke="var(--color-gold)"
+                fill="none"
+                stroke-width="1.5"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <h4>Curadoria Especializada</h4>
+              <p>
+                Nossa seleção é feita pessoalmente na Argentina, buscando vinhos
+                que unem autenticidade, excelência e condições diferenciadas sem
+                intermediários.
+              </p>
+            </div>
+            <div class="valor-card reveal reveal-delay-3">
+              <svg
+                viewBox="0 0 24 24"
+                width="36"
+                height="36"
+                stroke="var(--color-gold)"
+                fill="none"
+                stroke-width="1.5"
+              >
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                />
+              </svg>
+              <h4>Acesso Exclusivo</h4>
+              <p>
+                Proporcionamos ao mercado brasileiro acesso direto a vinhos
+                argentinos selecionados na origem, com condições diferenciadas e
+                curadoria especializada.
+              </p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <!-- VALORES -->
-        <div style="text-align: center; margin-top: 100px" class="reveal">
-          <h3
+      <!-- CTA -->
+      <section class="cta reveal">
+        <div class="container">
+          <h3>Acesse vinhos argentinos sem intermediários</h3>
+          <p>
+            Receba atendimento personalizado e conheça nossa seleção de rótulos
+            exclusivos com condições especiais para o Brasil. Enviamos a todo o
+            país.
+          </p>
+          <div
             style="
-              font-family: var(--font-title);
-              font-size: 34px;
-              margin-bottom: 12px;
+              display: flex;
+              gap: 16px;
+              justify-content: center;
+              flex-wrap: wrap;
             "
           >
-            Nossa Filosofia
-          </h3>
-          <div class="manifesto-divider"></div>
-        </div>
-
-        <div class="valores-grid">
-          <div class="valor-card reveal reveal-delay-1">
-            <svg
-              viewBox="0 0 24 24"
-              width="36"
-              height="36"
-              stroke="var(--color-gold)"
-              fill="none"
-              stroke-width="1.5"
+            <a href="catalogo.html" class="btn-primary">Ver Catálogo</a>
+            <a
+              href="https://wa.me/5511999031504?text=Olá!%20Gostaria%20de%20conversar%20sobre%20os%20produtos%20da%20Aurea%20Wines."
+              target="_blank"
+              class="btn-outline"
             >
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 6v6l4 2" />
-            </svg>
-            <h4>Seleção &amp; Procedência</h4>
-            <p>
-              Importamos vinhos diretamente da Argentina, garantindo
-              procedência, condições exclusivas e uma curadoria diferenciada
-              para nossos clientes no Brasil.
-            </p>
-          </div>
-          <div class="valor-card reveal reveal-delay-2">
-            <svg
-              viewBox="0 0 24 24"
-              width="36"
-              height="36"
-              stroke="var(--color-gold)"
-              fill="none"
-              stroke-width="1.5"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <h4>Curadoria Especializada</h4>
-            <p>
-              Nossa seleção é feita pessoalmente na Argentina, buscando vinhos
-              que unem autenticidade, excelência e condições diferenciadas sem
-              intermediários.
-            </p>
-          </div>
-          <div class="valor-card reveal reveal-delay-3">
-            <svg
-              viewBox="0 0 24 24"
-              width="36"
-              height="36"
-              stroke="var(--color-gold)"
-              fill="none"
-              stroke-width="1.5"
-            >
-              <path
-                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-              />
-            </svg>
-            <h4>Acesso Exclusivo</h4>
-            <p>
-              Proporcionamos ao mercado brasileiro acesso direto a vinhos
-              argentinos selecionados na origem, com condições diferenciadas e
-              curadoria especializada.
-            </p>
+              Fale conosco pelo WhatsApp
+            </a>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta reveal">
-      <div class="container">
-        <h3>Acesse vinhos argentinos sem intermediários</h3>
-        <p>
-          Receba atendimento personalizado e conheça nossa seleção de rótulos
-          exclusivos com condições especiais para o Brasil. Enviamos a todo o
-          país.
-        </p>
-        <div
-          style="
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-          "
-        >
-          <a href="catalogo.html" class="btn-primary">Ver Catálogo</a>
-          <a
-            href="https://wa.me/5511999031504?text=Olá!%20Gostaria%20de%20conversar%20sobre%20os%20produtos%20da%20Aurea%20Wines."
-            target="_blank"
-            class="btn-outline"
-          >
-            Fale conosco pelo WhatsApp
-          </a>
-        </div>
-      </div>
-    </section>
-
+      </section>
+    </main>
     <footer class="footer reveal">
       <div class="container">
         <div class="footer-inner">

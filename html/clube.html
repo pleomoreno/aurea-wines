@@ -11,7 +11,13 @@
     <link rel="icon" type="image/png" href="../assets/images/Logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
+    <link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap">
+    </noscript><link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
@@ -42,7 +48,7 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: url("../assets/images/vinhoMenu.png") center / cover
+        background: url("../assets/images/vinhoMenu.webp") center / cover
           no-repeat;
         filter: blur(6px);
         opacity: 0.18;
@@ -413,7 +419,7 @@
         </div>
       </div>
     </header>
-
+    <main>
     <!-- HERO -->
     <section class="clube-hero">
       <div class="hero-content container reveal">
@@ -656,7 +662,7 @@
         </a>
       </div>
     </section>
-
+    </main>
     <!-- FOOTER -->
     <footer class="footer reveal">
       <div class="container">

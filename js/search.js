@@ -3,6 +3,7 @@
   modal.id = "searchModal";
   modal.className = "search-modal";
   modal.setAttribute("aria-hidden", "true");
+  modal.setAttribute("inert", "");
   modal.innerHTML = `
     <div class="search-overlay" id="searchOverlay"></div>
     <div class="search-box" role="dialog" aria-label="Buscar vinhos">
@@ -38,6 +39,7 @@
   function openSearch() {
     modal.classList.add("active");
     modal.setAttribute("aria-hidden", "false");
+    modal.removeAttribute("inert");
     document.body.style.overflow = "hidden";
     setTimeout(() => input?.focus(), 100);
   }
@@ -45,6 +47,7 @@
   function closeSearch() {
     modal.classList.remove("active");
     modal.setAttribute("aria-hidden", "true");
+    modal.setAttribute("inert", "");
     document.body.style.overflow = "";
     if (input) input.value = "";
     if (results)
@@ -119,7 +122,7 @@
         ${products
           .map(
             (p) => `
-          <a href="produto.html?handle=${p.handle}" class="search-result-card" onclick="closeSearchModal()">
+          <a href="${resolvePath("produto.html")}?handle=${p.handle}" class="search-result-card" onclick="closeSearchModal()">
             <div class="search-result-img">
               ${
                 p.image
@@ -239,6 +242,13 @@
   window.attachSuggestions = function (inputEl, containerEl) {
     if (!inputEl) return;
 
+    // Resolve caminho igual ao mobile-nav.js
+    function resolvePath(filename) {
+      return window.location.pathname.includes("/html/")
+        ? filename
+        : "/html/" + filename;
+    }
+
     const sBox = document.createElement("div");
     sBox.className = "search-suggestions-box";
     document.body.appendChild(sBox);
@@ -289,7 +299,7 @@
         sBox.innerHTML = prods
           .map(
             (p) => `
-          <a href="produto.html?handle=${p.handle}" class="search-result-card"
+          <a href="${resolvePath("produto.html")}?handle=${p.handle}" class="search-result-card"
              onclick="this.closest('.search-suggestions-box').classList.remove('active')">
             <div class="search-result-img">
               ${
@@ -332,11 +342,27 @@
       if (e.key === "Escape") fecha();
     });
 
-    window.addEventListener('scroll', () => { if (sBox.classList.contains('active')) posiciona(); }, { passive: true });
-    window.addEventListener('resize', () => { if (sBox.classList.contains('active')) posiciona(); }, { passive: true });
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (sBox.classList.contains("active")) posiciona();
+      },
+      { passive: true },
+    );
+    window.addEventListener(
+      "resize",
+      () => {
+        if (sBox.classList.contains("active")) posiciona();
+      },
+      { passive: true },
+    );
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', () => { if (sBox.classList.contains('active')) posiciona(); });
-      window.visualViewport.addEventListener('scroll', () => { if (sBox.classList.contains('active')) posiciona(); });
+      window.visualViewport.addEventListener("resize", () => {
+        if (sBox.classList.contains("active")) posiciona();
+      });
+      window.visualViewport.addEventListener("scroll", () => {
+        if (sBox.classList.contains("active")) posiciona();
+      });
     }
 
     document.addEventListener("click", (e) => {

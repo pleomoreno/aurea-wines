@@ -7,10 +7,13 @@
     <link rel="icon" type="image/png" href="../assets/images/Logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
+    <link rel="preload" as="style"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
+      onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap">
+    </noscript>
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/variables.css" />
     <link rel="stylesheet" href="../css/style.css" />
@@ -41,7 +44,7 @@
         position: absolute;
         inset: 0;
 
-        background: url("../assets/images/vinhoMenu.png")
+        background: url("../assets/images/vinhoMenu.webp")
           center / cover no-repeat;
 
         filter: blur(6px);
@@ -113,7 +116,7 @@
         </div>
       </div>
     </header>
-
+    <main>
     <section class="hero-page">
       <div class="hero-content container reveal">
         <span class="hero-eyebrow">Fale conosco</span>
@@ -307,7 +310,7 @@
         </div>
       </div>
     </section>
-
+    </main>
     <footer class="footer reveal">
       <div class="container">
         <div class="footer-inner">

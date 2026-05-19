@@ -203,7 +203,6 @@ img {
 .hero {
   height: 100vh;
   min-height: 680px;
-  background: url("../assets/images/hero-home.jpg") center / cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;
@@ -302,7 +301,7 @@ img {
   content: "";
   position: absolute;
   inset: -30px;
-  background: url("../assets/images/vinhoMenu.png") center / cover no-repeat;
+  background: url("../assets/images/hero-home.webp") center / cover no-repeat;
   filter: blur(5px);
   z-index: 0;
 }
@@ -477,7 +476,7 @@ img {
   content: "";
   position: absolute;
   inset: -30px;
-  background: url("../assets/images/vinhoMenu.png") center / cover no-repeat;
+  background: url("../assets/images/hero-home.webp") center / cover no-repeat;
   filter: blur(5px);
   z-index: 0;
 }
