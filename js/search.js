@@ -245,8 +245,11 @@
 
     function posiciona() {
       const rc = (containerEl || inputEl).getBoundingClientRect();
-      sBox.style.top = rc.bottom + 4 + "px";
-      sBox.style.left = rc.left + "px";
+      const vv = window.visualViewport;
+      const vvTop = vv ? vv.offsetTop : 0;
+      const vvLft = vv ? vv.offsetLeft : 0;
+      sBox.style.top = rc.bottom + 4 + vvTop + "px";
+      sBox.style.left = rc.left + vvLft + "px";
       sBox.style.width = rc.width + "px";
     }
 
@@ -329,20 +332,13 @@
       if (e.key === "Escape") fecha();
     });
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (sBox.classList.contains("active")) posiciona();
-      },
-      { passive: true },
-    );
-    window.addEventListener(
-      "resize",
-      () => {
-        if (sBox.classList.contains("active")) posiciona();
-      },
-      { passive: true },
-    );
+    window.addEventListener('scroll', () => { if (sBox.classList.contains('active')) posiciona(); }, { passive: true });
+    window.addEventListener('resize', () => { if (sBox.classList.contains('active')) posiciona(); }, { passive: true });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => { if (sBox.classList.contains('active')) posiciona(); });
+      window.visualViewport.addEventListener('scroll', () => { if (sBox.classList.contains('active')) posiciona(); });
+    }
+    
     document.addEventListener("click", (e) => {
       if (e.target !== inputEl && !sBox.contains(e.target)) fecha();
     });

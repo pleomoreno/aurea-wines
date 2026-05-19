@@ -2260,3 +2260,11 @@ img {
     text-align: center;
   }
 }
+/* Previne zoom automático do iOS ao focar inputs */
+@media (max-width: 768px) {
+  #heroSearchInput,
+  #mobileSearchInput,
+  #searchInput {
+    font-size: 16px !important;
+  }
+}
