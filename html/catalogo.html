@@ -428,7 +428,7 @@
                     ? `<button class="btn-outline add-to-cart"
                        data-name="${esc(p.title)}" data-price="${p.price}"
                        data-variant-id="${p.variantId}" data-image="${p.image}"
-                       onclick="event.preventDefault();event.stopPropagation();">
+                       onclick="event.preventDefault();event.stopPropagation();addToCartBtn(this);">
                        Adicionar à Sacola
                      </button>`
                     : `<div style="display:flex;flex-direction:column;gap:8px;width:100%;">
