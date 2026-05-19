@@ -73,6 +73,7 @@
   const overlay = document.createElement("div");
   overlay.className = "mobile-nav-overlay";
   overlay.setAttribute("aria-hidden", "true");
+  overlay.setAttribute("inert", "");
   overlay.innerHTML = `
     <div class="mobile-nav-drawer">
       <div class="mobile-nav-top">
@@ -109,6 +110,7 @@
   function openMenu() {
     overlay.classList.add("active");
     overlay.setAttribute("aria-hidden", "false");
+    overlay.removeAttribute("inert");
     hamburger.classList.add("open");
     document.body.style.overflow = "hidden";
   }
@@ -116,6 +118,7 @@
   function closeMenu() {
     overlay.classList.remove("active");
     overlay.setAttribute("aria-hidden", "true");
+    overlay.setAttribute('inert', '');
     hamburger.classList.remove("open");
     document.body.style.overflow = "";
   }
