@@ -186,7 +186,7 @@
       .search-suggestions-box {
         display: none;
         position: fixed;
-        z-index: 9999;
+        z-index: 2147483647;
         font-family: inherit;
         background: var(--color-black-soft, #1a1a1a);
         border: 1px solid rgba(255,255,255,0.1);
@@ -338,7 +338,7 @@
       window.visualViewport.addEventListener('resize', () => { if (sBox.classList.contains('active')) posiciona(); });
       window.visualViewport.addEventListener('scroll', () => { if (sBox.classList.contains('active')) posiciona(); });
     }
-    
+
     document.addEventListener("click", (e) => {
       if (e.target !== inputEl && !sBox.contains(e.target)) fecha();
     });
