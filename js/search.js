@@ -295,7 +295,7 @@
           fecha();
           return;
         }
-
+        posiciona();
         sBox.innerHTML = prods
           .map(
             (p) => `
@@ -333,7 +333,6 @@
           )
           .join("");
 
-        posiciona();
         sBox.classList.add("active");
       }, 280);
     });
