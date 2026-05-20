@@ -7,13 +7,25 @@
     <link rel="icon" type="image/png" href="../assets/images/Logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://aurea-wines-2.myshopify.com" crossorigin>
-    <link rel="preload" as="style"
+    <link
+      rel="preconnect"
+      href="https://aurea-wines-2.myshopify.com"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
-      onload="this.onload=null;this.rel='stylesheet'">
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
     <noscript>
-      <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap">
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+      />
     </noscript>
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/variables.css" />
@@ -43,7 +55,8 @@
         position: absolute;
         inset: 0;
 
-        background: url("../assets/images/vinhoMenu.webp") center / cover no-repeat;
+        background: url("../assets/images/vinhoMenu.webp") center / cover
+          no-repeat;
 
         filter: blur(8px);
         transform: scale(1.08);
@@ -202,134 +215,136 @@
       </div>
     </header>
     <main>
-    <!-- HERO COMPACTO -->
-    <div class="hero-catalogo-compact">
-      <div class="hero-inner">
-        <span class="hero-eyebrow">Nossa coleção</span>
-        <h1>Catálogo Completo</h1>
-      </div>
-    </div>
-
-    <!-- CATÁLOGO -->
-    <section class="catalogo-section" id="catalogo">
-      <div class="container">
-        <!-- Aviso demo -->
-        <div class="config-notice" id="configNotice">
-          <strong>Modo demonstração:</strong> Configure <code>domain</code> e
-          <code>publicToken</code> em <code>js/shopify.js</code> para carregar
-          seus produtos reais do Shopify.
+      <!-- HERO COMPACTO -->
+      <div class="hero-catalogo-compact">
+        <div class="hero-inner">
+          <span class="hero-eyebrow">Nossa coleção</span>
+          <h1>Catálogo Completo</h1>
         </div>
+      </div>
 
-        <!-- Toolbar -->
-        <div class="catalogo-toolbar reveal" style="gap: 16px">
-          <!-- Filtros -->
-          <div class="catalogo-filters" id="filters" style="flex-wrap: wrap">
-            <button class="filter-btn active" data-type="todos">Todos</button>
-            <button class="filter-btn" data-type="Vinho Tinto">
-              Vinho Tinto
-            </button>
-            <button class="filter-btn" data-type="Vinho Branco">
-              Vinho Branco
-            </button>
-            <button class="filter-btn" data-type="Vinho Rosé">
-              Vinho Rosé
-            </button>
-            <button class="filter-btn" data-type="Vinagre">Vinagre</button>
-            <button class="filter-btn" data-type="Azeite">Azeite</button>
+      <!-- CATÁLOGO -->
+      <section class="catalogo-section" id="catalogo">
+        <div class="container">
+          <!-- Aviso demo -->
+          <div class="config-notice" id="configNotice">
+            <strong>Modo demonstração:</strong> Configure <code>domain</code> e
+            <code>publicToken</code> em <code>js/shopify.js</code> para carregar
+            seus produtos reais do Shopify.
           </div>
 
-          <!-- Busca + Sort + Count -->
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              gap: 14px;
-              flex-wrap: wrap;
-            "
-          >
-            <!-- Busca inline -->
-            <div class="catalogo-search-input">
-              <svg
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-                stroke="var(--color-muted)"
-                fill="none"
-                stroke-width="2"
+          <!-- Toolbar -->
+          <div class="catalogo-toolbar reveal" style="gap: 16px">
+            <!-- Filtros -->
+            <div class="catalogo-filters" id="filters" style="flex-wrap: wrap">
+              <button class="filter-btn active" data-type="todos">Todos</button>
+              <button class="filter-btn" data-type="Vinho Tinto">
+                Vinho Tinto
+              </button>
+              <button class="filter-btn" data-type="Vinho Branco">
+                Vinho Branco
+              </button>
+              <button class="filter-btn" data-type="Vinho Rosé">
+                Vinho Rosé
+              </button>
+              <button class="filter-btn" data-type="Vinagre">Vinagre</button>
+              <button class="filter-btn" data-type="Azeite">Azeite</button>
+            </div>
+
+            <!-- Busca + Sort + Count -->
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                flex-wrap: wrap;
+              "
+            >
+              <!-- Busca inline -->
+              <div class="catalogo-search-input">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  stroke="var(--color-muted)"
+                  fill="none"
+                  stroke-width="2"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input
+                  type="text"
+                  id="inlineSearch"
+                  placeholder="Buscar produto..."
+                  autocomplete="off"
+                />
+              </div>
+
+              <span class="catalogo-count" id="productCount"
+                >Carregando...</span
               >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-              <input
-                type="text"
-                id="inlineSearch"
-                placeholder="Buscar produto..."
-                autocomplete="off"
-              />
-            </div>
 
-            <span class="catalogo-count" id="productCount">Carregando...</span>
-
-            <div class="catalogo-sort">
-              <label for="sortSelect">Ordenar:</label>
-              <select id="sortSelect">
-                <option value="default">Destaque</option>
-                <option value="price-asc">Menor preço</option>
-                <option value="price-desc">Maior preço</option>
-                <option value="name-asc">Nome (A–Z)</option>
-              </select>
+              <div class="catalogo-sort">
+                <label for="sortSelect">Ordenar:</label>
+                <select id="sortSelect">
+                  <option value="default">Destaque</option>
+                  <option value="price-asc">Menor preço</option>
+                  <option value="price-desc">Maior preço</option>
+                  <option value="name-asc">Nome (A–Z)</option>
+                </select>
+              </div>
             </div>
           </div>
+
+          <!-- Grid -->
+          <div class="catalogo-grid" id="productsGrid">
+            <!-- Skeletons -->
+            <div class="wine-skeleton">
+              <div class="skel-img"></div>
+              <div class="skel-content">
+                <div class="skel-line h2"></div>
+                <div class="skel-line h1"></div>
+                <div class="skel-line btn"></div>
+              </div>
+            </div>
+            <div class="wine-skeleton">
+              <div class="skel-img"></div>
+              <div class="skel-content">
+                <div class="skel-line h2"></div>
+                <div class="skel-line h1"></div>
+                <div class="skel-line btn"></div>
+              </div>
+            </div>
+            <div class="wine-skeleton">
+              <div class="skel-img"></div>
+              <div class="skel-content">
+                <div class="skel-line h2"></div>
+                <div class="skel-line h1"></div>
+                <div class="skel-line btn"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paginação -->
+          <div class="pagination" id="pagination"></div>
         </div>
+      </section>
 
-        <!-- Grid -->
-        <div class="catalogo-grid" id="productsGrid">
-          <!-- Skeletons -->
-          <div class="wine-skeleton">
-            <div class="skel-img"></div>
-            <div class="skel-content">
-              <div class="skel-line h2"></div>
-              <div class="skel-line h1"></div>
-              <div class="skel-line btn"></div>
-            </div>
-          </div>
-          <div class="wine-skeleton">
-            <div class="skel-img"></div>
-            <div class="skel-content">
-              <div class="skel-line h2"></div>
-              <div class="skel-line h1"></div>
-              <div class="skel-line btn"></div>
-            </div>
-          </div>
-          <div class="wine-skeleton">
-            <div class="skel-img"></div>
-            <div class="skel-content">
-              <div class="skel-line h2"></div>
-              <div class="skel-line h1"></div>
-              <div class="skel-line btn"></div>
-            </div>
-          </div>
+      <!-- CTA -->
+      <section class="cta reveal">
+        <div class="container">
+          <h3>Não encontrou o que procura?</h3>
+          <p>Nossos especialistas encontram o rótulo ideal para você.</p>
+          <a
+            href="https://wa.me/5511999031504?text=Olá!%20Preciso%20de%20ajuda%20para%20escolher%20um%20produto%20na%20Aurea%20Wines."
+            target="_blank"
+            class="btn-outline"
+          >
+            Fale conosco pelo WhatsApp
+          </a>
         </div>
-
-        <!-- Paginação -->
-        <div class="pagination" id="pagination"></div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta reveal">
-      <div class="container">
-        <h3>Não encontrou o que procura?</h3>
-        <p>Nossos especialistas encontram o rótulo ideal para você.</p>
-        <a
-          href="https://wa.me/5511999031504?text=Olá!%20Preciso%20de%20ajuda%20para%20escolher%20um%20produto%20na%20Aurea%20Wines."
-          target="_blank"
-          class="btn-outline"
-        >
-          Fale conosco pelo WhatsApp
-        </a>
-      </div>
-    </section>
+      </section>
     </main>
     <!-- FOOTER -->
     <footer class="footer reveal">
@@ -378,7 +393,7 @@
     <script src="../js/mobile-nav.js" defer></script>
     <script src="../js/animation-scroll.js" defer></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener("DOMContentLoaded", function () {
         (function () {
           const PER_PAGE = 45;
           const grid = document.getElementById("productsGrid");
@@ -395,8 +410,6 @@
           let activeFilter = "todos";
           let activeSort = "default";
           let searchQuery = "";
-
-          // ── Monta card sem descrição ─────────────────
           function buildCard(p) {
             const hasCompare = p.compareAtPrice > p.price;
             return `
@@ -429,7 +442,7 @@
                     p.available
                       ? `<button class="btn-outline add-to-cart"
                         data-name="${esc(p.title)}" data-price="${p.price}"
-                        data-variant-id="${p.variantId}" data-image="${p.image}"
+                        data-variant-id="${p.variantId}" data-image="${p.image}" data-handle="${p.handle}"
                         onclick="event.preventDefault();event.stopPropagation();addToCartBtn(this);">
                         Adicionar à Sacola
                       </button>`
@@ -460,8 +473,6 @@
           function esc(s) {
             return s.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
           }
-
-          // ── Aplica filtro + busca + sort ─────────────
           function applyFilters() {
             filtered =
               activeFilter === "todos"
@@ -512,7 +523,9 @@
                   const byHandle = Object.fromEntries(
                     products.map((p) => [p.handle, p]),
                   );
-                  const restored = saved.map((h) => byHandle[h]).filter(Boolean);
+                  const restored = saved
+                    .map((h) => byHandle[h])
+                    .filter(Boolean);
 
                   const savedSet = new Set(saved);
                   const novos = products.filter((p) => !savedSet.has(p.handle));
@@ -569,7 +582,9 @@
                 filtered.sort((a, b) => b.price - a.price);
                 break;
               case "name-asc":
-                filtered.sort((a, b) => a.title.localeCompare(b.title, "pt-BR"));
+                filtered.sort((a, b) =>
+                  a.title.localeCompare(b.title, "pt-BR"),
+                );
                 break;
             }
 

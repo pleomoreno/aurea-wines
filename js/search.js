@@ -35,6 +35,12 @@
   const overlay = document.getElementById("searchOverlay");
   const closeBtn = document.getElementById("searchClose");
 
+  function resolvePath(filename) {
+    if (window.location.pathname.includes("/html/")) return filename;
+    if (filename === "index.html") return "/";
+    return "/" + filename.replace(".html", "");
+  }
+
   // === ABRIR / FECHAR ===
   function openSearch() {
     modal.classList.add("active");
@@ -113,8 +119,7 @@
 
   function showResults(products) {
     if (!results) return;
-    const root = isRoot();
-    const catalogPath = root ? "pages/catalogo.html" : "catalogo.html";
+    const catalogPath = resolvePath("catalogo.html");
 
     results.innerHTML = `
       <p class="search-count">${products.length} resultado${products.length !== 1 ? "s" : ""} encontrado${products.length !== 1 ? "s" : ""}</p>
@@ -242,11 +247,10 @@
   window.attachSuggestions = function (inputEl, containerEl) {
     if (!inputEl) return;
 
-    // Resolve caminho igual ao mobile-nav.js
     function resolvePath(filename) {
-      return window.location.pathname.includes("/html/")
-        ? filename
-        : "/html/" + filename;
+      if (window.location.pathname.includes("/html/")) return filename;
+      if (filename === "index.html") return "/";
+      return "/" + filename.replace(".html", "");
     }
 
     const sBox = document.createElement("div");

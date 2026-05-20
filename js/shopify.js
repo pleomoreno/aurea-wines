@@ -35,7 +35,7 @@ async function shopifyFetch(query, variables = {}) {
   return json.data;
 }
 
-// ── Buscar página de produtos (cursor-based) ───
+// ── Buscar página de produtos ───
 async function fetchProductsPage(first = 45, after = null) {
   if (!isShopifyConfigured()) throw new Error('não configurado');
 

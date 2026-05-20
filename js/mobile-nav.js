@@ -1,17 +1,12 @@
-// ================================
-// AUREA WINES — NAVEGAÇÃO MOBILE
-// ================================
-
 (function () {
   const header = document.querySelector(".header-content");
   if (!header) return;
 
   // ── Path helper ───────────────────────────────
-  // Se a URL contém /html/, usa caminhos relativos.
-  // Se está na raiz (ex: rewrite do Netlify), usa /html/ absoluto.
   function href(filename) {
     if (window.location.pathname.includes("/html/")) return filename;
-    return "/html/" + filename;
+    if (filename === "index.html") return "/";
+    return "/" + filename.replace(".html", "");
   }
 
   const LINKS = [
@@ -31,7 +26,7 @@
   hamburger.innerHTML = `<span></span><span></span><span></span>`;
   header.appendChild(hamburger);
 
-  // ── 2. Barra de pesquisa (linha 2 do header) ──
+  // ── 2. Barra de pesquisa ──
   const searchRow = document.createElement("div");
   searchRow.className = "mobile-header-search";
   searchRow.innerHTML = `
@@ -48,17 +43,16 @@
     </div>`;
   header.appendChild(searchRow);
 
-  // Sugestões no mobile (chama após o elemento existir no DOM)
+  // Sugestões no mobile
   requestAnimationFrame(() => {
     if (typeof window.attachSuggestions === "function") {
       window.attachSuggestions(
         document.getElementById("mobileSearchInput"),
-        searchRow, // container inteiro da barra mobile
+        searchRow,
       );
     }
   });
 
-  // Enter na busca → vai pro catálogo
   document
     .getElementById("mobileSearchInput")
     ?.addEventListener("keydown", (e) => {

@@ -289,8 +289,6 @@
         ?.addEventListener("keydown", (e) => {
           if (e.key === "Enter") heroSearchGo();
         });
-
-      // Destaques: busca produtos e escolhe 1 aleatório por tipo
       (async function loadDestaques() {
         const grid = document.getElementById("destaquesGrid");
 
@@ -306,8 +304,6 @@
         function pick(arr) {
           return arr[Math.floor(Math.random() * arr.length)];
         }
-
-        // Tipos exibidos nos destaques — um aleatório de cada
         const TIPOS_DESTAQUE = ["Vinho Tinto", "Vinho Branco", "Vinho Rosé"];
 
         let todos;
@@ -321,8 +317,6 @@
         } catch (_) {
           todos = DEMO_PRODUCTS;
         }
-
-        // Agrupa disponíveis por tipo e sorteia 1 de cada
         const byType = {};
         todos
           .filter((p) => p.available && p.productType)
@@ -362,8 +356,11 @@
             }
             <div class="wine-actions" style="display:flex;justify-content:flex-end;margin-top:8px;">
               <button class="cart-icon-btn"
-                data-name="${esc(p.title)}" data-price="${p.price}"
-                data-variant-id="${p.variantId}" data-image="${p.image}"
+                data-name="${esc(p.title)}"
+                data-price="${p.price}"
+                data-variant-id="${p.variantId}"
+                data-image="${p.image}"
+                data-handle="${p.handle}"
                 onclick="event.preventDefault();event.stopPropagation();addToCartBtn(this);"
                 aria-label="Adicionar à sacola">
                 <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
@@ -386,12 +383,10 @@
           }),
         );
       })();
-
-      // Sugestões do hero
       if (typeof window.attachSuggestions === "function") {
         window.attachSuggestions(
           document.getElementById("heroSearchInput"),
-          document.querySelector(".hero-search"), // inclui o botão "Buscar"
+          document.querySelector(".hero-search"),
         );
       }
       });
