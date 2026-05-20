@@ -1,13 +1,11 @@
 [build]
   publish = "."
 
-# Redireciona a raiz para o index dentro de html/
 [[redirects]]
   from = "/"
   to = "/html/index.html"
   status = 200
 
-# Garante que navegação entre páginas funcione direto pela URL
 [[redirects]]
   from = "/catalogo"
   to = "/html/catalogo.html"
