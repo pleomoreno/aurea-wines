@@ -378,339 +378,341 @@
     <script src="../js/mobile-nav.js" defer></script>
     <script src="../js/animation-scroll.js" defer></script>
     <script>
-      (function () {
-        const PER_PAGE = 45;
-        const grid = document.getElementById("productsGrid");
-        const countEl = document.getElementById("productCount");
-        const paginationEl = document.getElementById("pagination");
-        const configNotice = document.getElementById("configNotice");
-        const sortSelect = document.getElementById("sortSelect");
-        const filterBtns = document.querySelectorAll(".filter-btn");
-        const searchInput = document.getElementById("inlineSearch");
+      document.addEventListener('DOMContentLoaded', function () {
+        (function () {
+          const PER_PAGE = 45;
+          const grid = document.getElementById("productsGrid");
+          const countEl = document.getElementById("productCount");
+          const paginationEl = document.getElementById("pagination");
+          const configNotice = document.getElementById("configNotice");
+          const sortSelect = document.getElementById("sortSelect");
+          const filterBtns = document.querySelectorAll(".filter-btn");
+          const searchInput = document.getElementById("inlineSearch");
 
-        let allProducts = [];
-        let filtered = [];
-        let currentPage = 1;
-        let activeFilter = "todos";
-        let activeSort = "default";
-        let searchQuery = "";
+          let allProducts = [];
+          let filtered = [];
+          let currentPage = 1;
+          let activeFilter = "todos";
+          let activeSort = "default";
+          let searchQuery = "";
 
-        // ── Monta card sem descrição ─────────────────
-        function buildCard(p) {
-          const hasCompare = p.compareAtPrice > p.price;
-          return `
-        <a class="wine-card-link" href="produto.html?handle=${p.handle}">
-          <div class="wine-card">
-            <div class="wine-img">
-              ${
-                p.image
-                  ? `<img src="${p.image}" alt="${p.imageAlt}" loading="lazy" />`
-                  : `<svg viewBox="0 0 24 24" width="64" height="64" stroke="rgba(170,170,170,.15)" fill="none" stroke-width=".8"><path d="M6 8h12l-1.5 12h-9L6 8z"/></svg>`
-              }
-            </div>
-            <div class="wine-content">
-              ${p.productType ? `<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--color-gold);opacity:.7;">${p.productType}</span>` : ""}
-              <h4>${p.title}</h4>
-              <div style="display:flex;align-items:baseline;gap:10px;">
-                <span class="wine-price">${fmtBRL(p.price)}</span>
-                ${hasCompare ? `<span class="wine-price-compare">${fmtBRL(p.compareAtPrice)}</span>` : ""}
-              </div>
-              ${
-                p.tags.length
-                  ? `<div class="wine-tags">${p.tags
-                      .slice(0, 3)
-                      .map((t) => `<span>${t}</span>`)
-                      .join("")}</div>`
-                  : ""
-              }
-              <div class="wine-actions">
+          // ── Monta card sem descrição ─────────────────
+          function buildCard(p) {
+            const hasCompare = p.compareAtPrice > p.price;
+            return `
+          <a class="wine-card-link" href="produto.html?handle=${p.handle}">
+            <div class="wine-card">
+              <div class="wine-img">
                 ${
-                  p.available
-                    ? `<button class="btn-outline add-to-cart"
-                       data-name="${esc(p.title)}" data-price="${p.price}"
-                       data-variant-id="${p.variantId}" data-image="${p.image}"
-                       onclick="event.preventDefault();event.stopPropagation();addToCartBtn(this);">
-                       Adicionar à Sacola
-                     </button>`
-                    : `<div style="display:flex;flex-direction:column;gap:8px;width:100%;">
-                       <span style="display:inline-block;text-align:center;padding:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;border:1px solid rgba(255,255,255,0.1);border-radius:2px;background:rgba(255,255,255,0.03);">
-                         ✕ &nbsp;Esgotado
-                       </span>
-                       <a href="https://wa.me/5511999031504?text=Olá!%20Tenho%20interesse%20no%20produto%20*${encodeURIComponent(p.title)}*%20da%20Aurea%20Wines.%20Ele%20voltará%20ao%20estoque%3F"
-                          target="_blank"
-                          onclick="event.stopPropagation();"
-                          style="font-size:11px;letter-spacing:1px;text-align:center;color:var(--color-gold);text-transform:uppercase;padding:4px 0;">
-                          Avisar quando chegar →
-                       </a>
-                     </div>`
+                  p.image
+                    ? `<img src="${p.image}" alt="${p.imageAlt}" loading="lazy" />`
+                    : `<svg viewBox="0 0 24 24" width="64" height="64" stroke="rgba(170,170,170,.15)" fill="none" stroke-width=".8"><path d="M6 8h12l-1.5 12h-9L6 8z"/></svg>`
                 }
               </div>
+              <div class="wine-content">
+                ${p.productType ? `<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--color-gold);opacity:.7;">${p.productType}</span>` : ""}
+                <h4>${p.title}</h4>
+                <div style="display:flex;align-items:baseline;gap:10px;">
+                  <span class="wine-price">${fmtBRL(p.price)}</span>
+                  ${hasCompare ? `<span class="wine-price-compare">${fmtBRL(p.compareAtPrice)}</span>` : ""}
+                </div>
+                ${
+                  p.tags.length
+                    ? `<div class="wine-tags">${p.tags
+                        .slice(0, 3)
+                        .map((t) => `<span>${t}</span>`)
+                        .join("")}</div>`
+                    : ""
+                }
+                <div class="wine-actions">
+                  ${
+                    p.available
+                      ? `<button class="btn-outline add-to-cart"
+                        data-name="${esc(p.title)}" data-price="${p.price}"
+                        data-variant-id="${p.variantId}" data-image="${p.image}"
+                        onclick="event.preventDefault();event.stopPropagation();addToCartBtn(this);">
+                        Adicionar à Sacola
+                      </button>`
+                      : `<div style="display:flex;flex-direction:column;gap:8px;width:100%;">
+                        <span style="display:inline-block;text-align:center;padding:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;border:1px solid rgba(255,255,255,0.1);border-radius:2px;background:rgba(255,255,255,0.03);">
+                          ✕ &nbsp;Esgotado
+                        </span>
+                        <a href="https://wa.me/5511999031504?text=Olá!%20Tenho%20interesse%20no%20produto%20*${encodeURIComponent(p.title)}*%20da%20Aurea%20Wines.%20Ele%20voltará%20ao%20estoque%3F"
+                            target="_blank"
+                            onclick="event.stopPropagation();"
+                            style="font-size:11px;letter-spacing:1px;text-align:center;color:var(--color-gold);text-transform:uppercase;padding:4px 0;">
+                            Avisar quando chegar →
+                        </a>
+                      </div>`
+                  }
+                </div>
+              </div>
             </div>
-          </div>
-        </a>`;
-        }
-
-        function fmtBRL(v) {
-          return parseFloat(v).toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          });
-        }
-        function esc(s) {
-          return s.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-        }
-
-        // ── Aplica filtro + busca + sort ─────────────
-        function applyFilters() {
-          filtered =
-            activeFilter === "todos"
-              ? [...allProducts]
-              : allProducts.filter((p) => p.productType === activeFilter);
-
-          if (searchQuery) {
-            const q = searchQuery.toLowerCase();
-            filtered = filtered.filter(
-              (p) =>
-                p.title.toLowerCase().includes(q) ||
-                p.productType.toLowerCase().includes(q) ||
-                p.tags.some((t) => t.toLowerCase().includes(q)),
-            );
+          </a>`;
           }
 
-          // ── Ordem cíclica estável ────────────────────
+          function fmtBRL(v) {
+            return parseFloat(v).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            });
+          }
+          function esc(s) {
+            return s.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+          }
 
-          const CICLO = [
-            "Vinho Tinto",
-            "Tinto",
-            "Vinho Branco",
-            "Branco",
-            "Vinho Rosé",
-            "Rosé",
-            "Espumante",
-            "Azeite",
-            "Vinagre",
-          ];
+          // ── Aplica filtro + busca + sort ─────────────
+          function applyFilters() {
+            filtered =
+              activeFilter === "todos"
+                ? [...allProducts]
+                : allProducts.filter((p) => p.productType === activeFilter);
 
-          function shuffle(arr) {
-            const a = [...arr];
-            for (let i = a.length - 1; i > 0; i--) {
-              const j = Math.floor(Math.random() * (i + 1));
-              [a[i], a[j]] = [a[j], a[i]];
+            if (searchQuery) {
+              const q = searchQuery.toLowerCase();
+              filtered = filtered.filter(
+                (p) =>
+                  p.title.toLowerCase().includes(q) ||
+                  p.productType.toLowerCase().includes(q) ||
+                  p.tags.some((t) => t.toLowerCase().includes(q)),
+              );
             }
-            return a;
+
+            // ── Ordem cíclica estável ────────────────────
+
+            const CICLO = [
+              "Vinho Tinto",
+              "Tinto",
+              "Vinho Branco",
+              "Branco",
+              "Vinho Rosé",
+              "Rosé",
+              "Espumante",
+              "Azeite",
+              "Vinagre",
+            ];
+
+            function shuffle(arr) {
+              const a = [...arr];
+              for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+              }
+              return a;
+            }
+
+            function buildCyclicOrder(products) {
+              const STORAGE_KEY = "aurea_catalog_order_v3";
+
+              try {
+                const saved = JSON.parse(
+                  localStorage.getItem(STORAGE_KEY) || "null",
+                );
+                if (Array.isArray(saved) && saved.length) {
+                  const byHandle = Object.fromEntries(
+                    products.map((p) => [p.handle, p]),
+                  );
+                  const restored = saved.map((h) => byHandle[h]).filter(Boolean);
+
+                  const savedSet = new Set(saved);
+                  const novos = products.filter((p) => !savedSet.has(p.handle));
+                  return [...restored, ...novos];
+                }
+              } catch (_) {}
+
+              const byType = {};
+              products.forEach((p) => {
+                const t = p.productType || "_outros";
+                if (!byType[t]) byType[t] = [];
+                byType[t].push(p);
+              });
+
+              Object.keys(byType).forEach((t) => {
+                byType[t] = shuffle(byType[t]);
+              });
+
+              const tiposNoCiclo = CICLO.filter((t) => byType[t]?.length);
+              const tiposExtras = Object.keys(byType).filter(
+                (t) => !CICLO.includes(t) && byType[t]?.length,
+              );
+              const tiposOrdem = [...tiposNoCiclo, ...tiposExtras];
+
+              const ordered = [];
+              const maxLen = Math.max(
+                ...tiposOrdem.map((t) => byType[t].length),
+                0,
+              );
+              for (let i = 0; i < maxLen; i++) {
+                for (const t of tiposOrdem) {
+                  if (byType[t]?.[i]) ordered.push(byType[t][i]);
+                }
+              }
+
+              localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(ordered.map((p) => p.handle)),
+              );
+
+              return ordered;
+            }
+
+            switch (activeSort) {
+              case "default":
+                if (activeFilter === "todos") {
+                  filtered = buildCyclicOrder(filtered);
+                }
+                break;
+              case "price-asc":
+                filtered.sort((a, b) => a.price - b.price);
+                break;
+              case "price-desc":
+                filtered.sort((a, b) => b.price - a.price);
+                break;
+              case "name-asc":
+                filtered.sort((a, b) => a.title.localeCompare(b.title, "pt-BR"));
+                break;
+            }
+
+            currentPage = 1;
+            renderPage();
           }
 
-          function buildCyclicOrder(products) {
-            const STORAGE_KEY = "aurea_catalog_order_v3";
+          // ── Renderiza página atual ───────────────────
+          function renderPage() {
+            const start = (currentPage - 1) * PER_PAGE;
+            const slice = filtered.slice(start, start + PER_PAGE);
+            const total = filtered.length;
+            const pages = Math.ceil(total / PER_PAGE);
+
+            if (!total) {
+              grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 0;color:var(--color-muted);">
+            <p>Nenhum produto encontrado.</p>
+            <button class="btn-outline btn-sm" style="margin-top:16px;" onclick="clearFilters()">Limpar filtros</button>
+          </div>`;
+              paginationEl.innerHTML = "";
+              countEl.textContent = "0 produtos";
+              return;
+            }
+
+            grid.innerHTML = slice.map(buildCard).join("");
+            countEl.textContent = `${total} produto${total !== 1 ? "s" : ""}`;
+
+            requestAnimationFrame(() => {
+              grid.querySelectorAll(".wine-card").forEach((el, i) => {
+                setTimeout(() => el.classList.add("active"), i * 40);
+                el.style.opacity = "0";
+                el.style.transform = "translateY(32px)";
+                el.style.transition = "opacity .5s ease, transform .5s ease";
+                requestAnimationFrame(() =>
+                  requestAnimationFrame(() => {
+                    el.style.opacity = "1";
+                    el.style.transform = "translateY(0)";
+                  }),
+                );
+              });
+            });
+
+            renderPagination(pages);
+          }
+
+          // ── Paginação ────────────────────────────────
+          function renderPagination(pages) {
+            if (pages <= 1) {
+              paginationEl.innerHTML = "";
+              return;
+            }
+
+            let html = "";
+            html += `<button class="page-btn wide" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? "disabled" : ""}>‹ Anterior</button>`;
+
+            const delta = 2;
+            let shown = new Set([1, pages]);
+            for (
+              let i = Math.max(2, currentPage - delta);
+              i <= Math.min(pages - 1, currentPage + delta);
+              i++
+            )
+              shown.add(i);
+            const sorted = [...shown].sort((a, b) => a - b);
+
+            let prev = 0;
+            for (const p of sorted) {
+              if (p - prev > 1) html += `<span class="page-ellipsis">…</span>`;
+              html += `<button class="page-btn ${p === currentPage ? "active" : ""}" onclick="goPage(${p})">${p}</button>`;
+              prev = p;
+            }
+
+            html += `<button class="page-btn wide" onclick="goPage(${currentPage + 1})" ${currentPage === pages ? "disabled" : ""}>Próximo ›</button>`;
+            paginationEl.innerHTML = html;
+          }
+
+          window.goPage = function (p) {
+            const pages = Math.ceil(filtered.length / PER_PAGE);
+            if (p < 1 || p > pages) return;
+            currentPage = p;
+            renderPage();
+          };
+
+          window.clearFilters = function () {
+            filterBtns.forEach((b) => b.classList.remove("active"));
+            document
+              .querySelector('.filter-btn[data-type="todos"]')
+              ?.classList.add("active");
+            activeFilter = "todos";
+            searchInput.value = "";
+            searchQuery = "";
+            applyFilters();
+          };
+
+          // ── Carrega produtos ─────────────────────────
+          async function load() {
+            const urlQ = new URLSearchParams(window.location.search).get("q");
+            if (urlQ && searchInput) {
+              searchInput.value = urlQ;
+              searchQuery = urlQ;
+            }
 
             try {
-              const saved = JSON.parse(
-                localStorage.getItem(STORAGE_KEY) || "null",
-              );
-              if (Array.isArray(saved) && saved.length) {
-                const byHandle = Object.fromEntries(
-                  products.map((p) => [p.handle, p]),
-                );
-                const restored = saved.map((h) => byHandle[h]).filter(Boolean);
-
-                const savedSet = new Set(saved);
-                const novos = products.filter((p) => !savedSet.has(p.handle));
-                return [...restored, ...novos];
+              if (isShopifyConfigured()) {
+                const raw = await fetchAllProductsComplete();
+                allProducts = raw.map(mapShopifyProduct);
+              } else {
+                throw new Error("demo");
               }
-            } catch (_) {}
-
-            const byType = {};
-            products.forEach((p) => {
-              const t = p.productType || "_outros";
-              if (!byType[t]) byType[t] = [];
-              byType[t].push(p);
-            });
-
-            Object.keys(byType).forEach((t) => {
-              byType[t] = shuffle(byType[t]);
-            });
-
-            const tiposNoCiclo = CICLO.filter((t) => byType[t]?.length);
-            const tiposExtras = Object.keys(byType).filter(
-              (t) => !CICLO.includes(t) && byType[t]?.length,
-            );
-            const tiposOrdem = [...tiposNoCiclo, ...tiposExtras];
-
-            const ordered = [];
-            const maxLen = Math.max(
-              ...tiposOrdem.map((t) => byType[t].length),
-              0,
-            );
-            for (let i = 0; i < maxLen; i++) {
-              for (const t of tiposOrdem) {
-                if (byType[t]?.[i]) ordered.push(byType[t][i]);
-              }
+            } catch (_) {
+              allProducts = DEMO_PRODUCTS;
+              if (configNotice) configNotice.classList.add("visible");
             }
-
-            localStorage.setItem(
-              STORAGE_KEY,
-              JSON.stringify(ordered.map((p) => p.handle)),
-            );
-
-            return ordered;
+            applyFilters();
           }
 
-          switch (activeSort) {
-            case "default":
-              if (activeFilter === "todos") {
-                filtered = buildCyclicOrder(filtered);
-              }
-              break;
-            case "price-asc":
-              filtered.sort((a, b) => a.price - b.price);
-              break;
-            case "price-desc":
-              filtered.sort((a, b) => b.price - a.price);
-              break;
-            case "name-asc":
-              filtered.sort((a, b) => a.title.localeCompare(b.title, "pt-BR"));
-              break;
-          }
+          // ── Eventos ──────────────────────────────────
+          filterBtns.forEach((btn) =>
+            btn.addEventListener("click", () => {
+              filterBtns.forEach((b) => b.classList.remove("active"));
+              btn.classList.add("active");
+              activeFilter = btn.dataset.type;
+              applyFilters();
+            }),
+          );
 
-          currentPage = 1;
-          renderPage();
-        }
-
-        // ── Renderiza página atual ───────────────────
-        function renderPage() {
-          const start = (currentPage - 1) * PER_PAGE;
-          const slice = filtered.slice(start, start + PER_PAGE);
-          const total = filtered.length;
-          const pages = Math.ceil(total / PER_PAGE);
-
-          if (!total) {
-            grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 0;color:var(--color-muted);">
-          <p>Nenhum produto encontrado.</p>
-          <button class="btn-outline btn-sm" style="margin-top:16px;" onclick="clearFilters()">Limpar filtros</button>
-        </div>`;
-            paginationEl.innerHTML = "";
-            countEl.textContent = "0 produtos";
-            return;
-          }
-
-          grid.innerHTML = slice.map(buildCard).join("");
-          countEl.textContent = `${total} produto${total !== 1 ? "s" : ""}`;
-
-          requestAnimationFrame(() => {
-            grid.querySelectorAll(".wine-card").forEach((el, i) => {
-              setTimeout(() => el.classList.add("active"), i * 40);
-              el.style.opacity = "0";
-              el.style.transform = "translateY(32px)";
-              el.style.transition = "opacity .5s ease, transform .5s ease";
-              requestAnimationFrame(() =>
-                requestAnimationFrame(() => {
-                  el.style.opacity = "1";
-                  el.style.transform = "translateY(0)";
-                }),
-              );
-            });
+          sortSelect?.addEventListener("change", () => {
+            activeSort = sortSelect.value;
+            applyFilters();
           });
 
-          renderPagination(pages);
-        }
+          let searchTimer;
+          searchInput?.addEventListener("input", () => {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => {
+              searchQuery = searchInput.value.trim();
+              applyFilters();
+            }, 300);
+          });
 
-        // ── Paginação ────────────────────────────────
-        function renderPagination(pages) {
-          if (pages <= 1) {
-            paginationEl.innerHTML = "";
-            return;
-          }
-
-          let html = "";
-          html += `<button class="page-btn wide" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? "disabled" : ""}>‹ Anterior</button>`;
-
-          const delta = 2;
-          let shown = new Set([1, pages]);
-          for (
-            let i = Math.max(2, currentPage - delta);
-            i <= Math.min(pages - 1, currentPage + delta);
-            i++
-          )
-            shown.add(i);
-          const sorted = [...shown].sort((a, b) => a - b);
-
-          let prev = 0;
-          for (const p of sorted) {
-            if (p - prev > 1) html += `<span class="page-ellipsis">…</span>`;
-            html += `<button class="page-btn ${p === currentPage ? "active" : ""}" onclick="goPage(${p})">${p}</button>`;
-            prev = p;
-          }
-
-          html += `<button class="page-btn wide" onclick="goPage(${currentPage + 1})" ${currentPage === pages ? "disabled" : ""}>Próximo ›</button>`;
-          paginationEl.innerHTML = html;
-        }
-
-        window.goPage = function (p) {
-          const pages = Math.ceil(filtered.length / PER_PAGE);
-          if (p < 1 || p > pages) return;
-          currentPage = p;
-          renderPage();
-        };
-
-        window.clearFilters = function () {
-          filterBtns.forEach((b) => b.classList.remove("active"));
-          document
-            .querySelector('.filter-btn[data-type="todos"]')
-            ?.classList.add("active");
-          activeFilter = "todos";
-          searchInput.value = "";
-          searchQuery = "";
-          applyFilters();
-        };
-
-        // ── Carrega produtos ─────────────────────────
-        async function load() {
-          const urlQ = new URLSearchParams(window.location.search).get("q");
-          if (urlQ && searchInput) {
-            searchInput.value = urlQ;
-            searchQuery = urlQ;
-          }
-
-          try {
-            if (isShopifyConfigured()) {
-              const raw = await fetchAllProductsComplete();
-              allProducts = raw.map(mapShopifyProduct);
-            } else {
-              throw new Error("demo");
-            }
-          } catch (_) {
-            allProducts = DEMO_PRODUCTS;
-            if (configNotice) configNotice.classList.add("visible");
-          }
-          applyFilters();
-        }
-
-        // ── Eventos ──────────────────────────────────
-        filterBtns.forEach((btn) =>
-          btn.addEventListener("click", () => {
-            filterBtns.forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-            activeFilter = btn.dataset.type;
-            applyFilters();
-          }),
-        );
-
-        sortSelect?.addEventListener("change", () => {
-          activeSort = sortSelect.value;
-          applyFilters();
-        });
-
-        let searchTimer;
-        searchInput?.addEventListener("input", () => {
-          clearTimeout(searchTimer);
-          searchTimer = setTimeout(() => {
-            searchQuery = searchInput.value.trim();
-            applyFilters();
-          }, 300);
-        });
-
-        load();
-      })();
+          load();
+        })();
+      });
     </script>
   </body>
 </html>

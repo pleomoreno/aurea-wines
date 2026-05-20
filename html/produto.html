@@ -488,320 +488,321 @@
       </div>
     </div>
 
-    <script src="../js/config.js" defer></script>
     <script src="../js/shopify.js" defer></script>
     <script src="../js/cart.js" defer></script>
     <script src="../js/search.js" defer></script>
     <script src="../js/mobile-nav.js" defer></script>
     <script src="../js/animation-scroll.js" defer></script>
     <script>
-      (async function () {
-        const container = document.getElementById("produtoContainer");
-        const handle = new URLSearchParams(window.location.search).get(
-          "handle",
-        );
-
-        if (!handle) {
-          renderError("Nenhum produto especificado.");
-          return;
-        }
-
-        // ── Carrega produto ──────────────────────────
-        let produto;
-        try {
-          if (isShopifyConfigured()) {
-            const raw = await fetchProductByHandle(handle);
-            if (!raw) throw new Error("não encontrado");
-            produto = mapShopifyProduct(raw);
-          } else {
-            produto = DEMO_PRODUCTS.find((p) => p.handle === handle);
-            if (!produto) throw new Error("não encontrado");
-          }
-        } catch (e) {
-          renderError(
-            'Produto não encontrado. <a href="catalogo.html" style="color:var(--color-gold);">Voltar ao catálogo</a>',
+      document.addEventListener('DOMContentLoaded', function () {
+        (async function () {
+          const container = document.getElementById("produtoContainer");
+          const handle = new URLSearchParams(window.location.search).get(
+            "handle",
           );
-          return;
-        }
 
-        // Atualiza título da aba
-        document.title = `${produto.title} — Aurea Wines`;
+          if (!handle) {
+            renderError("Nenhum produto especificado.");
+            return;
+          }
 
-        // ── Variante selecionada ─────────────────────
-        let selectedVariant = produto.variants[0] || {
-          id: produto.variantId,
-          title: "Padrão",
-          availableForSale: produto.available,
-        };
-        let qty = 1;
-
-        // ── Render HTML ──────────────────────────────
-        container.innerHTML = `
-      <nav class="breadcrumb">
-        <a href="index.html">Início</a>
-        <span>›</span>
-        <a href="catalogo.html">Catálogo</a>
-        <span>›</span>
-        <strong>${produto.title}</strong>
-      </nav>
-
-      <div class="produto-grid">
-        <!-- Galeria -->
-        <div class="produto-gallery">
-          <div class="gallery-main" id="galleryMain">
-            ${
-              produto.image
-                ? `<img id="mainImg" src="${produto.image}" alt="${produto.imageAlt}" />`
-                : `<svg viewBox="0 0 24 24" width="80" height="80" stroke="rgba(170,170,170,.2)" fill="none" stroke-width=".8"><path d="M6 8h12l-1.5 12h-9L6 8z"/></svg>`
+          // ── Carrega produto ──────────────────────────
+          let produto;
+          try {
+            if (isShopifyConfigured()) {
+              const raw = await fetchProductByHandle(handle);
+              if (!raw) throw new Error("não encontrado");
+              produto = mapShopifyProduct(raw);
+            } else {
+              produto = DEMO_PRODUCTS.find((p) => p.handle === handle);
+              if (!produto) throw new Error("não encontrado");
             }
-          </div>
-          ${
-            produto.images.length > 1
-              ? `
-          <div class="gallery-thumbs">
-            ${produto.images
-              .map(
-                (img, i) => `
-              <div class="gallery-thumb ${i === 0 ? "active" : ""}" data-src="${img.url}" data-alt="${img.alt || produto.title}">
-                <img src="${img.url}" alt="${img.alt || produto.title}" loading="lazy" />
-              </div>`,
-              )
-              .join("")}
-          </div>`
-              : ""
-          }
-        </div>
-
-        <!-- Info -->
-        <div class="produto-info">
-          ${produto.productType ? `<span class="produto-type">${produto.productType}</span>` : ""}
-          <h1 class="produto-title">${produto.title}</h1>
-
-          <div class="produto-pricing">
-            <span class="produto-price" id="variantPrice">${fmtBRL(produto.price)}</span>
-            ${produto.compareAtPrice > produto.price ? `<span class="produto-compare">${fmtBRL(produto.compareAtPrice)}</span>` : ""}
-          </div>
-
-          ${
-            produto.tags.length
-              ? `
-          <div class="produto-tags">
-            ${produto.tags
-              .slice(0, 5)
-              .map((t) => `<span>${t}</span>`)
-              .join("")}
-          </div>`
-              : ""
+          } catch (e) {
+            renderError(
+              'Produto não encontrado. <a href="catalogo.html" style="color:var(--color-gold);">Voltar ao catálogo</a>',
+            );
+            return;
           }
 
-          <div class="produto-divider"></div>
+          // Atualiza título da aba
+          document.title = `${produto.title} — Aurea Wines`;
 
-          ${
-            produto.variants.length > 1
-              ? `
-          <div>
-            <p class="variantes-label">Opções</p>
-            <div class="variantes-btns" id="variantBtns">
-              ${produto.variants
-                .map(
-                  (v, i) => `
-                <button class="variante-btn ${i === 0 ? "active" : ""}"
-                  data-variant-id="${v.id}"
-                  data-price="${v.price?.amount || produto.price}"
-                  ${v.availableForSale ? "" : "disabled"}>
-                  ${v.title}${v.availableForSale ? "" : " (Esgotado)"}
-                </button>`,
-                )
-                .join("")}
-            </div>
-          </div>`
-              : ""
-          }
+          // ── Variante selecionada ─────────────────────
+          let selectedVariant = produto.variants[0] || {
+            id: produto.variantId,
+            title: "Padrão",
+            availableForSale: produto.available,
+          };
+          let qty = 1;
 
-          <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
-            <div class="qty-wrap" id="qtyBlock" ${produto.available ? "" : 'style="display:none;"'}>
-              <button id="qtyDec">−</button>
-              <input type="number" id="qtyInput" value="1" min="1" max="99" />
-              <button id="qtyInc">+</button>
-            </div>
-            <div class="produto-actions" style="flex:1;">
+          // ── Render HTML ──────────────────────────────
+          container.innerHTML = `
+        <nav class="breadcrumb">
+          <a href="index.html">Início</a>
+          <span>›</span>
+          <a href="catalogo.html">Catálogo</a>
+          <span>›</span>
+          <strong>${produto.title}</strong>
+        </nav>
+
+        <div class="produto-grid">
+          <!-- Galeria -->
+          <div class="produto-gallery">
+            <div class="gallery-main" id="galleryMain">
               ${
-                produto.available
-                  ? `<button id="addToCartBtn" class="btn-primary">Adicionar à Sacola</button>`
-                  : `<div style="display:flex;flex-direction:column;gap:10px;width:100%;">
-                     <div style="text-align:center;padding:14px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#888;border:1px solid rgba(255,255,255,0.1);border-radius:2px;">
-                       ✕ &nbsp;Produto Esgotado
-                     </div>
-                     <a href="https://wa.me/5511999031504?text=Olá!%20Tenho%20interesse%20no%20produto%20*${encodeURIComponent(produto.title)}*%20da%20Aurea%20Wines.%20Ele%20voltará%20ao%20estoque%3F"
-                        target="_blank" class="btn-outline" style="text-align:center;">
-                        Avisar quando chegar →
-                     </a>
-                   </div>`
+                produto.image
+                  ? `<img id="mainImg" src="${produto.image}" alt="${produto.imageAlt}" />`
+                  : `<svg viewBox="0 0 24 24" width="80" height="80" stroke="rgba(170,170,170,.2)" fill="none" stroke-width=".8"><path d="M6 8h12l-1.5 12h-9L6 8z"/></svg>`
               }
             </div>
+            ${
+              produto.images.length > 1
+                ? `
+            <div class="gallery-thumbs">
+              ${produto.images
+                .map(
+                  (img, i) => `
+                <div class="gallery-thumb ${i === 0 ? "active" : ""}" data-src="${img.url}" data-alt="${img.alt || produto.title}">
+                  <img src="${img.url}" alt="${img.alt || produto.title}" loading="lazy" />
+                </div>`,
+                )
+                .join("")}
+            </div>`
+                : ""
+            }
           </div>
 
-          <a href="https://wa.me/5511999031504?text=Olá!%20Tenho%20interesse%20no%20produto%20*${encodeURIComponent(produto.title)}*%20da%20Aurea%20Wines.%20Poderia%20me%20ajudar?"
-             target="_blank" class="btn-outline" style="text-align:center;">
-            Fale conosco pelo WhatsApp
-          </a>
+          <!-- Info -->
+          <div class="produto-info">
+            ${produto.productType ? `<span class="produto-type">${produto.productType}</span>` : ""}
+            <h1 class="produto-title">${produto.title}</h1>
 
-          <div class="produto-divider"></div>
+            <div class="produto-pricing">
+              <span class="produto-price" id="variantPrice">${fmtBRL(produto.price)}</span>
+              ${produto.compareAtPrice > produto.price ? `<span class="produto-compare">${fmtBRL(produto.compareAtPrice)}</span>` : ""}
+            </div>
 
-          ${
-            produto.description
-              ? `
-          <div class="produto-desc" id="descBlock">
-            ${produto.descriptionHtml || `<p>${produto.description}</p>`}
-          </div>`
-              : ""
-          }
+            ${
+              produto.tags.length
+                ? `
+            <div class="produto-tags">
+              ${produto.tags
+                .slice(0, 5)
+                .map((t) => `<span>${t}</span>`)
+                .join("")}
+            </div>`
+                : ""
+            }
 
-          <!-- Meta info -->
-          <div class="produto-meta">
-            <div class="produto-meta-item">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="1.8">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.41 18a19.5 19.5 0 0 1-5-5A19.79 19.79 0 0 1 3.09 4.18 2 2 0 0 1 5.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 5 5l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-              Pedido e pagamento finalizados pelo WhatsApp
+            <div class="produto-divider"></div>
+
+            ${
+              produto.variants.length > 1
+                ? `
+            <div>
+              <p class="variantes-label">Opções</p>
+              <div class="variantes-btns" id="variantBtns">
+                ${produto.variants
+                  .map(
+                    (v, i) => `
+                  <button class="variante-btn ${i === 0 ? "active" : ""}"
+                    data-variant-id="${v.id}"
+                    data-price="${v.price?.amount || produto.price}"
+                    ${v.availableForSale ? "" : "disabled"}>
+                    ${v.title}${v.availableForSale ? "" : " (Esgotado)"}
+                  </button>`,
+                  )
+                  .join("")}
+              </div>
+            </div>`
+                : ""
+            }
+
+            <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
+              <div class="qty-wrap" id="qtyBlock" ${produto.available ? "" : 'style="display:none;"'}>
+                <button id="qtyDec">−</button>
+                <input type="number" id="qtyInput" value="1" min="1" max="99" />
+                <button id="qtyInc">+</button>
+              </div>
+              <div class="produto-actions" style="flex:1;">
+                ${
+                  produto.available
+                    ? `<button id="addToCartBtn" class="btn-primary">Adicionar à Sacola</button>`
+                    : `<div style="display:flex;flex-direction:column;gap:10px;width:100%;">
+                      <div style="text-align:center;padding:14px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#888;border:1px solid rgba(255,255,255,0.1);border-radius:2px;">
+                        ✕ &nbsp;Produto Esgotado
+                      </div>
+                      <a href="https://wa.me/5511999031504?text=Olá!%20Tenho%20interesse%20no%20produto%20*${encodeURIComponent(produto.title)}*%20da%20Aurea%20Wines.%20Ele%20voltará%20ao%20estoque%3F"
+                          target="_blank" class="btn-outline" style="text-align:center;">
+                          Avisar quando chegar →
+                      </a>
+                    </div>`
+                }
+              </div>
             </div>
-            <div class="produto-meta-item">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="1.8">
-                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
-                <line x1="1" y1="10" x2="23" y2="10"/>
-              </svg>
-              PIX, transferência ou combinado diretamente com a Aurea Wines
-            </div>
-            <div class="produto-meta-item">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="1.8">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-              Frete calculado individualmente no WhatsApp
-            </div>
-            <div class="produto-meta-item">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="1.8">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-              </svg>
-              Curadoria exclusiva Aurea Wines
+
+            <a href="https://wa.me/5511999031504?text=Olá!%20Tenho%20interesse%20no%20produto%20*${encodeURIComponent(produto.title)}*%20da%20Aurea%20Wines.%20Poderia%20me%20ajudar?"
+              target="_blank" class="btn-outline" style="text-align:center;">
+              Fale conosco pelo WhatsApp
+            </a>
+
+            <div class="produto-divider"></div>
+
+            ${
+              produto.description
+                ? `
+            <div class="produto-desc" id="descBlock">
+              ${produto.descriptionHtml || `<p>${produto.description}</p>`}
+            </div>`
+                : ""
+            }
+
+            <!-- Meta info -->
+            <div class="produto-meta">
+              <div class="produto-meta-item">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="1.8">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.41 18a19.5 19.5 0 0 1-5-5A19.79 19.79 0 0 1 3.09 4.18 2 2 0 0 1 5.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 5 5l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                Pedido e pagamento finalizados pelo WhatsApp
+              </div>
+              <div class="produto-meta-item">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="1.8">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                  <line x1="1" y1="10" x2="23" y2="10"/>
+                </svg>
+                PIX, transferência ou combinado diretamente com a Aurea Wines
+              </div>
+              <div class="produto-meta-item">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="1.8">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+                Frete calculado individualmente no WhatsApp
+              </div>
+              <div class="produto-meta-item">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="1.8">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                Curadoria exclusiva Aurea Wines
+              </div>
             </div>
           </div>
-        </div>
-      </div>`;
+        </div>`;
 
-        // ── Galeria: troca imagem ────────────────────
-        document.querySelectorAll(".gallery-thumb").forEach((thumb) => {
-          thumb.addEventListener("click", () => {
-            document
-              .querySelectorAll(".gallery-thumb")
-              .forEach((t) => t.classList.remove("active"));
-            thumb.classList.add("active");
-            const mainImg = document.getElementById("mainImg");
-            if (mainImg) {
-              mainImg.src = thumb.dataset.src;
-              mainImg.alt = thumb.dataset.alt;
-            }
-          });
-        });
-
-        // ── Variantes ────────────────────────────────
-        document.querySelectorAll(".variante-btn").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            document
-              .querySelectorAll(".variante-btn")
-              .forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-            selectedVariant = {
-              id: btn.dataset.variantId,
-              price: { amount: btn.dataset.price },
-            };
-            const priceEl = document.getElementById("variantPrice");
-            if (priceEl)
-              priceEl.textContent = fmtBRL(parseFloat(btn.dataset.price));
-          });
-        });
-
-        // ── Quantidade ───────────────────────────────
-        const qtyInput = document.getElementById("qtyInput");
-        document.getElementById("qtyDec")?.addEventListener("click", () => {
-          if (parseInt(qtyInput.value) > 1)
-            qtyInput.value = parseInt(qtyInput.value) - 1;
-        });
-        document.getElementById("qtyInc")?.addEventListener("click", () => {
-          if (parseInt(qtyInput.value) < 99)
-            qtyInput.value = parseInt(qtyInput.value) + 1;
-        });
-
-        // ── Adicionar ao carrinho ────────────────────
-        document
-          .getElementById("addToCartBtn")
-          ?.addEventListener("click", () => {
-            qty = parseInt(qtyInput.value) || 1;
-            const price = parseFloat(
-              selectedVariant.price?.amount || produto.price,
-            );
-            for (let i = 0; i < qty; i++) {
-              window.addToCart({
-                name: produto.title,
-                price: price,
-                variantId: selectedVariant.id || produto.variantId,
-                image: produto.image,
-              });
-            }
-            // addToCart já abre o carrinho
+          // ── Galeria: troca imagem ────────────────────
+          document.querySelectorAll(".gallery-thumb").forEach((thumb) => {
+            thumb.addEventListener("click", () => {
+              document
+                .querySelectorAll(".gallery-thumb")
+                .forEach((t) => t.classList.remove("active"));
+              thumb.classList.add("active");
+              const mainImg = document.getElementById("mainImg");
+              if (mainImg) {
+                mainImg.src = thumb.dataset.src;
+                mainImg.alt = thumb.dataset.alt;
+              }
+            });
           });
 
-        // ── Produtos relacionados ────────────────────
-        try {
-          let todos = isShopifyConfigured()
-            ? (await fetchProductsPage(12)).products.map(mapShopifyProduct)
-            : DEMO_PRODUCTS;
+          // ── Variantes ────────────────────────────────
+          document.querySelectorAll(".variante-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              document
+                .querySelectorAll(".variante-btn")
+                .forEach((b) => b.classList.remove("active"));
+              btn.classList.add("active");
+              selectedVariant = {
+                id: btn.dataset.variantId,
+                price: { amount: btn.dataset.price },
+              };
+              const priceEl = document.getElementById("variantPrice");
+              if (priceEl)
+                priceEl.textContent = fmtBRL(parseFloat(btn.dataset.price));
+            });
+          });
 
-          const relacionados = todos
-            .filter((p) => p.handle !== handle)
-            .filter(
-              (p) =>
-                !produto.productType || p.productType === produto.productType,
-            )
-            .slice(0, 3);
+          // ── Quantidade ───────────────────────────────
+          const qtyInput = document.getElementById("qtyInput");
+          document.getElementById("qtyDec")?.addEventListener("click", () => {
+            if (parseInt(qtyInput.value) > 1)
+              qtyInput.value = parseInt(qtyInput.value) - 1;
+          });
+          document.getElementById("qtyInc")?.addEventListener("click", () => {
+            if (parseInt(qtyInput.value) < 99)
+              qtyInput.value = parseInt(qtyInput.value) + 1;
+          });
 
-          if (relacionados.length) {
-            const secRel = document.getElementById("relacionadosSection");
-            const gridRel = document.getElementById("relacionadosGrid");
-            secRel.style.display = "";
-            gridRel.innerHTML = relacionados
-              .map(
-                (p) => `
-          <a class="rel-card" href="produto.html?handle=${p.handle}">
-            <div class="rel-card-img">
-              ${p.image ? `<img src="${p.image}" alt="${p.imageAlt}" loading="lazy"/>` : ""}
-            </div>
-            <div class="rel-card-info">
-              <h4>${p.title}</h4>
-              <span>${fmtBRL(p.price)}</span>
-            </div>
-          </a>`,
+          // ── Adicionar ao carrinho ────────────────────
+          document
+            .getElementById("addToCartBtn")
+            ?.addEventListener("click", () => {
+              qty = parseInt(qtyInput.value) || 1;
+              const price = parseFloat(
+                selectedVariant.price?.amount || produto.price,
+              );
+              for (let i = 0; i < qty; i++) {
+                window.addToCart({
+                  name: produto.title,
+                  price: price,
+                  variantId: selectedVariant.id || produto.variantId,
+                  image: produto.image,
+                });
+              }
+              // addToCart já abre o carrinho
+            });
+
+          // ── Produtos relacionados ────────────────────
+          try {
+            let todos = isShopifyConfigured()
+              ? (await fetchProductsPage(12)).products.map(mapShopifyProduct)
+              : DEMO_PRODUCTS;
+
+            const relacionados = todos
+              .filter((p) => p.handle !== handle)
+              .filter(
+                (p) =>
+                  !produto.productType || p.productType === produto.productType,
               )
-              .join("");
+              .slice(0, 3);
+
+            if (relacionados.length) {
+              const secRel = document.getElementById("relacionadosSection");
+              const gridRel = document.getElementById("relacionadosGrid");
+              secRel.style.display = "";
+              gridRel.innerHTML = relacionados
+                .map(
+                  (p) => `
+            <a class="rel-card" href="produto.html?handle=${p.handle}">
+              <div class="rel-card-img">
+                ${p.image ? `<img src="${p.image}" alt="${p.imageAlt}" loading="lazy"/>` : ""}
+              </div>
+              <div class="rel-card-info">
+                <h4>${p.title}</h4>
+                <span>${fmtBRL(p.price)}</span>
+              </div>
+            </a>`,
+                )
+                .join("");
+            }
+          } catch (_) {}
+
+          function fmtBRL(v) {
+            return parseFloat(v).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            });
           }
-        } catch (_) {}
+        })();
 
-        function fmtBRL(v) {
-          return parseFloat(v).toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          });
+        function renderError(msg) {
+          document.getElementById("produtoContainer").innerHTML = `
+        <div style="min-height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:var(--color-muted);">
+          <svg viewBox="0 0 24 24" width="56" height="56" stroke="currentColor" fill="none" stroke-width="1.2">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p style="font-size:17px;">${msg}</p>
+        </div>`;
         }
-      })();
-
-      function renderError(msg) {
-        document.getElementById("produtoContainer").innerHTML = `
-      <div style="min-height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:var(--color-muted);">
-        <svg viewBox="0 0 24 24" width="56" height="56" stroke="currentColor" fill="none" stroke-width="1.2">
-          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-        <p style="font-size:17px;">${msg}</p>
-      </div>`;
-      }
+      });
     </script>
   </body>
 </html>
