@@ -55,7 +55,7 @@
             <path d="M9 8V6a3 3 0 016 0v2"/>
           </svg>
           <p>Sua sacola está vazia</p>
-          <a href="${window.location.pathname.includes("/html/") ? "catalogo.html" : "/catalogo"}" class="btn-outline btn-sm">Explorar catálogo</a>
+          <a href="catalogo.html" class="btn-outline btn-sm">Explorar catálogo</a>
         </div>`;
       if (cartTotalEl) cartTotalEl.textContent = "R$ 0,00";
       updateBadge();
@@ -67,20 +67,22 @@
     items.forEach((item, i) => {
       total += item.price * item.qty;
 
-      const div = document.createElement(item.handle ? 'a' : 'div');
-      div.className = 'cart-item';
+      const div = document.createElement(item.handle ? "a" : "div");
+      div.className = "cart-item";
       if (item.handle) {
-        div.href = `${window.location.pathname.includes('/html/') ? 'produto.html' : '/produto'}?handle=${item.handle}`;
+        div.href = `produto.html?handle=${item.handle}`;
       }
       div.innerHTML = `
         <div class="cart-item-img-wrap">
-          ${item.image
-            ? `<img src="${item.image}" alt="${item.name}" loading="lazy">`
-            : `<div class="cart-item-placeholder">
+          ${
+            item.image
+              ? `<img src="${item.image}" alt="${item.name}" loading="lazy">`
+              : `<div class="cart-item-placeholder">
                 <svg viewBox="0 0 24 24" width="24" height="24" stroke="var(--color-muted)" fill="none" stroke-width="1.5">
                   <path d="M6 8h12l-1.5 12h-9L6 8z"/>
                 </svg>
-              </div>`}
+              </div>`
+          }
         </div>
         <div class="cart-item-info">
           <span class="cart-item-name">${item.name}</span>

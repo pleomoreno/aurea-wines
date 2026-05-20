@@ -2,13 +2,6 @@
   const header = document.querySelector(".header-content");
   if (!header) return;
 
-  // ── Path helper ───────────────────────────────
-  function href(filename) {
-    if (window.location.pathname.includes("/html/")) return filename;
-    if (filename === "index.html") return "/";
-    return "/" + filename.replace(".html", "");
-  }
-
   const LINKS = [
     { file: "index.html", label: "Início" },
     { file: "catalogo.html", label: "Catálogo" },
@@ -43,7 +36,6 @@
     </div>`;
   header.appendChild(searchRow);
 
-  // Sugestões no mobile
   requestAnimationFrame(() => {
     if (typeof window.attachSuggestions === "function") {
       window.attachSuggestions(
@@ -58,8 +50,9 @@
     ?.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         const q = e.target.value.trim();
-        const dest = href("catalogo.html");
-        window.location.href = q ? `${dest}?q=${encodeURIComponent(q)}` : dest;
+        window.location.href = q
+          ? `catalogo.html?q=${encodeURIComponent(q)}`
+          : "catalogo.html";
       }
     });
 
@@ -83,7 +76,7 @@
       <nav class="mobile-nav-links">
         ${LINKS.map(
           (l) => `
-          <a href="${href(l.file)}" class="${page === l.file ? "active" : ""}">${l.label}</a>
+          <a href="${l.file}" class="${page === l.file ? "active" : ""}">${l.label}</a>
         `,
         ).join("")}
       </nav>
@@ -100,7 +93,6 @@
     </div>`;
   document.body.appendChild(overlay);
 
-  // ── Toggle ────────────────────────────────────
   function openMenu() {
     overlay.classList.add("active");
     overlay.setAttribute("aria-hidden", "false");
@@ -112,7 +104,7 @@
   function closeMenu() {
     overlay.classList.remove("active");
     overlay.setAttribute("aria-hidden", "true");
-    overlay.setAttribute('inert', '');
+    overlay.setAttribute("inert", "");
     hamburger.classList.remove("open");
     document.body.style.overflow = "";
   }

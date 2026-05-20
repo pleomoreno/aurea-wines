@@ -35,12 +35,6 @@
   const overlay = document.getElementById("searchOverlay");
   const closeBtn = document.getElementById("searchClose");
 
-  function resolvePath(filename) {
-    if (window.location.pathname.includes("/html/")) return filename;
-    if (filename === "index.html") return "/";
-    return "/" + filename.replace(".html", "");
-  }
-
   // === ABRIR / FECHAR ===
   function openSearch() {
     modal.classList.add("active");
@@ -119,15 +113,13 @@
 
   function showResults(products) {
     if (!results) return;
-    const catalogPath = resolvePath("catalogo.html");
-
     results.innerHTML = `
       <p class="search-count">${products.length} resultado${products.length !== 1 ? "s" : ""} encontrado${products.length !== 1 ? "s" : ""}</p>
       <div class="search-grid">
         ${products
           .map(
             (p) => `
-          <a href="${resolvePath("produto.html")}?handle=${p.handle}" class="search-result-card" onclick="closeSearchModal()">
+          <a href="produto.html?handle=${p.handle}" class="search-result-card" onclick="closeSearchModal()">
             <div class="search-result-img">
               ${
                 p.image
@@ -140,7 +132,6 @@
                   </div>`
               }
             </div>
-
             <div class="search-result-info">
               <span class="search-result-type">${p.productType || "Vinho"}</span>
               <h4>${p.title}</h4>
@@ -164,7 +155,7 @@
           )
           .join("")}
       </div>
-      <a href="${catalogPath}" class="search-see-all" onclick="closeSearch()">
+      <a href="catalogo.html" class="search-see-all" onclick="closeSearch()">
         Ver catálogo completo →
       </a>`;
   }
@@ -175,10 +166,6 @@
         <p>Nenhum resultado para <strong>"${query}"</strong></p>
         <p class="search-hint">Tente buscar por tipo: Tinto, Branco, Rosé</p>
       </div>`;
-  }
-
-  function isRoot() {
-    return !window.location.pathname.includes("/pages/");
   }
 
   function fmtBRL(v) {
@@ -247,12 +234,6 @@
   window.attachSuggestions = function (inputEl, containerEl) {
     if (!inputEl) return;
 
-    function resolvePath(filename) {
-      if (window.location.pathname.includes("/html/")) return filename;
-      if (filename === "index.html") return "/";
-      return "/" + filename.replace(".html", "");
-    }
-
     const sBox = document.createElement("div");
     sBox.className = "search-suggestions-box";
     document.body.appendChild(sBox);
@@ -303,7 +284,7 @@
         sBox.innerHTML = prods
           .map(
             (p) => `
-          <a href="${resolvePath("produto.html")}?handle=${p.handle}" class="search-result-card"
+          <a href="produto.html?handle=${p.handle}" class="search-result-card"
              onclick="this.closest('.search-suggestions-box').classList.remove('active')">
             <div class="search-result-img">
               ${

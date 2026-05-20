@@ -4,21 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Produto — Aurea Wines</title>
-    <link rel="icon" type="image/png" href="../assets/images/Logo.png" />
+    <link rel="icon" type="image/png" href="assets/images/Logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://aurea-wines-2.myshopify.com" crossorigin>
-    <link rel="preload" as="style"
+    <link
+      rel="preconnect"
+      href="https://aurea-wines-2.myshopify.com"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
-      onload="this.onload=null;this.rel='stylesheet'">
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
     <noscript>
-      <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap">
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+      />
     </noscript>
-    <link rel="stylesheet" href="../css/reset.css" />
-    <link rel="stylesheet" href="../css/variables.css" />
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/animation-scroll.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/animation-scroll.css" />
     <style>
       /* ── Produto page ── */
       .produto-page {
@@ -66,7 +78,7 @@
         aspect-ratio: 3 / 4;
         background: radial-gradient(circle at center, #141414 0%, #0a0a0a 80%);
         border-radius: 12px;
-        border: 1px solid rgba(201,162,77,.1);
+        border: 1px solid rgba(201, 162, 77, 0.1);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -77,7 +89,7 @@
         width: 100%;
         height: 100%;
         object-fit: contain;
-        transition: transform .4s ease;
+        transition: transform 0.4s ease;
       }
       .gallery-main:hover img {
         transform: scale(1.04);
@@ -425,27 +437,27 @@
       </div>
     </header>
     <main>
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main class="produto-page">
-      <div class="container" id="produtoContainer">
-        <div class="produto-loading">
-          <div class="spinner"></div>
-          <p>Carregando produto...</p>
+      <!-- CONTEÚDO PRINCIPAL -->
+      <main class="produto-page">
+        <div class="container" id="produtoContainer">
+          <div class="produto-loading">
+            <div class="spinner"></div>
+            <p>Carregando produto...</p>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
 
-    <!-- RELACIONADOS -->
-    <section
-      class="relacionados"
-      id="relacionadosSection"
-      style="display: none"
-    >
-      <div class="container">
-        <h3>Você também pode gostar</h3>
-        <div class="relacionados-grid" id="relacionadosGrid"></div>
-      </div>
-    </section>
+      <!-- RELACIONADOS -->
+      <section
+        class="relacionados"
+        id="relacionadosSection"
+        style="display: none"
+      >
+        <div class="container">
+          <h3>Você também pode gostar</h3>
+          <div class="relacionados-grid" id="relacionadosGrid"></div>
+        </div>
+      </section>
     </main>
     <!-- FOOTER -->
     <footer class="footer">
@@ -488,13 +500,13 @@
       </div>
     </div>
 
-    <script src="../js/shopify.js" defer></script>
-    <script src="../js/cart.js" defer></script>
-    <script src="../js/search.js" defer></script>
-    <script src="../js/mobile-nav.js" defer></script>
-    <script src="../js/animation-scroll.js" defer></script>
+    <script src="js/shopify.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/search.js" defer></script>
+    <script src="js/mobile-nav.js" defer></script>
+    <script src="js/animation-scroll.js" defer></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener("DOMContentLoaded", function () {
         (async function () {
           const container = document.getElementById("produtoContainer");
           const handle = new URLSearchParams(window.location.search).get(

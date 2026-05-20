@@ -31,4 +31,5 @@ node_modules/
 
 # Build output
 dist/
-build/.netlify/
+build/
+.netlify/
